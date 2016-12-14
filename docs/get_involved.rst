@@ -16,6 +16,8 @@ issue you have found (see: :ref:`contributing-issue`), a feature you need
 
   guidelines
 
+.. _kytos-get-help:
+
 Getting help
 ------------
 

@@ -12,14 +12,13 @@ than it is today! Here are the guidelines we follow:
 - `Coding Style`_
 - `Tests`_
 - `Signing the CLA`_
-- `Contact Us`_
 
 Got a Question or Problem?
 --------------------------
 
 If you have questions about how to use any component of Kytos project, please
 direct these to our dev mailing list. We are also available on IRC. Check the
-details in the `Contact Us`_ section.
+details in the :ref:`kytos-get-help` section.
 
 .. _contributing-issue:
 
@@ -43,9 +42,10 @@ If you would like to implement a new feature, then consider what kind of change
 it is:
 
 - **Major Changes** that you wish to contribute to the project should be
-  discussed first on our `dev mailing list or IRC <Contact Us_>`_, so that
-  we can better coordinate our efforts, prevent duplication of work, and help
-  you to craft the change so that it is successfully accepted into the project.
+  discussed first in our dev mailing list or IRC (see: :ref:`kytos-get-help`
+  section), so that we can better coordinate our efforts, prevent duplication
+  of work, and help you to craft the change so that it is successfully accepted
+  into the project.
 
 - **Small Changes** can be crafted and submitted to the `GitHub Repository
   <github.com/kytos/python-openflow>`__ as a Pull Request.
