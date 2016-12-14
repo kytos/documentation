@@ -375,8 +375,12 @@ texinfo_documents = [
 #     curl https://docs.python.org/3/objects.inv >python.inv
 intersphinx_mapping = {'python': ('https://docs.python.org/3.5',
                                   (None, 'python.inv')),
+                       'kyco': ('http://docs.kytos.io/kyco',
+                                (None, 'kyco.inv')),
                        'pyof': ('http://docs.kytos.io/python-openflow',
-                                (None, 'pyof.inv'))}
+                                (None, 'pyof.inv')),
+                       'kyco-core-napps': ('http://docs.kytos.io/kyco-core-napps',
+                                (None, 'kyco-core-napps.inv'))}
 
 # Napoleon settings from http://www.sphinx-doc.org/en/stable/ext/napoleon.html
 napoleon_google_docstring = True
