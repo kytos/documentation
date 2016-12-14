@@ -13,8 +13,8 @@ Supported OpenFlow Versions
 
 [text here]
 
-Install
-=======
+Installing
+==========
 
 [Something like:
 *Kytos is a multi component project.

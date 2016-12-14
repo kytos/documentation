@@ -7,5 +7,5 @@
   architecture_overview
   create_your_napp
   get_involved
-  AUTHORS
-  LICENSE
+  authors
+  license
