@@ -258,7 +258,7 @@ the changes from the main (upstream) repository:
        git pull upstream develop
 
 Information about environment setup for developers can be found in the
-:doc:`hacking` section.
+``hacking`` section of each project.
 
 Pull Request Pro Tips
 ~~~~~~~~~~~~~~~~~~~~~
@@ -352,7 +352,8 @@ This project tries to follow the TDD (Test Driven Development) process. Before
 writing code to contribute, write the tests related to the functionality you
 wish to implement and then write the code to pass this test.
 
-More info about the tests can be found in the :doc:`hacking` section.
+More info about the tests can be found in the ``hacking`` section of each
+project.
 
 Use the raw packet files
 ~~~~~~~~~~~~~~~~~~~~~~~~
