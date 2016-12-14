@@ -1,0 +1,10 @@
+# If you want to build and/or update the documentation, the following packages
+# are required:
+
+# For building documentation
+Sphinx>=1.5
+# To run "make livehtml", build docs and refresh browser automatically when
+# files change
+sphinx-autobuild>=0.6.0
+sphinx-rtd-theme >= 0.1.9
+sphinx_bootstrap_theme
