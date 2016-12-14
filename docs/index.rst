@@ -1,20 +1,6 @@
-.. Kytos Project documentation master file, created by
-   sphinx-quickstart on Thu Dec  8 18:42:10 2016.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. include:: ../README.rst
 
-Kytos Project's Documentation
-=============================
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-
-.. include:: main.rst
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. |kytos-site| replace:: Kytos web site
+.. _kytos-site: http://kytos.io/
+.. |contrib| replace:: contributing instructions
+.. _contrib: https://github.com/kytos/python-openflow/blob/develop/docs/contributing/guidelines.rst
