@@ -1,8 +1,3 @@
-Disclaimer
-==========
-
-[text here]
-
 Introduction
 ============
 The kytos project was conceived to fill a gap that no other controller
@@ -16,13 +11,15 @@ The project was born in 2014, when the first version of the message parsing
 library was built. After some time stalled, the development took off earlier
 2016, when a team of developers from the São Paulo State university  was
 assembled with the mission of presenting a prototype of such controller at the
-2016 Super Computing convention. 
+2016 Super Computing convention following a long trandition of collaborations
+between the São Paulo State University, Caltech and CERN on high-bandwidth
+demonstrations.
 
-In less than a year a new library was built, following a strict free open
-source software philosophy in mind. Also, a new controller and a basic set of
-network applications know as NApps was developed. During the SC'16, we were
-able to orchestrate traffic of 100Gbps installing the flows needed to create
-a circuit between sender and receiver machines.
+In less than a year a new library was built, following a strictly free open
+source software philosophy. Also, a new controller and a basic set of network
+applications know as NApps was developed. During the SC'16, we were able to
+orchestrate traffic of 100Gbps installing the flows needed to create a circuit
+between sender and receiver machines.
 
 
 [text here]
