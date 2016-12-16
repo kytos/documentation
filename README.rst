@@ -65,8 +65,6 @@ Supported OpenFlow Versions
 We have a fully implemented OpenFlow 1.0 API and currently we are working to
 deliver versions 1.2 and 1.3.
 
-[text here]
-
 
 Disclaimer
 ----------
@@ -79,12 +77,3 @@ DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-
-Installing
-==========
-
-[Something like:
-*Kytos is a multi component project.
-Actually you don't install kytos.
-You should install the main controller, Kytos Controller (kyco).
-For more information, please visit the kyco documentation.*]
