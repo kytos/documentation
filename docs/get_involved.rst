@@ -8,9 +8,11 @@ better than it is today! Here are the guidelines we follow:
 If you are a regular user and want to get in touch with us to talk about an
 issue you have found (see: :ref:`contributing-issue`), a feature you need
 (see: :ref:`contributing-feature-request`) or a fix on our documentation (see:
-:ref:`contributing-doc-fix`), take a look at our
-:doc:`guidelines`.
+:ref:`contributing-doc-fix`), take a look at the sections below.
 
+If you want to be part of **Kytos Community**, you can register yourself on our
+mailing lists, for more informations about that visit the :ref:`kytos-get-help`
+section.
 
 Contributing guidelines
 -----------------------
