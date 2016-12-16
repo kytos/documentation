@@ -30,26 +30,58 @@ network.
 
 Kytos OpenFlow Library - python3-openflow
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[Examples of linking to another project: section :doc:`toc/introduction`,
-class :class:`~pyof.foundation.base.GenericType` (if the last fails, check
-pyof's doc build).]
-
 The main responsibility of this component is to read binary OpenFlow messages
-and building primary data structures from them. All structures are subclasses
-of the special class :class:`~pyof.foundation.base.GenericType`. From this
-class we derived the primitive data types and also complex data types, which
-includes the OpenFlow messages themselves.
+and building primary data structures from them. We've developed a set of basic
+classes that is really similar to the specification, so, anyone who reads the
+specification will be able to use this library. 
 
 Another primary responsibility of this component is to transform the message
 objects into binary blobs that latter will be sent to the switches.
 
+For more information on python3-openflow, please refer to its documentation.
+
 Kytos Controller - Kyco
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-[For more information about the kyco component, please visit the kyco
-documentation]
+As stated before, the controller is the component responsible for providing the
+communication infrastructure, registering, loading and unloading apps. It works
+on a completely asynchronous way, thus allowing to cope with scalability
+issues.
+
+The controller basically define three queues, one for arriving messages, one
+for app events and the last one for outgoing messages. The apps must register
+to specific queue change events, such as: new packet-in arrival. 
+
+The communication between apps is also possible by means of the app event
+buffer.
+
+For more information on Kyco, please refer to its documentation.
 
 Kytos Core Napps - kyco-core-napps
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-lorem ipsum
+The Core Napps package delivers the baisc Napps that allow a system
+administrator to deploy a basic infrastructure that relies on OpenFlow to
+provide communication between nodes, statistics and topology finding. The
+Napps inside this set are:
+
+- of.core: provides communication and event management for all Napps; 
+- of.flow-manager: provides a service that allows to manipulate the flow table
+  inside the switches;
+- of.ipv6drop: a basic firewall Napp that drops all packages that use IP v6
+  protocol;
+- of.l2ls: a basic layer 2 learning switch;
+- of.l2lsloop: the same as the l2ls but with the ability to handle topology
+  loops;
+- of.liveness: keeps the communication between the controller and the openflow
+  switches;
+- of.lldp: injects Link Layer Discovery Protocol (LLDP) packets in the
+  network in order to detect the connection between switches, thus allowing to
+  discover the topology;
+- of.stats: continuously collect OpenFlow statistics from the switch ports and
+  the flows themselves;
+- of.topology: responsible for discovering the connection between a common
+  host and a switch port;
+- web.topology.layout: this Napp is used by the Web Interface and allows a
+  user to save and restore a topology layout manually defined.
+
