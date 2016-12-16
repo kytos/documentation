@@ -1,5 +1,10 @@
-Architecture Overview
-=====================
+############
+Architecture
+############
+
+========
+Overview
+========
 
 The Kytos project works as an umbrella for a multi-component architecture, in
 which any of the component is interchangeable. That means that adopters of
@@ -15,12 +20,13 @@ providing communication between nodes, monitoring capability and an
 administrative interface that allows one to visualize the network topology and
 to deploy flows. 
 
+===============
 Main Components
----------------
+===============
 Following we give more details on the components listed above. The rational
 behind the separation of such components is to clearly define the main
 responsibilities needed to take care of in order to build an OpenFlow based
-network. 
+network.
 
 Kytos OpenFlow Library - python3-openflow
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -35,8 +41,7 @@ class we derived the primitive data types and also complex data types, which
 includes the OpenFlow messages themselves.
 
 Another primary responsibility of this component is to transform the message
-objects into binary blobs that latter will be sent to the switches. 
-
+objects into binary blobs that latter will be sent to the switches.
 
 Kytos Controller - Kyco
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -44,8 +49,7 @@ Kytos Controller - Kyco
 [For more information about the kyco component, please visit the kyco
 documentation]
 
-
-
 Kytos Core Napps - kyco-core-napps
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+lorem ipsum
