@@ -14,7 +14,7 @@ and extend the ``KycoNApp`` class overriding its 3 main methods:
 
     from kyco.core.napps import KycoNApp
 
-    class MyApp(KycoNapp):
+    class Main(KycoNapp):
 
         def setup(self):
             pass
@@ -28,16 +28,16 @@ and extend the ``KycoNApp`` class overriding its 3 main methods:
 The application above is the minimum code to be loaded by the Kyco controller.
 However, it doesn't do anything and we're going to change that in the next step.
 Let's change the ``execute`` method to print the traditional *Hello, world!* in
-the file */tmp/my_app.txt*:
+the file */tmp/my_napp.txt*:
 
 .. code-block:: python
 
     def execute(self):
-        with open('/tmp/my_app.txt', 'w') as f:
+        with open('/tmp/my_napp.txt', 'w') as f:
             f.write('Hello, world!')
 
 When our napp is loaded, it will write *Hello, world!* in the file
-*/tmp/my_app.txt*. We can make it more interesting by counting the number of
+*/tmp/my_napp.txt*. We can make it more interesting by counting the number of
 switches that is available in the ``controller`` attribute:
 
 .. code-block:: python
@@ -45,23 +45,25 @@ switches that is available in the ``controller`` attribute:
     def execute(self):
         nr_switches = len(self.controller.switches)
         msg = 'Hello, world of {} switches!'.format(nr_switches)
-        with open('/tmp/my_app.txt', 'w') as f:
+        with open('/tmp/my_napp.txt', 'w') as f:
             f.write(msg)
 
+.. important::
+   When the napp is loaded, the controller may not have detected the switches
+   yet and you may see 0 switches in the first message.
 
-Running periodically
+Periodical execution
 ^^^^^^^^^^^^^^^^^^^^
-Let's say we want to run the ``execute`` method periodically, e.g. every hour.
-For that, we must add one line to the ``setup`` method:
+Let's say we want to run the ``execute`` method periodically, e.g. every 10
+seconds. For that, we must add one line to the ``setup`` method:
 
 .. code-block:: python
 
    def setup(self):
-       self.execute_as_loop(60 * 60)  # seconds
+       self.execute_as_loop(10)  # seconds
 
 With the line above, the ``execute`` method will be called once when our napp
-is loaded and again after *60 \* 60 = 3600* seconds = 1 hour. This will keep
-running indefinitely.
+is loaded and again after 10 seconds. This will keep running indefinitely.
 
 
 ``setup()`` and ``shutdown()``
@@ -71,7 +73,7 @@ not mandatory to implement them, you must at least declare them with ``pass``,
 as we did in the `Running once`_ section.
 
 Before ``execute``, ``setup`` is called. Besides setting the interval between
-``execute`` calls (optional, explained in `Running periodically`_), you can also
+``execute`` calls (optional, explained in `Periodical execution`_), you can also
 initialize any attribute just as you would in Python constructor (``__init__``).
 
 .. important::
@@ -79,3 +81,64 @@ initialize any attribute just as you would in Python constructor (``__init__``).
 
 If we want to run any code just before our napp is finished, it must be
 implemented in the ``shutdown`` method.
+
+
+Running a napp
+--------------
+
+Where to save a napp
+^^^^^^^^^^^^^^^^^^^^
+
+In the section `Code`_, we created the file *main.py*. Where should we save that
+file? The answer is in the napps folder, and it can be in different locations
+depending on how you installed kyco, as described in the following table:
+
++----------------------------+------------------------------------+
+| Installation method        | Napps folder                       |
++============================+====================================+
+| ``sudo pip3 install kyco`` | */var/lib/kytos/napps*             |
++----------------------------+------------------------------------+
+| virtualenv                 | *$VIRTUAL_ENV/var/lib/kytos/napps* |
++----------------------------+------------------------------------+
+
+Below the napps folder, you'll find the *kytos* folder with all its napps
+inside. Similarly, create a folder for your napps and, below it, one for our new
+napp. Then, move the code (*main.py*) to that folder. For example, if you
+installed Kyco by ``sudo pip3...`` (you don't need to use ``sudo`` with
+virtualenv):
+
+.. code-block:: bash
+
+   sudo mkdir -p /var/lib/kytos/napps/my_project/my_napp
+   sudo mv main.py /var/lib/kytos/napps/my_project/my_napp/
+
+Running Kyco
+^^^^^^^^^^^^
+
+You'll probably want to restart the controller as you develop and improve your
+napp. One way to do this is:
+
+.. code-block:: python
+
+   from kyco.config import KycoConfig
+   from kyco.controller import Controller
+
+   options = KycoConfig().options['daemon']
+   controller = Controller(options)
+   controller.start()
+   # observe the log messages and /tmp/my_napp.txt
+   controller.stop()  # If stop() doesn't work, try ctrl+c
+
+.. tip::
+   To make it more practical, make a script with the lines above except the last
+   one. Run the script and, to restart the controller, press ctrl+c and run
+   the script again.
+
+
+Log messages
+------------
+
+Instead of writing to a file, you can use the Python logging module to see
+messages in the output of ``controller.start()``.
+
+[TODO]
