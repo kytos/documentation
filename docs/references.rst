@@ -8,6 +8,6 @@
   installing
   create_your_napp
   get_involved
-  get_help
+  getting_help
   authors
   license
