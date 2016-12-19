@@ -138,7 +138,50 @@ napp. One way to do this is:
 Log messages
 ------------
 
-Instead of writing to a file, you can use the Python logging module to see
-messages in the output of ``controller.start()``.
+Instead of writing to a file, you can use the standard Python logging module to
+see messages in the output of ``controller.start()``. Check below the complete
+napp code using log messages.
 
-[TODO]
+.. code-block:: python
+   :linenos:
+   :emphasize-lines: 1, 4, 10, 14
+
+    import logging
+    from kyco.core.napps import KycoNApp
+
+    log = logging.getLogger(__name__)
+
+    class Main(KycoNapp):
+
+        def setup(self):
+            self.execute_as_loop(10)  # seconds
+            log.info('Setup finished.')
+
+        def execute(self):
+            nr_switches = len(self.controller.switches)
+            log.info('Hello, world of %s switches!', nr_switches)
+
+        def shutdown(self):
+            pass
+
+By just adding lines 1 and 4, we can use ``log.info`` (and also ``log.error``,
+``log.debug``, etc) to print messages in Kyco's log. The output will be similar
+to (some lines were removed for clarity)::
+
+ 2016-12-19 15:46:02,322 - INFO [kyco.controller] (MainThread) Starting Kyco - Kytos Controller2016-12-19 15:46:02,322 - INFO [kyco.controller] (MainThread) Starting Kyco - Kytos Controller
+ 2016-12-19 15:46:02,329 - INFO [my_project/my_napp] (Thread-3) Setup finished.
+ 2016-12-19 15:46:02,330 - INFO [my_project/my_napp] (Thread-3) Hello, world of 0 switches!
+ 2016-12-19 15:46:02,562 - INFO [kyco.controller] (RawEvent Handler) Handling KycoEvent:kytos/core.connection.new ...
+ 2016-12-19 15:46:02,567 - INFO [kyco.controller] (RawEvent Handler) Handling KycoEvent:kytos/core.connection.new ...
+ 2016-12-19 15:46:12,337 - INFO [my_project/my_napp] (Thread-3) Hello, world of 2 switches!
+ 2016-12-19 15:46:22,338 - INFO [my_project/my_napp] (Thread-3) Hello, world of 2 switches!
+
+In the output above, our log outputs are identified by *my_project/my_napp*. The
+``execute`` method is run right after ``setup`` is finished and prints 0
+switches. After a few milliseconds Kyco has started, the switches are added and
+we have 2 switches, as expected. After 10 seconds (the interval we defined), the
+same message is printed again.
+
+.. tip::
+  To see only the output of *my_napp*, run the script of `Running Kyco` with
+  a pipe: ``./start_controller.py 2>&1 | grep my_project/my_napp``.
