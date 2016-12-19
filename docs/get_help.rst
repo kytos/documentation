@@ -1,7 +1,7 @@
 .. _kytos-get-help:
 
-Getting help
-------------
+Get help
+--------
 
 You can find us on the **#kytos** IRC channel on **freenode.net** network.
 
