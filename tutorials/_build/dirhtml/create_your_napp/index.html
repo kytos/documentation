@@ -1,0 +1,399 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>How to create your own napp &#8212; Tutorials 1.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.6/united/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/kytos-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/kytos.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/solarized-dark.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/js/bs-spy.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+  <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+
+  </head>
+  <body role="document">
+  <div class='kytos-theme-marker-class' id='kytos-theme-content-container'>
+    
+
+  <div id="navbar" class="navbar navbar-kytos navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://docs.kytos.io">
+          <img src="../_static/images/logo.png" alt="Tutorials" title="Tutorials">
+      </a>
+      
+    </div>
+
+      <div class="collapse navbar-collapse nav-collapse">
+        
+          
+<form class="navbar-form navbar-right" action="../search/" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        
+      </div>
+  </div>
+</div>
+<section id="DocsCover" class="container-fluid section-primary section-cover-docs">
+  <div class="container">
+    <div class="row features-content">
+      
+        
+      
+      
+        
+      
+      <h1><i class="fa fa-book"></i> Welcome to Kytos/<strong>Tutorials</strong> documentation</h1>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+  <div class="sphinxsidebarwrapper">
+    
+    
+      <p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../">Welcome to Kytos Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../napps/">Network Applications</a></li>
+</ul>
+
+    
+  </div>
+</div>
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="how-to-create-your-own-napp">
+<span id="tutorial-napps-create-your-own"></span><h1>How to create your own napp<a class="headerlink" href="#how-to-create-your-own-napp" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="code">
+<h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="running-once">
+<h3>Running once<a class="headerlink" href="#running-once" title="Permalink to this headline">¶</a></h3>
+<p>Let&#8217;s build a simple application line by line. First, create the file <em>main.py</em>
+and extend the <code class="docutils literal"><span class="pre">KycoNApp</span></code> class overriding its 3 main methods:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">kyco.core.napps</span> <span class="kn">import</span> <span class="n">KycoNApp</span>
+
+<span class="k">class</span> <span class="nc">Main</span><span class="p">(</span><span class="n">KycoNapp</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+</pre></div>
+</div>
+<p>The application above is the minimum code to be loaded by the Kyco controller.
+However, it doesn&#8217;t do anything and we&#8217;re going to change that in the next step.
+Let&#8217;s change the <code class="docutils literal"><span class="pre">execute</span></code> method to print the traditional <em>Hello, world!</em> in
+the file <em>/tmp/my_napp.txt</em>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/tmp/my_napp.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Hello, world!&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When our napp is loaded, it will write <em>Hello, world!</em> in the file
+<em>/tmp/my_napp.txt</em>. We can make it more interesting by counting the number of
+switches that is available in the <code class="docutils literal"><span class="pre">controller</span></code> attribute:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">nr_switches</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">switches</span><span class="p">)</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Hello, world of {} switches!&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nr_switches</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/tmp/my_napp.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">When the napp is loaded, the controller may not have detected the switches
+yet and you may see 0 switches in the first message.</p>
+</div>
+</div>
+<div class="section" id="periodical-execution">
+<h3>Periodical execution<a class="headerlink" href="#periodical-execution" title="Permalink to this headline">¶</a></h3>
+<p>Let&#8217;s say we want to run the <code class="docutils literal"><span class="pre">execute</span></code> method periodically, e.g. every 10
+seconds. For that, we must add one line to the <code class="docutils literal"><span class="pre">setup</span></code> method:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">execute_as_loop</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># seconds</span>
+</pre></div>
+</div>
+<p>With the line above, the <code class="docutils literal"><span class="pre">execute</span></code> method will be called once when our napp
+is loaded and again after 10 seconds. This will keep running indefinitely.</p>
+</div>
+<div class="section" id="setup-and-shutdown">
+<h3><code class="docutils literal"><span class="pre">setup()</span></code> and <code class="docutils literal"><span class="pre">shutdown()</span></code><a class="headerlink" href="#setup-and-shutdown" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">setup</span></code> and <code class="docutils literal"><span class="pre">shutdown</span></code> methods are executed only once. Although it is
+not mandatory to implement them, you must at least declare them with <code class="docutils literal"><span class="pre">pass</span></code>,
+as we did in the <a class="reference internal" href="#running-once">Running once</a> section.</p>
+<p>Before <code class="docutils literal"><span class="pre">execute</span></code>, <code class="docutils literal"><span class="pre">setup</span></code> is called. Besides setting the interval between
+<code class="docutils literal"><span class="pre">execute</span></code> calls (optional, explained in <a class="reference internal" href="#periodical-execution">Periodical execution</a>), you can also
+initialize any attribute just as you would in Python constructor (<code class="docutils literal"><span class="pre">__init__</span></code>).</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Do not override <code class="docutils literal"><span class="pre">__init__</span></code>. Instead, use <code class="docutils literal"><span class="pre">setup</span></code>.</p>
+</div>
+<p>If we want to run any code just before our napp is finished, it must be
+implemented in the <code class="docutils literal"><span class="pre">shutdown</span></code> method.</p>
+</div>
+</div>
+<div class="section" id="running-a-napp">
+<h2>Running a napp<a class="headerlink" href="#running-a-napp" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="where-to-save-a-napp">
+<h3>Where to save a napp<a class="headerlink" href="#where-to-save-a-napp" title="Permalink to this headline">¶</a></h3>
+<p>In the section <a class="reference internal" href="#code">Code</a>, we created the file <em>main.py</em>. Where should we save that
+file? The answer is in the napps folder, and it can be in different locations
+depending on how you installed kyco, as described in the following table:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="44%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Installation method</th>
+<th class="head">Napps folder</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">sudo</span> <span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">kyco</span></code></td>
+<td><em>/var/lib/kytos/napps</em></td>
+</tr>
+<tr class="row-odd"><td>virtualenv</td>
+<td><em>$VIRTUAL_ENV/var/lib/kytos/napps</em></td>
+</tr>
+</tbody>
+</table>
+<p>Below the napps folder, you&#8217;ll find the <em>kytos</em> folder with all its napps
+inside. Similarly, create a folder for your napps and, below it, one for our new
+napp. Then, move the code (<em>main.py</em>) to that folder. For example, if you
+installed Kyco by <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">pip3...</span></code> (you don&#8217;t need to use <code class="docutils literal"><span class="pre">sudo</span></code> with
+virtualenv):</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>sudo mkdir -p /var/lib/kytos/napps/my_project/my_napp
+sudo mv main.py /var/lib/kytos/napps/my_project/my_napp/
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-kyco">
+<h3>Running Kyco<a class="headerlink" href="#running-kyco" title="Permalink to this headline">¶</a></h3>
+<p>You&#8217;ll probably want to restart the controller as you develop and improve your
+napp. One way to do this is:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">kyco.config</span> <span class="kn">import</span> <span class="n">KycoConfig</span>
+<span class="kn">from</span> <span class="nn">kyco.controller</span> <span class="kn">import</span> <span class="n">Controller</span>
+
+<span class="n">options</span> <span class="o">=</span> <span class="n">KycoConfig</span><span class="p">()</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;daemon&#39;</span><span class="p">]</span>
+<span class="n">controller</span> <span class="o">=</span> <span class="n">Controller</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+<span class="n">controller</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="c1"># observe the log messages and /tmp/my_napp.txt</span>
+<span class="n">controller</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>  <span class="c1"># If stop() doesn&#39;t work, try ctrl+c</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">To make it more practical, make a script with the lines above except the last
+one. Run the script and, to restart the controller, press ctrl+c and run
+the script again.</p>
+</div>
+</div>
+</div>
+<div class="section" id="log-messages">
+<h2>Log messages<a class="headerlink" href="#log-messages" title="Permalink to this headline">¶</a></h2>
+<p>Instead of writing to a file, you can use the standard Python logging module to
+see messages in the output of <code class="docutils literal"><span class="pre">controller.start()</span></code>. Check below the complete
+napp code using log messages.</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="hll"> <span class="kn">import</span> <span class="nn">logging</span>
+</span> <span class="kn">from</span> <span class="nn">kyco.core.napps</span> <span class="kn">import</span> <span class="n">KycoNApp</span>
+
+<span class="hll"> <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+</span>
+ <span class="k">class</span> <span class="nc">Main</span><span class="p">(</span><span class="n">KycoNapp</span><span class="p">):</span>
+
+     <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">execute_as_loop</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># seconds</span>
+<span class="hll">         <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Setup finished.&#39;</span><span class="p">)</span>
+</span>
+     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="n">nr_switches</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">switches</span><span class="p">)</span>
+<span class="hll">         <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Hello, world of </span><span class="si">%s</span><span class="s1"> switches!&#39;</span><span class="p">,</span> <span class="n">nr_switches</span><span class="p">)</span>
+</span>
+     <span class="k">def</span> <span class="nf">shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="k">pass</span>
+</pre></div>
+</td></tr></table></div>
+<p>By just adding lines 1 and 4, we can use <code class="docutils literal"><span class="pre">log.info</span></code> (and also <code class="docutils literal"><span class="pre">log.error</span></code>,
+<code class="docutils literal"><span class="pre">log.debug</span></code>, etc) to print messages in Kyco&#8217;s log. The output will be similar
+to (some lines were removed for clarity):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>2016-12-19 15:46:02,322 - INFO [kyco.controller] (MainThread) Starting Kyco - Kytos Controller2016-12-19 15:46:02,322 - INFO [kyco.controller] (MainThread) Starting Kyco - Kytos Controller
+2016-12-19 15:46:02,329 - INFO [my_project/my_napp] (Thread-3) Setup finished.
+2016-12-19 15:46:02,330 - INFO [my_project/my_napp] (Thread-3) Hello, world of 0 switches!
+2016-12-19 15:46:02,562 - INFO [kyco.controller] (RawEvent Handler) Handling KycoEvent:kytos/core.connection.new ...
+2016-12-19 15:46:02,567 - INFO [kyco.controller] (RawEvent Handler) Handling KycoEvent:kytos/core.connection.new ...
+2016-12-19 15:46:12,337 - INFO [my_project/my_napp] (Thread-3) Hello, world of 2 switches!
+2016-12-19 15:46:22,338 - INFO [my_project/my_napp] (Thread-3) Hello, world of 2 switches!
+</pre></div>
+</div>
+<p>In the output above, our log outputs are identified by <em>my_project/my_napp</em>. The
+<code class="docutils literal"><span class="pre">execute</span></code> method is run right after <code class="docutils literal"><span class="pre">setup</span></code> is finished and prints 0
+switches. After a few milliseconds Kyco has started, the switches are added and
+we have 2 switches, as expected. After 10 seconds (the interval we defined), the
+same message is printed again.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">To see only the output of <em>my_napp</em>, run the script of <cite>Running Kyco</cite> with
+a pipe: <code class="docutils literal"><span class="pre">./start_controller.py</span> <span class="pre">2&gt;&amp;1</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">my_project/my_napp</span></code>.</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+    <div class='container'>
+        <div class='row'>
+          <div class='col-md-9 col-md-offset-3'>
+            <ul class='prev-next-nav'>
+              
+              
+            </ul>
+          </div>
+        </div>
+    </div>
+  </div>
+
+<footer class="footer">
+  <div class="container footer-brand">
+    <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-12  col-xs-12 brand-area">
+        <h1 class="logo-kytos" style="margin-left:0">kytos</h1>
+        <p><strong>Word definition:</strong> Cyto-: Prefix denoting a cell.</p><p> 'Cyto-' is derived from the Greek kytos meaning 'hollow, as a cell or container.</p>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6 ">
+        <h3>Repos</h3>
+          <ul class="list-footer">
+            <li><a href="">python-openflow</a></li>
+            <li><a href="">napps-server</a></li>
+            <li><a href="">kyco</a></li>
+            <li><a href="">web-ui</a></li>
+            <li><a href="">stats-watchdog</a></li>
+            <li><a href="">python-odl</a></li>
+          </ul>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6 ">
+        <h3>Get Involved</h3>
+        <ul class="list-footer">
+          <li><a href="">Translate</a></li>
+          <li><a href="">Report a Bug</a></li>
+          <li><a href="">Code with us</a></li>
+          <li><a href="">Mailing List</a></li>
+          <li><a href="">Became a partner</a></li>
+          <li><a href="">Documentation</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 ">
+        <h3>Partners</h3>
+        <div class="row">
+          <ul class="list-partners">
+            <li class="col-sm-12 col-md-6 col-xs-3">
+              <a href="https://www.sprace.org.br/" title="SPRACE"><img src="../_static/images/partner-sprace.png" class="bw partner-logo"  alt="SPRACE"></a>
+            </li>
+            <li class="col-sm-12 col-md-6 col-xs-3">
+              <a href="http://www.huawei.com/" title="Huawei"><img src="../_static/images/partner-huawei.png" class="bw partner-logo"  alt="Huawei"></a>
+            </li>
+            <li class="col-sm-12 col-md-6 col-xs-3">
+              <a href="https://www.caltech.edu/" title="Caltech"><img src="../_static/images/partner-caltech.png" class="bw partner-logo"  alt="Caltech"></a>
+            </li>
+            <li class="col-sm-12 col-md-6 col-xs-3">
+              <a href="https://home.cern/" title="CERN"><img src="../_static/images/partner-cern.png" class="bw partner-logo"  alt="CERN"></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="text-center">
+        <hr/>
+        <p>
+          
+            &copy; Copyright 2016, Kytos&#39; Development Team - 2016 -
+          
+          Kytos is an Open Source software under MIT license.<br/>
+            
+              Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.5.1.
+            
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+<a href="#" class="back-to-top back-to-top-button btn btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left" style="display: inline;"><span class="glyphicon glyphicon-chevron-up"></span></a>
+
+  </body>
+</html>

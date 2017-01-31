@@ -1,0 +1,7 @@
+.. toctree::
+  :caption: Tutorials
+  :maxdepth: 5
+  :hidden:
+
+  index
+  napps/index
