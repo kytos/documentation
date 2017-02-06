@@ -33,41 +33,17 @@ Introduction
 
 Now that you have learned hot to build a simple NApp, in this tutorial we will
 help you to develop a more complex NApp. Suppose that you need an application
-that needs gather some data sporadically
-
-
-Next step is to create a NApp using
-A NApp with a looping is used when your application needs to do something
-repeatedly. For instance, if you need to gather some statistic from the
-controller or from the switch sporadically you should develop a NApp that
-runs several times.
-
-Naming your NApp
-================
-Since your NApp will work as a Python Module, its name must follow the same
-naming rules from python modules, defined by
-`PEP8 <https://www.python.org/dev/peps/pep-0008/#package-and-module-names>`_,
-which states that:
-
-  Modules should have short, all-lowercase names. Underscores can be used in
-  the module name if it improves readability. Python packages should also have
-  short, all-lowercase names, although the use of underscores is discouraged.
-
-Understanding the NApp structure
-================================
-- *napps/<author>/<napp_name>*
-    - README.rst
-    - __init__.py
-    - kytos.json
-    - main.py
-    - settings.py
-
-In order to create a NApp with a looping you will need to handle files
-`main.py` and `settings.py`.
+that needs gather some data sporadically from the controller or from the
+switches. In this situation is desirable to have a NApp that can run repeatedly
+without without creating complexes loops and Kytos provides the necessary tools
+to create such NApp.
 
 *******************************
 Creating your NApp with Looping
 *******************************
+
+
+
 
 README.rst
 ==========
