@@ -1,7 +1,7 @@
 :tocdepth: 2
 :orphan:
 
-.. _tutorial-napps-create-your-own:
+.. _tutorial-napps-create-loop:
 
 ###################################
 How to create your own NApp: Part 2
