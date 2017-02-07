@@ -25,7 +25,7 @@ What you will learn
 
 What you will need
 ===================
-* How to create a basic NApp |Tutorial_01|_
+* How to create a basic NApp - Refer to |Tutorial_01|
 
 ************
 Introduction
@@ -67,13 +67,6 @@ uptime every fifteen seconds.
 main.py
 =======
 
-First, we have to import the `Controller` class from Kyto's package.
-
-.. code-block:: python
-
-   import from kyco.controller import Controller
-
-
 Setup
 ^^^^^
 
@@ -95,7 +88,7 @@ this case, we gather the controller's uptime and print in log file.
 .. code-block:: python
 
    def execute(self):
-       log.info("Controller Uptime: %s ", Controller.uptime())
+       log.info("Controller Uptime: %s ", self.Controller.uptime())
 
 
 Running periodically
@@ -105,7 +98,6 @@ Following, the entire NApp's source code of the looping NApp.
 
 .. code-block:: python
 
-    from kyco.controller import Controller
     from kyco.core.napps import KycoNApp
     from napps.tutorial.loopingnapp import settings
 
@@ -118,7 +110,7 @@ Following, the entire NApp's source code of the looping NApp.
             self.execute_as_loop(settings.STATS_INTERVAL)
 
         def execute(self):
-            log.info("Controller Uptime: %s ", Controller.uptime())
+            log.info("Controller Uptime: %s ", self.Controller.uptime())
 
         def shutdown(self):
             log.info("Looping NApp Unloaded!")
