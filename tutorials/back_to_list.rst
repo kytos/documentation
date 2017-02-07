@@ -1,6 +1,6 @@
-***************
-Other Tutorials
-***************
+***********************
+Well done! What’s Next?
+***********************
 
 Congratulations for finishing this Kytos Tutorial.
 
