@@ -54,7 +54,6 @@ isolated environment and the virtualenvwrapper is used to manager these
 environment.The following sections you will learn how to create a virtualenv and
 how to use a virtualenvwrapper.
 
-======================
 Configuring Virtualenv
 ======================
 
@@ -82,7 +81,7 @@ When you are using a virtulenvwrapper you can create, remove, list or use a
 virtualenv.
 
 Creating a new virtualenv
------------------------
+-------------------------
 
 If you want create a new virtualenv, you must use the command below:
 
@@ -106,7 +105,7 @@ If you want to remove a existing virtualenv, you must to use the command below:
 After this the virtualenv named VIRTUALENV_NAME will be removed.
 
 Listing all virtualenv created
----------------------------
+------------------------------
 
 If you want to show all virtualenv created, you must use the command below:
 
@@ -115,7 +114,7 @@ If you want to show all virtualenv created, you must use the command below:
   $ lsvirtualenv
 
 Using a isolated environment
---------------------------
+----------------------------
 
 If you want to use a existing environment you can use the following command:
 
@@ -151,8 +150,8 @@ access the page `virtualenvwrapper commands
 How to clone the projects from Github
 *************************************
 
-What is GitHub ?
-==============
+What is GitHub?
+================
 
 GitHub is a web-based version control system and collaborative platform for
 software developers.GitHub, which is delivered through a software-as-a-service
@@ -214,7 +213,7 @@ the settings Git can find at that point:
   ...
 
 Cloning the kytos projects
-===========================
+==========================
 
 The basic commands listed below is the main commands used to contribute with a
 existing Kytos projects.This sub-section is based on the page `basic-git-commands
