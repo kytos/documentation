@@ -3,9 +3,9 @@
 
 .. _tutorial-create-ping-pong-napps:
 
-############################
-Creating ping and pong NApps
-############################
+###################################
+How to create your own NApp: Part 3
+###################################
 
 ********
 Overview
