@@ -11,7 +11,7 @@ How to create your own NApp: Part 3
 Overview
 ********
 
-In this tutorial you will lean how to create napps that uses events
+In this tutorial you will learn how to create napps that uses events
 (``KycoEvent``). You will buid one NApp that generate periodic events (*Ping*)
 and another one that listen to a specific event and execute an action (*Pong*)
 whenever the listened event occur.
@@ -358,7 +358,7 @@ So, the ``main.py`` file of the ``pong`` napp will be:
 
         @listen_to('tutorial03/ping.periodic_ping')
         def pong(self, event):
-            message = 'Hi, here is the Pong NApp answering a ping.
+            message = 'Hi, here is the Pong NApp answering a ping.'
             message += 'The current time is {}, and the ping was dispateched'
             message += 'at {}.'
             log.info(message.format(datetime.now(),
@@ -372,7 +372,7 @@ Running your Ping and Pong NApps
 *********************************
 
 In order to run your NApps, first your have to install them. Once more use the
-``kytos`` command line from the ``kytos-utils`` packagei.
+``kytos`` command line from the ``kytos-utils`` package.
 
 To install and enable your NApps run the commands below:
 
@@ -394,7 +394,7 @@ You can also see if your Napp is installed and enabled, by running the command:
   $ kytos napps list
 
 .. NOTE::
-    For this demo, you we don't want any other napp running except those
+    For this demo, you don't want any other napp running except those
     created during this tutorial. So if your setup has multiple napps enabled,
     please disable them, with the command:
     ``kytos napps disable <author_name>/<napp_name>``
