@@ -11,9 +11,10 @@ How to setup the development environment
 Overview
 ********
 
-This tutorial covers the basics on how to setup your development environment to
-be used to create new Network Applications and run the
-*Kytos Controller* (|kyco|_)
+This tutorial shows how to setup your development environment to contribute to
+Kytos Ecossystem code (python-openflow, kyco, kytos NApps and so on). With this
+setup you will also be able to run the *Kytos Controller* (|kyco|_) [this setup
+is not suitable for production].
 
 .. TODO:: Set the time
 
@@ -22,37 +23,45 @@ The average time to go through it is: XX min
 What you will learn
 ====================
 
-* How to install the requirements
-* How to create a isolated environment
-* How to clone the projects from Github
-* How install the projects using development environment
+* How to create an isolated environment
+* How install the Kytos Projects on development environment
 * How install mininet
 
-*******************************
-How to install the requirements
-*******************************
+********************
+Virtual Environments
+********************
 
-First of all, to develop to kytos we need create an isolated environment. To do
-this we need install some packages.For install the packages following the
-commands below.
+First of all, in order code to Kytos projects we recommend you to use |venv|_.
+This main reason for this recommendation is to keep the dependencies required
+by different projects in separate places, by creating virtual Python
+environments for them. It solves the “Project X depends on version 1.x but,
+Project Y needs 4.x” dilemma, and keeps your global site-packages directory
+clean and manageable. On this tutorial we will use the |virtualenv|_ package,
+but if you are used to use another tool to create isolated environments or to
+install every library on your global system, be confortable to do it your way.
 
-Ubuntu 16.10:
+If you want to read more about it, please visit: |virtualenv|_ and
+|virtualenv_docs|_ pages.
+
+.. Reviewed until here.... ASS: diraol
+
+********************************
+Setting up a virutal environment
+********************************
+
+To setup a isolated environment, we need install the tools virtualenvwrapper
+and virtualenv. Virtualenv is a tool used to build a isolated environment and
+the virtualenvwrapper is used to manager these environment. The following
+sections you will learn how to create a virtualenv and how to use a
+virtualenvwrapper.
+
+On Ubuntu 16.10 do:
 
 .. code-block:: bash
 
   $ sudo apt-get install python3.6 python3-pip git rrdtool libpython3.6-dev mininet
 
   $ sudo pip3 install virtualenvwrapper virtualenv
-
-************************************
-How to create a isolated environment
-************************************
-
-To setup a isolated environment, we need install the tools
-virtualenvwrapper and virtualenv. Virtualenv is a tool used to build a
-isolated environment and the virtualenvwrapper is used to manager these
-environment.The following sections you will learn how to create a virtualenv and
-how to use a virtualenvwrapper.
 
 Configuring Virtualenv
 ======================
@@ -321,3 +330,13 @@ To see more about mininet you can access the webpage
 
 .. |kyco| replace:: *Kyco*
 .. _kyco: http://docs.kytos.io/kyco
+
+.. |venv| replace:: *Virtual Environments*
+.. _venv: https://en.wikipedia.org/wiki/Virtual_environment_software
+
+.. |virtualenv| replace:: **virtualenv**
+.. _virtualenv: http://docs.python-guide.org/en/latest/dev/virtualenvs/
+
+.. |virtualenv_docs| replace:: **virtualenv docs**
+.. _virtualenv_docs: https://virtualenv.pypa.io/en/stable/
+
