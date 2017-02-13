@@ -62,7 +62,7 @@ Let's create the structure:
 
    $ mkdir ~/tutorial02/
    $ cd ~/tutorial02/
-   $ kytos napp init .
+   $ kytos napps create
 
 .. TODO:: We need to code the kytos napp init. Using jinga2 templates.
 
@@ -173,7 +173,7 @@ use the ``kytos`` command line from the ``kytos-utils`` package.
 
 .. code-block:: bash
 
-  $ sudo kytos napps install tutorial02/loopnapp
+  $ kytos napps install tutorial02/loopnapp
 
 .. NOTE:: This will try to get this napp from your current directory, then
    install it into your system. This napp it will also be enable.

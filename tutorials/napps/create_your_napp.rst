@@ -117,7 +117,7 @@ Let's create the structure:
 
    $ mkdir ~/tutorial01/
    $ cd ~/tutorial01/
-   $ kytos napp init .
+   $ kytos napps create
 
 .. TODO:: We need to code the kytos napp init. Using jinja2 templates.
 
