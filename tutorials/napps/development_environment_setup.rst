@@ -297,7 +297,7 @@ all projects that we cloned, with the command:
 
 .. code-block:: bash
 
-  $ for repo in python-openflow kyco kyco-core-napps kytos-utils; do
+  $ for repo in python-openflow kyco-core-napps kytos-utils kyco; do
       cd $repo
       git checkout develop
       pip install -r requirements.txt
