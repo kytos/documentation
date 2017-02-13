@@ -3,9 +3,9 @@
 
 .. _tutorial-setup-the-development-environment:
 
-########################################
-How to setup the development environment
-########################################
+###############################
+Setting up your dev environment
+###############################
 
 ********
 Overview
@@ -57,7 +57,7 @@ On Ubuntu 16.10 do:
 
 .. code-block:: bash
 
-  $ sudo apt-get install python3.6 python3-pip git rrdtool libpython3.6-dev 
+  $ sudo apt-get install python3.6 python3-pip git rrdtool libpython3.6-dev
 
   $ sudo pip3 install virtualenv
 
@@ -68,22 +68,22 @@ Configuring Virtualenv
 .. , update the *PATH* and load the file
 .. **source /usr/local/bin/virtualenvwrapper.sh** before start a bash session. We
 .. can do this using the commands below.
-.. 
+..
 .. .. code-block:: bash
-.. 
+..
 ..   $ echo "export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3" >> ~/.bashrc
 ..   $ echo "PATH=$PATH:$VIRTUALENVWRAPPER_PYTHON" >> ~/.bashrc
 ..   $ echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
-.. 
+..
 .. Execute the command below to reload the current bash session:
-.. 
+..
 .. .. code-block:: bash
-.. 
+..
 ..   $ bash --login
-.. 
+..
 .. Basics Virtualenvwrapper Commands
 .. =================================
-.. 
+..
 .. When you are using a virtulenvwrapper you can create, remove, list or use a
 .. virtualenv.
 
@@ -97,7 +97,7 @@ If you want create a new virtualenv, you must use the command below:
    $ virtualenv -p /usr/bin/python3.6 VIRTUALENV_NAME
 
 This command will create a virtualenv named VIRTUALENV_NAME and to use the
-python3.6 as a default python into the environment. 
+python3.6 as a default python into the environment.
 
 Removing a virtualenv
 ---------------------
@@ -113,11 +113,11 @@ After this the virtualenv named VIRTUALENV_NAME will be removed.
 
 .. Listing all virtualenv created
 .. ------------------------------
-.. 
+..
 .. If you want to show all virtualenv created, you must use the command below:
-.. 
+..
 .. .. code-block:: bash
-.. 
+..
 ..   $ lsvirtualenv
 
 Using the virtual environment
@@ -136,7 +136,7 @@ console will show the virtualenv activated between parenthesis:
 
   (VIRTUALENV_NAME) $
 
-This mean that the VIRTUALENV_NAME is already activated. When you want leave 
+This mean that the VIRTUALENV_NAME is already activated. When you want leave
 this virtualenv you can use the command below:
 
 .. code-block:: bash
@@ -158,57 +158,57 @@ How to clone the projects from Github
 
 .. What is GitHub?
 .. ================
-.. 
+..
 .. GitHub is a web-based version control system and collaborative platform for
 .. software developers.GitHub, which is delivered through a software-as-a-service
 .. (SaaS) business model, was started in 2008 and was founded on Git.
 .. Git is a open source version control system that was started by Linus Torvalds
 .. - the same person who created Linux. Git is similar to other control version
 .. system like Subversion(SVN), Mercurial and CSV.
-.. 
+..
 .. Configuring git
 .. ===============
-.. 
+..
 .. This configuration sub-section is based on the page `setup git configuration
 .. <https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup>`_, that
 .. contain first time steps to setup your Git.
-.. 
+..
 .. Your Identity
 .. -------------
-.. 
+..
 .. The first thing you should do when you install Git is to set your user name
 .. and email address. This is important because every Git commit uses this
 .. information, and it's immutably baked into the commits you start creating:
-.. 
+..
 .. .. code-block:: bash
-.. 
+..
 ..   $ git config --global user.name "John Doe"
 ..   $ git config --global user.email johndoe@example.com
-.. 
+..
 .. Your Editor
 .. -----------
-.. 
+..
 .. Now that your identity is set up, you can configure the default text editor
 .. that will be used when Git needs you to type in a message. If not configured,
 .. Git uses your system’s default editor.
-.. 
+..
 .. If you want to use a different text editor, such as VIM,
 .. you can do the following:
-.. 
+..
 .. .. code-block:: bash
-.. 
+..
 ..   $ git config --global core.editor vim
-.. 
-.. 
+..
+..
 .. Checking your settings
 .. ----------------------
-.. 
+..
 .. If you want to check your settings, you can use the command below to list all
 .. the settings Git can find at that point:
-.. 
-.. 
+..
+..
 .. .. code-block:: bash
-.. 
+..
 ..   $ git config --list
 ..   user.name=John Doe
 ..   user.email=johndoe@example.com
@@ -225,11 +225,11 @@ The basic commands listed below are the main commands used to contribute with
 an existing Kytos projects.
 
 Cloning an existing project
---------------------------
+---------------------------
 
 If you want contribute with a kytos project, you must clone a project found in
 `GitHub group <https://github.com/kytos>`_ to make your changes.The command
-below will clone the project python-openflow. 
+below will clone the project python-openflow.
 
 .. code-block:: bash
 
@@ -237,16 +237,16 @@ below will clone the project python-openflow.
 
 After this command a folder called *python-openflow* will be created and you
 will find all files of the project inside it.
-.. 
+..
 .. .. code-block:: bash
-.. 
+..
 ..   $ cd python-openflow/
 ..   $ ls
 ..   pyof/                         requirements-dev.txt   setup.py
 ..   requirements-docs.txt         tests/                 docs/
 ..   raw/                          requirements.txt       LICENSE
 ..   README.rst                    setup.cfg
-.. 
+..
 
 *********************************************************
 How to install the projects using development environment
@@ -325,9 +325,9 @@ To test if the mininet is working you must run the command:
 
 .. If you can run mininet using a topology single with two hosts you can run this
 .. with Kyco Controller locally using the command below.
-.. 
+..
 .. .. code-block:: bash
-.. 
+..
 ..   $ sudo mn --topo single,2 --mac --controller=remote,ip=127.0.0.1 --switch ovsk,protocols=OpenFlow10
 
 To see more about mininet you can access the webpage
