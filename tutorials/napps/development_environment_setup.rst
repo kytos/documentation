@@ -38,10 +38,31 @@ with the following command:
 
 .. code-block:: bash
 
-  $ sudo apt-get install python3.6 python3-pip git rrdtool libpython3.6-dev
+  $ sudo apt-get install python3-pip git rrdtool librrd-dev libpython3.6-dev python3.6
 
 .. NOTE:: We tested this tutorial on Ubuntu 16.10. But feel free to adapt to
    your distro.
+
+Installing Python3.6 with Old Ubuntu Release
+============================================
+
+If are you using a old version of Ubuntu, you must add a new PPA to be able
+install a binary package with python3.6.
+
+To add this PPA use the command:
+
+.. code-block:: bash
+
+  sudo add-apt-repository ppa:jonathonf/python-3.6
+  sudo apt-get update
+
+
+Then, if you are using a Ubuntu 16.10 or old, you can install the python3.6
+libraries using the command.
+
+.. code-block:: bash
+
+  sudo apt-get install libpython3.6-dev python3.6
 
 ********************
 Virtual Environments
@@ -239,7 +260,7 @@ Clonning Kytos projects from Github
 
 
 Cloning an existing project
----------------------------
+===========================
 
 If you want contribute with a kytos project, you must clone a project found in
 `GitHub group <https://github.com/kytos>`_ to make your changes. Here we are
@@ -271,7 +292,7 @@ How to install the projects using development environment
 *********************************************************
 
 After cloned all projects you must: 1) make sure that you are at "develop"
-branch; 1) install the packages required to run the project. Let's do this on
+branch; 2) install the packages required to run the project. Let's do this on
 all projects that we cloned, with the command:
 
 .. code-block:: bash
@@ -359,6 +380,7 @@ To test if the mininet is working you must run the command:
 To see more about mininet you can access the webpage `mininet.org
 <http://mininet.org/walkthrough/>`_.
 
+.. include:: ../back_to_list.rst
 
 .. |kyco| replace:: *Kyco*
 .. _kyco: http://docs.kytos.io/kyco
