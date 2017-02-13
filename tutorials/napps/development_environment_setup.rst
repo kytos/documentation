@@ -292,7 +292,7 @@ How to install the projects using development environment
 *********************************************************
 
 After cloned all projects you must: 1) make sure that you are at "develop"
-branch; 1) install the packages required to run the project. Let's do this on
+branch; 2) install the packages required to run the project. Let's do this on
 all projects that we cloned, with the command:
 
 .. code-block:: bash
