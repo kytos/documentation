@@ -15,13 +15,13 @@ This tutorial covers the basics on how to create your own Netwok Application
 
 .. TODO:: Set the time
 
-The average time to go throught it is: ``XX min``
+The average time to go throught this is: ``XX min``
 
 What you will learn
 ====================
 * How to create a basic NApp
-* How your NApp comunicate with the Controller
-* How to install, test and debug your NApp
+* How your NApp comunicate with the Kytos Controller
+* How to install, test, and debug your NApp
 
 What you will need
 ===================
@@ -31,21 +31,21 @@ What you will need
 Introduction
 ************
 Most of Kytos ecossystem functionalities are delivered by the Network
-Applications (NApps). These applications comunicate with the controller, and
-between themselves, throught events (KycoEvents), and they can also expose REST
+Applications (NApps). These applications communicate with the controller, and
+with each other, through events (KycoEvents), and they can also expose REST
 endpoints to the world.
 
 If you are developing a basic SDN application, you should be able to do
-everything inside a Napp, without having to patch the controller core.
+everything inside a NApp, without having to patch the controller core.
 
 .. NOTE:: If you found something that is limiting your napp development, don't
    shy away from reporting us this issue on our |controller_github|_.
 
 The idea of a NApp is to be as atomic as it can be, solving a small and specific
-problem, in a way that NApps can work togheter to solve a bigger problem,
+problem, in a way that NApps can work together to solve a bigger problem,
 following the |dotdiw|_.
 
-Moreover, you can see the NApps developped by the Kytos Community on our NApps
+Moreover, you can see the NApps developed by the Kytos Community at the NApps
 Server: http://napps.kytos.io.
 
 .. CAUTION:: Kytos Napps repository is still in beta stage.
@@ -54,10 +54,10 @@ Server: http://napps.kytos.io.
 
 Naming your NApp
 ================
-The first thing that you should do is create a name for your napp. We use a
-namespace based on author name, in that way two authors can have applications
+The first thing that you should do is create a name for your NApp. We use a
+namespace based on author name, in that way, two authors can have applications
 with the same name. For instance: ``john/switchl2`` and ``mary/switchl2`` are
-both valid napps unique identifiers.
+both valid NApps *unique identifiers*.
 
 ..  [proto][repo]/[author]/[napp]:[tag]
 
@@ -85,15 +85,15 @@ section::
       ├── README.rst
       └── settings.py
 
-- **kytos.json**: This file has your NApp metadata. You can edit the attributes
-  on it. Those attributes are used by the |napps_server|_ to distribute your
-  NApp.
+- **kytos.json**: This file contains your NApp metadata. You can edit its
+  attributes on it. Those attributes are used by the |napps_server|_ to
+  publish and distribute your NApp.
 - **settings.py**: Main settings parameters of your NApp
 - **main.py**: Main source code of your NApp
-- **README.rst**: Main description and informations about your NApp
+- **README.rst**: Main description and information about your NApp
 
 During this tutorial we are going to use only the ``main.py`` file to code our
-NApp. But if your code is big enought feel free to split your NApp into
+NApp. But, if your code is big enough, feel free to split your NApp into
 multiples modules.
 
 *************************
@@ -102,14 +102,13 @@ Creating your first NApp
 Now that we understand the basic structure of a |kyco|_ NApp, lets start
 building our own, the |nn| NApp.
 
-You can create the napp structure manually, but the Kytos project has an
-``kytos-utils`` package with few command line utilities that can help you to
-create this.
+You can create the Napp structure manually or use the command line utilities
+distributed with the ``kytos-utils`` package.
 
 .. NOTE:: Make sure that you had completed your |dev_env|_  setup.
 
-During this first tutorial we are going to create a very dummy application. This
-application will print a message when is loaded and another message when it is
+During this first tutorial we are going to create a very dummy application.
+This application will print a message when loaded and another message when
 unloaded from the controller.
 
 Let's create the structure:
@@ -126,15 +125,15 @@ Let's create the structure:
 .. structure and template files.
 
 You will be asked a few questions. Answer them according to your needs, they are
-very basic questions like author and napp name.
+very basic questions like author and NApp name.
 
-For this tutorial, when asking for the author and NApp name, answer **tutorial**
-and **helloworld**, respectively.
+For this tutorial purpose, when asking for the author and NApp name, answer
+**tutorial** and **helloworld**, respectively.
 
-.. TIP:: If you want to change the answers on the future, just edit the
-   ``kytos.json`` file, and rename the directories if necessary.
+.. TIP:: If you want to change the answers provided in the future, just edit
+         the ``kytos.json`` file, and rename the directories if necessary.
 
-Now you have a bootstrap NApp structure to work on it.
+Now we have a bootstrap NApp structure to work with.
 
 During this tutorial, the only file that we need to worry about is the
 ``main.py``.  Open it with your preferred editor and let's code.
@@ -161,7 +160,7 @@ During this tutorial, the only file that we need to worry about is the
           pass
 
 
-In this file, we have a class entry point (``Main``) to execute our NApp.
+In this file, we have an entry point class (``Main``) to execute our NApp.
 This class has 3 basic methods: ``setup``, ``execute`` and ``shutdown``.
 
 First, let's discuss the ``setup`` method.
@@ -169,7 +168,7 @@ First, let's discuss the ``setup`` method.
 The ``setup`` method replaces the '__init__' method for the KycoNApp subclass
 and it is automatically called by the controller when our application is loaded.
 
-For this dummy napp, let's just print some log message (edit the file to match
+For this dummy NApp, let's just print some log messages (edit the file to match
 the following code):
 
 .. code-block:: python
@@ -189,8 +188,8 @@ cover it deeper on part 2 of this tutorial.
           log.info("Hello world! I'm being executed!")
 
 
-And, finnally we have the ``shutdown`` method. That is executed when the NApp is
-unloaded.
+Finally we have the ``shutdown`` method. This method is executed when the NApp
+is unloaded.
 
 .. code-block:: python
 
@@ -198,7 +197,9 @@ unloaded.
           log.info("Bye world!")
 
 
-Here are the final result after all changes:
+
+After making the suggested modifications, the ``Main`` file should look like
+this:
 
 .. code-block:: python
 
@@ -223,7 +224,7 @@ Here are the final result after all changes:
 Running your NApp
 *****************
 
-In order to run your NApp, first your have to install it. Again, we are going to
+In order to run your NApp, first you have to install it. Again, we are going to
 use the ``kytos`` command line from the ``kytos-utils`` package.
 
 .. code-block:: bash
@@ -240,8 +241,8 @@ installed and enabled, by running the command:
 
   $ kytos napps list
 
-For this demo, we don't need to have any other NApp loaded except this created
-during this tutorial. So if your setup has multiple NApps, please disable them,
+For this demo, we don't need to have any other NApp loaded except the one we
+just defined. So, if your setup has multiple NApps, please disable them,
 with the command:
 
 .. code-block:: bash
@@ -266,7 +267,7 @@ You will get into the controller terminal, and you can see your NApp output.
 .. TODO:: Execute all the steps on this tutorial, and paste here the console
    output.
 
-Congratulations!! You have created your first Kytos NApp!!
+Congratulations! You have created your first Kytos NApp!
 
 .. CAUTION:: Currently you have to restart the controller in order to have your
    napp running. Very soon kytos will support auto reload.
