@@ -254,6 +254,7 @@ and kyco-core-napps).
 
 After this command a folder with each project will be created and you will find
 all files of the project inside each of them.
+
 ..
 .. .. code-block:: bash
 ..
