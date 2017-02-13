@@ -219,4 +219,4 @@ You will get into the controller terminal, and you can see your NApp output.
 .. _kyco: http://docs.kytos.io/kyco
 
 .. |dev_env| replace:: *Development Environment*
-.. _dev_env: /general/development_environment_setup
+.. _dev_env: http://tutorials.kytos.io/napps/development_environment_setup/

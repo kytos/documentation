@@ -1,7 +1,7 @@
 :tocdepth: 2
 :orphan:
 
-.. _tuto-create-your-napp:
+.. _tutorial-create-your-napp:
 
 ###################################
 How to create your own NApp: Part 1
@@ -288,7 +288,7 @@ Congratulations!! You have created your first Kytos NApp!!
 .. _kyco: http://docs.kytos.io/kyco
 
 .. |dev_env| replace:: *Development Environment*
-.. _dev_env: /general/development_environment_setup
+.. _dev_env: http://tutorials.kytos.io/napps/development_environment_setup/
 
 .. TODO:: Where does the Kyco Events documentation will be hosted?
     Should we link to the main kyco documentation? Or we will have a Tutorial
