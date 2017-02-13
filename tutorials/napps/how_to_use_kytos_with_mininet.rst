@@ -3,9 +3,9 @@
 
 .. _tutorial-how-to-use-kyco-with-mininet:
 
-############################
-How to use Kyco with Mininet
-############################
+#############################
+How to use Kytos with Mininet
+#############################
 
 ********
 Overview

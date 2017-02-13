@@ -3,9 +3,9 @@
 
 .. _tutorial-setup-the-development-environment:
 
-########################################
-How to setup the development environment
-########################################
+###############################
+Setting up your dev environment
+###############################
 
 ********
 Overview
@@ -239,7 +239,7 @@ Clonning Kytos projects from Github
 
 
 Cloning an existing project
---------------------------
+---------------------------
 
 If you want contribute with a kytos project, you must clone a project found in
 `GitHub group <https://github.com/kytos>`_ to make your changes. Here we are
