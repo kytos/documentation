@@ -12,7 +12,7 @@ Overview
 ********
 
 In this tutorial you will learn how to create napps that uses events
-(``KycoEvent``). You will buid one NApp that generate periodic events (*Ping*)
+(|KycoEvents|_). You will buid one NApp that generate periodic events (*Ping*)
 and another one that listen to a specific event and execute an action (*Pong*)
 whenever the listened event occur.
 
@@ -42,11 +42,11 @@ Introduction
 Now that you have learned `how to build a simple NApp
 </napps/create_your_napp/>`_ and `how to implement a loop behavior on your NApp
 </napps/create_looping_napp/>`_, you will understand how *Kyco* deals with
-Events (*KycoEvent*) by creating two NApps that use these events both sending
+Events (|KycoEvents|_) by creating two NApps that use these events both sending
 and receiving them to/from the Controller (*Kyco*).
 
 The communication between the NApps and the Controller is done throught what we
-call Events (*KycoEvents*). These events have specific naming rules, and we use
+call Events (|KycoEvents|_). These events have specific naming rules, and we use
 a |pydeco|_ (``listen_to``) in order to define a method as a listener of a
 specific event.
 
@@ -75,25 +75,27 @@ following commands:
 
 .. code-block:: bash
 
-  $ cd ~/sandbox
-  ~/sandbox$ kytos napps create
+  $ mkdir ~/tutorials
+  $ cd ~/tutorials
+  $ kytos napps create
   --------------------------------------------------------------
   Welcome to the bootstrap process of your NApp.
   --------------------------------------------------------------
   In order to answer both the author name and the napp name,
   You must follow this naming rules:
-   - it cannot be empty
-   - it cannot contain spaces
-   - it cannot start with underscore or numbers
-   - it cannot contain the following characters: -*.!@#$%&()[]\/
+   - name starts with a letter
+   - name contains only letters, numbers or underscores
+   - at least three characters
   --------------------------------------------------------------
 
+
 The first question is related to your author name, let's answer with
-**tutorial03** for now, since we are on our third tutorial:
+**tutorial** for now, since we are on our third tutorial:
 
 .. code:: bash
 
-  Please, insert you author name (username on the Napps Server): tutorial03
+  Please, insert your NApps Server username: tutorial
+
 
 Then, you will insert the NApp name (**ping**):
 
@@ -112,14 +114,14 @@ to insert a description.
 .. code-block:: bash
 
   Congratulations! Your NApp have been bootsrapped!
-  Now you can go to the directory tutorial03/ping and begin to code your NApp.
+  Now you can go to the directory tutorial/ping and begin to code your NApp.
   Have fun!
 
 Now your NApp has been created, and you can enter on its directory by typing:
 
 .. code:: bash
 
-  ~/sandbox$ cd tutorial03/ping
+  $ cd tutorial/ping
 
 The next step is editing the ``settings.py`` and ``main.py`` files.
 
@@ -166,8 +168,8 @@ class, and, later on, putting this even into the controller buffer.
 
 As said on the introduction, the event name must start with a composition
 between the napp author name and the napp name itself. In this case it is
-``tutorial03/ping``. Then you must add a complement to it in such a way that
-the full name of the event will be ``tutorial03/ping.periodic_ping``.
+``tutorial/ping``. Then you must add a complement to it in such a way that
+the full name of the event will be ``tutorial/ping.periodic_ping``.
 
 .. NOTE:: You can choose another name at your will, but just remember that this
     name will be used on the **Pong NApp** later on this tutorial).
@@ -180,8 +182,8 @@ So, the code to create your ping event will be:
 
 .. code-block:: python
 
-  ping_event = KycoEvent(name='tutorial03/ping.periodic_ping',
-                         content={'message': datetime.now())
+  ping_event = KycoEvent(name='tutorial/ping.periodic_ping',
+                         content={'message': datetime.now()})
 
 .. NOTE:: As we are using ``datetime.now()``, we must import the datetime on
     our ``main.py`` file. See the final version of this file on the end of this
@@ -202,8 +204,8 @@ Summing up, the ``execute()`` method will be:
 .. code-block:: python
 
     def execute(self):
-        ping_event = KycoEvent(name='tutorial03/ping.periodic_ping',
-                               content={'message': datetime.now())
+        ping_event = KycoEvent(name='tutorial/ping.periodic_ping',
+                               content={'message': datetime.now()})
         self.controller.buffers.app.put(ping_event)
         log.info('{} Ping sent.'.format(ping_event.content['message']))
 
@@ -220,7 +222,7 @@ And your ``main.py`` file will looks like:
     from kyco.core.events import KycoEvent
     from kyco.core.napps import KycoCoreNApp
 
-    from napps.tutorial03.ping import settings
+    from napps.tutorial.ping import settings
 
     log = settings.log
 
@@ -228,11 +230,11 @@ And your ``main.py`` file will looks like:
     class Main(KycoCoreNApp):
 
             def setup(self):
-                self.execute_as_loop(settings.INTERVAL)
+                self.execute_as_loop(settings.PING_INTERVAL)
 
             def execute(self):
-                ping_event = KycoEvent(name='tutorial03/ping.periodic_ping',
-                                    content={'message': datetime.now())
+                ping_event = KycoEvent(name='tutorial/ping.periodic_ping',
+                                       content={'message': datetime.now()})
                 self.controller.buffers.app.put(ping_event)
                 log.info('{} Ping sent.'.format(ping_event.content['message']))
 
@@ -251,24 +253,22 @@ your **Pong** NApp structure:
 
 .. code-block:: bash
 
-  $ cd ~/sandbox
-  ~/sandbox$ kytos napps create
+  $ kytos napps create
   --------------------------------------------------------------
   Welcome to the bootstrap process of your NApp.
   --------------------------------------------------------------
   In order to answer both the author name and the napp name,
   You must follow this naming rules:
-   - it cannot be empty
-   - it cannot contain spaces
-   - it cannot start with underscore or numbers
-   - it cannot contain the following characters: -*.!@#$%&()[]\/
+   - name starts with a letter
+   - name contains only letters, numbers or underscores
+   - at least three characters
   --------------------------------------------------------------
 
-Use the same author name, **tutorial03**:
+Use the same author name, **tutorial**:
 
 .. code:: bash
 
-  Please, insert you author name (username on the Napps Server): tutorial03
+  Please, insert you author name (username on the Napps Server): tutorial
 
 And **pong** and NApp name.
 
@@ -285,14 +285,14 @@ And the NApp description
 .. code-block:: bash
 
   Congratulations! Your NApp have been bootsrapped!
-  Now you can go to the directory tutorial03/pong and begin to code your NApp.
+  Now you can go to the directory tutorial/pong and begin to code your NApp.
   Have fun!
 
 Now your NApp has been created, and you can enter on its directory by typing:
 
 .. code:: bash
 
-  ~/sandbox$ cd tutorial03/pong
+  $ cd tutorial/pong
 
 
 Since this napp will not define any special variable, you just have to edit the
@@ -311,20 +311,20 @@ First define your new ``pong`` method inside the ``Main`` class:
 .. code:: python
 
     def pong(self, event):
-        message = 'Hi, here is the Pong NApp answering a ping.
+        message = 'Hi, here is the Pong NApp answering a ping.'
         message += 'The current time is {}, and the ping was dispateched'
         message += 'at {}.'
         log.info(message.format(datetime.now(), ping_event.content['message']))
 
 Now, the way you define your method to answers to
-``tutorial03/ping.periodic_ping`` events, you must use the ``listen_to``
+``tutorial/ping.periodic_ping`` events, you must use the ``listen_to``
 decorator:
 
 .. code:: python
 
-    @listen_to('tutorial03/ping.periodic_ping')
+    @listen_to('tutorial/ping.periodic_ping')
     def pong(self, event):
-        message = 'Hi, here is the Pong NApp answering a ping.
+        message = 'Hi, here is the Pong NApp answering a ping.'
         message += 'The current time is {}, and the ping was dispateched'
         message += 'at {}.'
         log.info(message.format(datetime.now(), ping_event.content['message']))
@@ -343,7 +343,7 @@ So, the ``main.py`` file of the ``pong`` napp will be:
     from kyco.core.napps import KycoCoreNApp
     from kyco.utils import listen_to
 
-    from napps.kytos.of_ping import settings
+    from napps.tutorial.pong import settings
 
     log = settings.log
 
@@ -356,7 +356,7 @@ So, the ``main.py`` file of the ``pong`` napp will be:
         def execute(self):
            pass
 
-        @listen_to('tutorial03/ping.periodic_ping')
+        @listen_to('tutorial/ping.periodic_ping')
         def pong(self, event):
             message = 'Hi, here is the Pong NApp answering a ping.'
             message += 'The current time is {}, and the ping was dispateched'
@@ -378,9 +378,9 @@ To install and enable your NApps run the commands below:
 
 .. code-block:: bash
 
-  $ cd ~/sandbox
-  $ kytos napps install tutorial03/ping
-  $ kytos napps install tutorial03/pong
+  $ cd ~/tutorials
+  $ kytos napps install tutorial/ping
+  $ kytos napps install tutorial/pong
 
 .. NOTE:: This will try to get the napps from the current directory and then
    install and enable them into your system.
@@ -406,7 +406,24 @@ Let's start our controller:
 
 .. code-block:: bash
 
-  $ kytos-kyco start
+   ~/tutorial03$ kyco
+   2017-02-15 19:44:06,583 - INFO [kyco.controller] (MainThread) Starting Kyco - Kytos Controller
+   2017-02-15 19:44:06,586 - INFO [kyco.core.tcp_server] (TCP server) Kyco listening at 0.0.0.0:6633
+   2017-02-15 19:44:06,586 - INFO [kyco.controller] (RawEvent Handler) Raw Event Handler started
+   2017-02-15 19:44:06,587 - INFO [kyco.controller] (MsgInEvent Handler) Message In Event Handler started
+   2017-02-15 19:44:06,598 - INFO [kyco.controller] (MsgOutEvent Handler) Message Out Event Handler started
+   2017-02-15 19:44:06,598 - INFO [kyco.controller] (AppEvent Handler) App Event Handler started
+   2017-02-15 19:44:06,599 - INFO [kyco.controller] (MainThread) Loading kyco apps...
+   2017-02-15 19:44:06,602 - INFO [kyco.controller] (MainThread) Loading NApp kytos/of_core
+   2017-02-15 19:44:06,603 - INFO [werkzeug] (Thread-2)  * Running on http://0.0.0.0:8181/ (Press CTRL+C to quit)
+   2017-02-15 19:44:06,634 - INFO [kyco.core.napps] (Thread-3) Running Thread-3 App
+   2017-02-15 19:44:06,635 - INFO [kyco.controller] (MainThread) Loading NApp tutorial/ping
+   2017-02-15 19:44:06,638 - INFO [kyco.core.napps] (Thread-4) Running Thread-4 App
+   2017-02-15 19:44:06,638 - INFO [kyco.controller] (MainThread) Loading NApp tutorial/pong
+   2017-02-15 19:44:06,639 - INFO [napps.tutorial.ping.settings] (Thread-4) 2017-02-15 19:44:06.639154 Ping sent.
+   2017-02-15 19:44:06,642 - INFO [kyco.core.napps] (Thread-5) Running Thread-5 App
+
+
 
 You will get into the controller terminal, and you can see your NApps outputs.
 
@@ -426,7 +443,7 @@ You will get into the controller terminal, and you can see your NApps outputs.
 .. _kyco: http://docs.kytos.io/kyco
 
 .. |kycoevents| replace:: *KycoEvents*
-.. _kycoevents: http://docs.kytos.io/kyco/
+.. _kycoevents: https://docs.kytos.io/kyco/developer/listened_events/
 
 .. |pydeco| replace:: *decorator*
 .. _pydeco: https://wiki.python.org/moin/PythonDecorators#What_is_a_Decorator

@@ -32,7 +32,7 @@ Introduction
 ************
 Most of Kytos ecossystem functionalities are delivered by the Network
 Applications (NApps). These applications communicate with the controller, and
-with each other, through events (KycoEvents), and they can also expose REST
+with each other, through events (|KycoEvents|_), and they can also expose REST
 endpoints to the world.
 
 If you are developing a basic SDN application, you should be able to do
@@ -127,11 +127,11 @@ Let's create the structure:
     - name contains only letters, numbers or underscores
     - at least three characters
    --------------------------------------------------------------
-   
+
    Please, insert your NApps Server username: tutorial
    Please, insert you NApp name: helloworld
-   Please, insert a brief description for your NApp [optional]: 
-   
+   Please, insert a brief description for your NApp [optional]:
+
    Congratulations! Your NApp have been bootsrapped!
    Now you can go to the directory tutorial/helloworld and begin to code your NApp.
    Have fun!
@@ -270,7 +270,7 @@ installed and enabled, by running the command:
    [i-]  | kytos/of_topology         | A simple app that update links between machines and swithes and return a json with network topology using the route /kytos/topology.
    [i-]  | kytos/web_topology_layout | Manage endpoints related to the web interface settings and layout.
    [ie]  | tutorial/helloworld       | # TODO: <<<< Insert here your NApp description >>>>
-  
+
   Status: (i)nstalled, (e)nabled
 
 For this demo, we don't need to have any other NApp loaded except the one we
@@ -279,7 +279,7 @@ with the command:
 
 .. code-block:: bash
 
-  $ kytos napps disable <author_name>/<napp_name>
+  ~/tutorial01$ kytos napps disable <author_name>/<napp_name>
 
 As default, the ``kytos/of_core`` NApp may be installed and enabled, so you
 have to disable it with:
@@ -334,17 +334,13 @@ Let's start our controller:
   2017-02-16 02:01:49,424 - INFO [kyco.controller] (MainThread) Stopping thread: AppEvent Handler
   2017-02-16 02:01:49,424 - INFO [napps.tutorial.helloworld.settings] (MainThread) Bye world!
 
-.. $ kytos-kyco start
-
-You will get into the controller terminal, and you can see your NApp output.
-
 Congratulations! You have created your first Kytos NApp!
 
 .. CAUTION:: Currently you have to restart the controller in order to have your
    napp running. Very soon kytos will support auto reload.
 
- ..  .. TODO:: How to **load** the napp on a running Kyco instance? (Future, low
-         priority)
+.. .. TODO:: How to **load** the napp on a running Kyco instance? (Future, low
+             priority)
 
 .. include:: ../back_to_list.rst
 
@@ -362,12 +358,8 @@ Congratulations! You have created your first Kytos NApp!
 .. |dev_env| replace:: *Development Environment*
 .. _dev_env: http://tutorials.kytos.io/napps/development_environment_setup/
 
-.. TODO:: Where does the Kyco Events documentation will be hosted?
-    Should we link to the main kyco documentation? Or we will have a Tutorial
-    explaining the KycoEvents?
-
 .. |kycoevents| replace:: *KycoEvents*
-.. _kycoevents: http://docs.kytos.io/kyco/
+.. _kycoevents: https://docs.kytos.io/kyco/developer/listened_events/
 
 .. |napps_server| replace:: *NApps Server*
 .. _napps_server: http://napps.kytos.io
