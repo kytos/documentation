@@ -38,7 +38,7 @@ with the following command:
 
 .. code-block:: bash
 
-  $ sudo apt-get install python3-pip git rrdtool librrd-dev libpython3.6-dev python3.6
+  $ sudo apt-get install python3-pip git rrdtool librrd-dev
 
 .. NOTE:: We tested this tutorial on Ubuntu 16.10. But feel free to adapt to
    your distro.
