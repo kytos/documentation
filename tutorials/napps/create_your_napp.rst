@@ -343,8 +343,8 @@ Congratulations! You have created your first Kytos NApp!
 .. CAUTION:: Currently you have to restart the controller in order to have your
    napp running. Very soon kytos will support auto reload.
 
-.. TODO:: How to **load** the napp on a running Kyco instance? (Future, low
-   priority)
+ ..  .. TODO:: How to **load** the napp on a running Kyco instance? (Future, low
+         priority)
 
 .. include:: ../back_to_list.rst
 
