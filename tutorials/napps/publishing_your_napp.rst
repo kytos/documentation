@@ -15,9 +15,7 @@ On this tutorial you will learn how to publish your NApp on the |napps_server|_
 repository in order to share you NApp with the Kytos Community and also make
 easier for you to install it on your **Kyco** instance.
 
-.. TODO:: Set the time
-
-The average time to go throught it is: XX min
+The average time to go throught it is: ``5 min``
 
 What you will need
 ===================
