@@ -18,7 +18,7 @@ This tutorial shows how to setup your development environment in order to run
 the latest Kytos Ecosystem code (python-openflow, kyco, kytos NApps, ...) and
 contribute to it.
 
-.. DANGER:: Do not use this procedure to install Kytos in production environments.
+.. DANGER:: Do not use this procedure in production environments.
    This setup is for development only.
 
 .. CAUTION:: Code to be run in terminal begins with the dollar sign ($). If
@@ -76,11 +76,8 @@ In this tutorial, we will use the new built-in :mod:`venv` Python module,
 but if you are used to another tool to create isolated environments or install
 libraries on your global system, feel free to do it your way.
 
-Virtualenv basics
-=================
-
 Creating a new virtualenv
--------------------------
+=========================
 
 To create a new virtualenv, use the command below (you can replace ``test42``
 by another name, if you wish):
@@ -97,7 +94,7 @@ This environment will use 3.6 as the default Python version.
   language.
 
 Removing a virtualenv
----------------------
+=====================
 
 If you want to remove an existing virtualenv, just delete its folder
 (e.g. ``rm -rf test42``).
@@ -112,8 +109,8 @@ If you want to use an existing environment you can use the following command:
   $ source test42/bin/activate
 
 After that, your console prompt will show the activated virtualenv name between
-parenthesis.
-Now, update the *pip* package that is already installed in the virtualenv:
+parenthesis. Now, update the *pip* package that is already installed in the
+virtualenv:
 
 .. code-block:: bash
 
@@ -130,7 +127,6 @@ using your regular Ubuntu environment.
 
 If you want to read more about it, please visit: |virtualenv|_ and
 |virtualenv_docs|_ pages.
-
 
 ******************************
 Using latest Kytos from Github
