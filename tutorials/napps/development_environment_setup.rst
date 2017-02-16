@@ -183,8 +183,7 @@ virtualenv. The list of packages are available in files named like
 
   $ for project in python-openflow kytos-utils kyco-core-napps kyco; do
       cd $project; \
-      pip install -r requirements.txt -r requirements-dev.txt || break; \
-      pip install -r requirements-doc.txt || break; \
+      pip install -r requirements.txt -r requirements-dev.txt -r requirements-docs.txt; \
       python setup.py develop || break; \
       cd -; \
     done
