@@ -13,9 +13,7 @@ Overview
 This tutorial covers the basics on how to create your own Netwok Application
 (**NApp**) for *Kytos Controller* (|kyco|_).
 
-.. TODO:: Set the time
-
-The average time to go throught this is: ``XX min``
+The average time to go throught this is: ``10 min``
 
 What you will learn
 ====================
@@ -105,7 +103,8 @@ building our own, the |nn| NApp.
 You can create the Napp structure manually or use the command line utilities
 distributed with the ``kytos-utils`` package.
 
-.. NOTE:: Make sure that you had completed your |dev_env|_  setup.
+.. NOTE:: Make sure that you had completed your |dev_env|_  setup. And do not
+    forget to enable your virtualenv, where you installed the kytos projects.
 
 During this first tutorial we are going to create a very dummy application.
 This application will print a message when loaded and another message when
@@ -335,6 +334,8 @@ Let's start our controller:
   2017-02-16 02:01:49,424 - INFO [napps.tutorial.helloworld.settings] (MainThread) Bye world!
 
 Congratulations! You have created your first Kytos NApp!
+
+.. NOTE:: To stop your controller you must press CTRL+C
 
 .. CAUTION:: Currently you have to restart the controller in order to have your
    napp running. Very soon kytos will support auto reload.

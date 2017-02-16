@@ -24,7 +24,7 @@ setup you will also be able to run the *Kytos Controller* (|kyco|_).
 .. CAUTION:: Code to be run in terminal begins with the dollar sign ($). If
   you copy and paste, don't forget to skip this symbol.
 
-The average time to go through it is: 10 min
+The average time to go through it is: ``10 min``
 
 What you will learn
 ===================
