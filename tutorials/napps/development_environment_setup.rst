@@ -24,9 +24,7 @@ setup you will also be able to run the *Kytos Controller* (|kyco|_).
 .. CAUTION:: Code to be run in terminal begins with the dollar sign ($). If
   you copy and paste, don't forget to skip this symbol.
 
-.. TODO:: Set the time
-
-The average time to go through it is: XX min
+The average time to go through it is: 10 min
 
 What you will learn
 ===================
@@ -52,8 +50,7 @@ install Python 3.6 packages. To add this PPA use the command:
 .. code-block:: bash
 
   $ sudo add-apt-repository ppa:jonathonf/python-3.6
-  $ sudo apt-get update
-
+  $ sudo apt update
 
 Required packages
 =================
@@ -62,35 +59,34 @@ The required Ubuntu packages can be installed by:
 
 .. code-block:: bash
 
-  $ sudo apt-get install git rrdtool librrd-dev libpython3.6-dev python3.6
-
+  $ sudo apt install git rrdtool librrd-dev libpython3.6-dev python3.6
 
 ********************
 Virtual Environments
 ********************
 
-First of all, to make changes to Kytos projects we recommend you to use |venv|_.
-The main reason for this recommendation is to keep the dependencies required by
-different projects in separate places by creating virtual Python environments
-for each one. It solves the “Project X depends on version 1.x, but Project Y
-needs 4.x” dilemma, and keeps your global site-packages directory clean and
-manageable.
+First of all, to make changes to Kytos projects we recommend you to use
+|venv|_. The main reason for this recommendation is to keep the dependencies
+required by different projects in separate places by creating virtual Python
+environments for each one. It solves the “Project X depends on version 1.x, but
+Project Y needs 4.x” dilemma, and keeps your global site-packages directory
+clean and manageable.
 
-In this tutorial we will use the |virtualenv|_ package, but if you are used to
-use another tool to create isolated environments or to install every library on
-your global system, feel free to do it your way.
+In this tutorial we will use newly built-in **venv** python module, but if you
+are used to use another tool to create isolated environments or to install
+every library on your global system, feel free to do it your way.
 
 ********************************
 Setting up a virtual environment
 ********************************
 
-To setup an isolated environment, we need to install virtualenv. Virtualenv is a
-tool used to build an isolated environment. In the following sections you will
-learn how to create and manage virtualenvs.
+To setup an isolated environment, we need to install virtualenv. Virtualenv is
+a tool used to build an isolated environment. In the following sections you
+will learn how to create and manage virtualenvs.
 
 .. code-block:: bash
 
-  $ sudo apt-get install python3.6-venv
+  $ sudo apt install python3.6-venv
 
 Configuring Virtualenv
 ======================
@@ -131,15 +127,14 @@ If you want to use an existing environment you can use the following command:
   $ source test42/bin/activate
 
 After that, your console will show the activated virtualenv name between
-parenthesis. Now, update the *pip* package that is installed in every
-virtualenv:
+parenthesis. Now, update the *pip* package that is installed in the virtualenv:
 
 .. code-block:: bash
 
   (test42) $ pip install --upgrade pip
 
-This mean that the test42 is already activated. When you want leave this
-virtualenv you can use the command below:
+The parenthesis marker identifies that the test42 virtualenv is activated. If
+you want leave this virtualenv you can use the command below:
 
 .. code-block:: bash
 
@@ -160,24 +155,22 @@ If you want to read more about it, please visit: |virtualenv|_ and
 Using latest Kytos from Github
 ******************************
 
-
 Cloning existing projects
 =========================
 
 If you want contribute with a kytos project, you must clone a project found in
 `GitHub group <https://github.com/kytos>`_ to make your changes. Here we are
-going to clone all important repositories (python-openflow, kyco, kytos-utils
-and kyco-core-napps) using the development branch.
+going to clone all important repositories (python-openflow, kytos-utils
+kyco-core-napps and kyco) using the development branch.
 
 .. code-block:: bash
 
-  $ for project in python-openflow kyco kyco-core-napps kytos-utils; do
+  $ for project in python-openflow kytos-utils kyco-core-napps kyco; do
       git clone --branch develop https://github.com/kytos/$project.git; \
     done
 
 After this command, a folder will be created for each project with the latest
 version of the source code.
-
 
 Installing Python dependencies
 ==============================
@@ -188,10 +181,11 @@ virtualenv. The list of packages are available in files named like
 
 .. code-block:: bash
 
-  $ for project in python-openflow kyco kyco-core-napps kytos-utils; do
+  $ for project in python-openflow kytos-utils kyco-core-napps kyco; do
       cd $project; \
-      python setup.py develop || break; \
       pip install -r requirements.txt -r requirements-dev.txt || break; \
+      pip install -r requirements-doc.txt || break; \
+      python setup.py develop || break; \
       cd -; \
     done
 
@@ -201,7 +195,7 @@ One more step: mininet.
 How to install mininet
 ======================
 
-Mininet is a network simulator which creates a network of virtual hosts,
+Mininet is a network simulator that creates a network of virtual hosts,
 switches, controller and the links among them. Mininet hosts run standard Linux
 network software, and its switchs support Openflow for highly flexible custom
 routing and Software Defined Networking.
@@ -213,7 +207,7 @@ system.
 
 .. code-block:: bash
 
-  $ sudo apt-get install mininet
+  $ sudo apt install mininet
 
 To test if the mininet is working you must run the command:
 
