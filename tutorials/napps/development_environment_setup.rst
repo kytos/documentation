@@ -92,7 +92,7 @@ learn how to create and manage virtualenvs.
 
 .. code-block:: bash
 
-  $ sudo pip3 install virtualenv
+  $ pip3 install virtualenv
 
 Configuring Virtualenv
 ======================
