@@ -79,9 +79,6 @@ In this tutorial we will use the |virtualenv|_ package, but if you are used to
 use another tool to create isolated environments or to install every library on
 your global system, feel free to do it your way.
 
-
-.. Reviewed until here.... ASS: diraol
-
 ********************************
 Setting up a virutal environment
 ********************************
@@ -259,8 +256,8 @@ Clonning Kytos projects from Github
 ..   ...
 
 
-Cloning an existing project
-===========================
+Clonning an existing project
+============================
 
 If you want contribute with a kytos project, you must clone a project found in
 `GitHub group <https://github.com/kytos>`_ to make your changes. Here we are
@@ -369,13 +366,6 @@ To test if the mininet is working you must run the command:
   h1 h2
   *** Done
   completed in 0.154 seconds
-
-.. If you can run mininet using a topology single with two hosts you can run this
-.. with Kyco Controller locally using the command below.
-..
-.. .. code-block:: bash
-..
-..   $ sudo mn --topo single,2 --mac --controller=remote,ip=127.0.0.1 --switch ovsk,protocols=OpenFlow10
 
 To see more about mininet you can access the webpage `mininet.org
 <http://mininet.org/walkthrough/>`_.

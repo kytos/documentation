@@ -201,7 +201,7 @@ command below.
 
 .. code-block:: bash
 
-  $ kytos-kyco start
+  $ kyco
   2017-02-10 18:35:03,833 - INFO [kyco.controller] (MainThread) Starting Kyco - Kytos Controller
   2017-02-10 18:35:03,835 - INFO [kyco.core.tcp_server] (TCP server) Kyco listening at 0.0.0.0:6633
   2017-02-10 18:35:03,836 - INFO [kyco.controller] (RawEvent Handler) Raw Event Handler started

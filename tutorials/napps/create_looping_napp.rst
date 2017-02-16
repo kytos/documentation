@@ -71,11 +71,11 @@ Let's create the structure:
     - name contains only letters, numbers or underscores
     - at least three characters
    --------------------------------------------------------------
-   
+
    Please, insert your NApps Server username: tutorial
    Please, insert you NApp name: loopnapp
-   Please, insert a brief description for your NApp [optional]: 
-   
+   Please, insert a brief description for your NApp [optional]:
+
    Congratulations! Your NApp have been bootsrapped!
    Now you can go to the directory tutorial/loopnapp and begin to code your NApp.
    Have fun!
@@ -159,7 +159,7 @@ Following, the entire NApp's source code of the looping NApp.
 .. code-block:: python
 
     from kyco.core.napps import KycoNApp
-    from napps.tutorial.loopingnapp import settings
+    from napps.tutorial.loopnapp import settings
 
     log = settings.log
 
@@ -215,7 +215,7 @@ You can also see if your Napp is installed and enabled, by running the command:
    [i-]  | kytos/web_topology_layout | Manage endpoints related to the web interface settings and layout.
    [ie]  | tutorial/helloworld       | # TODO: <<<< Insert here your NApp description >>>>
    [ie]  | tutorial/loopnapp         | # TODO: <<<< Insert here your NApp description >>>>
-  
+
   Status: (i)nstalled, (e)nabled
 
 For this demo, we don't wanna any other napp running except this created during
@@ -279,8 +279,6 @@ Let's start our controller:
   2017-02-16 02:22:15,630 - INFO [kyco.controller] (MainThread) Stopping thread: AppEvent Handler
   2017-02-16 02:22:15,631 - INFO [napps.tutorial.helloworld.settings] (MainThread) Bye world!
   2017-02-16 02:22:15,631 - INFO [napps.tutorial.loopnapp.settings] (MainThread) NApp Loop Unloaded!
-
-..   $ kytos-kyco start
 
 You will get into the controller terminal, and you can see your NApp output.
 
