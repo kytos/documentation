@@ -16,9 +16,7 @@ In this tutorial you will learn how to create napps that uses events
 and another one that listen to a specific event and execute an action (*Pong*)
 whenever the listened event occur.
 
-.. TODO:: Set the time
-
-The average time to go throught it is: XX min
+The average time to go throught this is: ``15 min``
 
 What you will need
 ===================
@@ -253,6 +251,7 @@ your **Pong** NApp structure:
 
 .. code-block:: bash
 
+  $ cd ~/tutorials
   $ kytos napps create
   --------------------------------------------------------------
   Welcome to the bootstrap process of your NApp.
@@ -424,6 +423,8 @@ Let's start our controller:
    2017-02-15 19:44:06,642 - INFO [kyco.core.napps] (Thread-5) Running Thread-5 App
 
 You will get into the controller terminal, and you can see your NApps outputs.
+
+.. NOTE:: To stop your controller you must press CTRL+C
 
 .. include:: ../back_to_list.rst
 
