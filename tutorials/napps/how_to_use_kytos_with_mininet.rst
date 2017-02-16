@@ -15,7 +15,7 @@ In this tutorial you will learn how to use the |mininet|_ tool to simulate a
 virtual network using the Openflow protocol and manage this virtual network
 with **Kyco** and some of our Kytos NApps.
 
-The average time to go throught it is: ``XX min``
+The average time to go throught it is: ``10 min``
 
 What you will need
 ===================
@@ -174,7 +174,7 @@ your **Kyco**:
 
 .. code:: shell
 
-  $ cd tutorials
+  $ cd ~/
   $ source test42/bin/activate
   $ kyco
 
