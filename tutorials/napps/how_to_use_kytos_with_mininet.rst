@@ -114,11 +114,12 @@ using LLDP.
 How to build a simple topology
 ******************************
 
-Now that you have installed and enabled only NApps used by this tutorial you
-must turn on the |mininet|_ service.As said earlier we need build a simple
-network using two switches and two hosts.
+Now that you have installed and enabled only NApps used by this tutorial, you
+must turn on the |mininet|_ service. We will build a simple network, using two
+switches and two hosts, being each host connected to one switch, and also we
+need to define that the switches will work on the OpenFlow 1.0 protocol.
 
-To do this we will use the command below:
+To do this use the command below:
 
 .. code-block:: bash
 
@@ -141,11 +142,11 @@ To do this we will use the command below:
   *** Starting CLI:
   mininet>
 
-After run that command the mininet output will print that was build two hosts,
-two switches and that switches and hosts are linked.So, the mininet console
-will be activated and you can send commands to each switch or hosts connected.
-For instance if you need see the IP Address of the host 1 you can use the
-command below. ::
+After running that command, the mininet output will show that two hosts and two
+switches were created, and that the switches and the hosts are linked. So, the
+mininet console will be activated and you can send commands to each switch or
+host connected. For instance, if you need see the IP Address of the host 1 you
+can use the command below. ::
 
   mininet> h1 ifconfig
   h1-eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
@@ -168,13 +169,25 @@ command below. ::
 
   mininet>
 
-If you want see if the ping between hosts is running you can do: ::
+Since **Kyco** is still not running, your network will not be functional. So,
+let's start **Kyco**. As you wan't to run both **Kyco** and Mininet at the same
+time, open a new terminal window, enable your virtual environment, and run
+your **Kyco**:
+
+.. code:: shell
+
+  $ cd tutorials
+  $ source test42/bin/activate
+  $ kyco
+
+Going back to your other terminal with mininet, now you can test the ping: ::
 
   mininet> h1 ping h2
   PING 10.0.0.2 (10.0.0.2) 56(84) bytes of data.
-
-That ping is now working well because the Kyco is nos running yet.
-
+  64 bytes from 10.0.0.2: icmp_seq=1 ttl=64 time=62.6 ms
+  64 bytes from 10.0.0.2: icmp_seq=2 ttl=64 time=0.271 ms
+  64 bytes from 10.0.0.2: icmp_seq=3 ttl=64 time=0.099 ms
+  64 bytes from 10.0.0.2: icmp_seq=4 ttl=64 time=0.140 ms
 
 *************************
 Understanding Kyco's logs
@@ -204,29 +217,18 @@ command below.
   2017-02-10 18:35:04,641 - INFO [kyco.core.tcp_server] (Thread-6) New connection from 192.168.56.101:48858
   2017-02-10 18:35:04,648 - INFO [kyco.controller] (RawEvent Handler) Handling KycoEvent:kytos/core.connection.new ...
 
-If every things works the Kyco's logs will be displayed and you can see the
-logs of all Napps enabled. In this console output shown above the last four
-lines show that two new switches are connected with Kyco.
+On Kyco's logs you can see the logs of all Napps enabled.
 
-When a NApp write a log instance the Kyco will show a message in this format: ::
+In the above output, the last four lines shows that two new switches were
+connected on Kyco.
+
+When a NApp write a log message, Kyco shows it in this format: ::
 
   <date_format> - <TYPE_OF_MESSAGE> [<NAPP_NAME>] <MESSAGE>
 
-All messages shown above was written by Kyco.
+All messages shown above were written by Kyco. (except the *wekzeug* line)
 
-*************************
-Verify if ping is working
-*************************
-
-Now if you try to use the ping command between the host 1 and host 2 the
-mininet will display: ::
-
-  mininet> h1 ping h2
-  PING 10.0.0.2 (10.0.0.2) 56(84) bytes of data.
-  64 bytes from 10.0.0.2: icmp_seq=1 ttl=64 time=62.6 ms
-  64 bytes from 10.0.0.2: icmp_seq=2 ttl=64 time=0.271 ms
-  64 bytes from 10.0.0.2: icmp_seq=3 ttl=64 time=0.099 ms
-  64 bytes from 10.0.0.2: icmp_seq=4 ttl=64 time=0.140 ms
+Nice work! =)
 
 .. include:: ../back_to_list.rst
 
