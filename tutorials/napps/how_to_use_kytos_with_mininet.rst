@@ -57,9 +57,7 @@ them with the kytos-utils package by doinbg:
 
 .. code-block:: bash
 
- $ kytos napps install kytos/of_core
- $ kytos napps install kytos/of_l2ls
- $ kytos napps install kytos/of_lldp
+ $ kytos napps install kytos/of_core kytos/of_l2ls kytos/of_lldp
 
 Now your Napps are ready to be executed.
 
