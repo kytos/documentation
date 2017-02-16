@@ -113,7 +113,7 @@ example, NApp will get the controller uptime every fifteen seconds.
     log = logging.getLogger(__name__)
 
     # Pooling frequency
-    STATS_INTERVAL = 15
+    STATS_INTERVAL = 5
 
 
 main.py
