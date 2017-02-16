@@ -11,9 +11,9 @@ Publishing your own Napp
 Overview
 ********
 
-For this tutorial you will learn how to describe better about your NApp to share
-that using the |napps_server|_ repository. After that you will upload, install
-and uninstall you NApp published.
+For this tutorial you will learn how to describe better about your NApp and
+who to store this using the |napps_server|_ repository. After this you will
+upload, install and uninstall you NApp published.
 
 .. TODO:: Set the time
 
@@ -36,11 +36,11 @@ What you will learn
 Introduction
 ************
 
-Now that you have learned how to install the environment, how to create your
+Now that you have learned how to install the environment and how to create your
 own Napp you can publish that using the |napps_server|_.
 
 |napps_server|_ is a repository used to store NApps package,that can be used to
-anyone interested. The |napps_server|_ web page provide several informations
+everyone interested. The |napps_server|_ web page provide several informations
 about the NApps stored. Before follow the step used by this tutorial you must
 |napps_server_sign_up| using the |napps_server|_ web page.
 
@@ -107,30 +107,16 @@ default values.
     "url": ""
   }
 
+- *author*: is a metadata used by |napps_server|_ to identify the author of a Napp, *Only* the author used in this field can upload that Napp.
+- *name*: is a metadata used by |napps_server|_ to identify the Napp name.
+- *description*: is a metadata used to show a short description about the Napp.
+- *long_description*: is a metadata used to show a long description about the Napp.
+- *version*: is a metadata to identify the version of your NApp.
+- *license*: is a metadata used to describe the license about your NApp, for instance if you have a MIT license you must to use "MIT".
+- *tags*: is a metadata used to create tags by |napps_server|_, for instance if your NApps is in an experimental, you should to use the tag *Experimental*.
+- *url*: is a metadata to store the url where there is the source code of your NApp.
 
-**author**: is a metadata used by |napps_server|_ to identify the author of a
-Napp, *Only* the author used in this field can upload that Napp.
-
-**name**: is a metadata used by |napps_server|_ to identify the Napp name.
-
-**description**: is a metadata used to show a short description about the Napp.
-
-**long_description**: is a metadata used to show a long description about the
-Napp.
-
-**version**: is a metadata to identify the version of your NApp.
-
-**license**: is a metadata used to describe the license about your NApp, for
-instance if you have a MIT license you must to use "MIT".
-
-**tags**: is a metadata used to create tags by |napps_server|_, for instance if
-your NApps is in an experimental, you should to use the tag *Experimental*.
-
-**url**: is a metadata to store the url where there is the source code of your
-NApp.
-
-
-For this tutorial you must fill the fields like this:
+For this tutorial you must fill in the fields like this:
 
 .. code-block:: json
 
@@ -161,7 +147,7 @@ after created this file will be filled with:
     Requirements
     ============
 
-You must edit this file filling with:
+You must edit this file using the description below:
 
 .. code-block:: rst
 
@@ -191,14 +177,14 @@ You must edit this file filling with:
 How upload your NApp
 ********************
 
-Now that your NApp is ready to be uploaded you must to use ``kytos-utils``
+Now that your NApp is ready to be uploaded, you must to use ``kytos-utils``
 command.
 
 .. code-block:: bash
 
   $ kytos napps upload <username>/published_napp
 
-Or if you current directory has a kytos.json you can to use:
+Or if you current directory has a kytos.json you can use:
 
 .. code-block:: bash
 
@@ -209,7 +195,7 @@ Or if you current directory has a kytos.json you can to use:
 
 You must fill the **username** and **password** registered using the
 |napps_server|_ web page. After that your Napp is uploaded and you can find
-that using the command below or acessing |napps_server|_  web page .
+that using the command below or acessing |napps_server|_  web page.
 
 .. code-block:: bash
 
@@ -247,9 +233,9 @@ If you want search all napps stored by |napps_server|_ you should to use:
 How to install a NApp from |napps_server|
 *****************************************
 
-Now that you published you first Napp, you must install that.To do this is very
+Now that you published you first Napp, you must install them.To do this is very
 simple, using the command provide by ``kytos-utils``.You can download the Napp
-from |napps_server|_ and install that.
+from |napps_server|_ and install this.
 
 .. code-block:: bash
 
@@ -260,7 +246,7 @@ from |napps_server|_ and install that.
   INFO    Enabling...
   INFO    Enabled.
 
-Now if you list all NApps uploaded will be displayed:
+Now if you list all NApps uploaded the output below will be displayed:
 
 .. code-block:: bash
 
