@@ -115,8 +115,8 @@ Let's create the structure:
 
 .. code-block:: bash
 
-   $ mkdir ~/tutorial01/
-   $ cd ~/tutorial01/
+   $ mkdir ~/tutorials
+   $ cd ~/tutorials
    $ kytos napps create
    --------------------------------------------------------------
    Welcome to the bootstrap process of your NApp.
@@ -279,7 +279,7 @@ with the command:
 
 .. code-block:: bash
 
-  ~/tutorial01$ kytos napps disable <author_name>/<napp_name>
+  $ kytos napps disable <author_name>/<napp_name>
 
 As default, the ``kytos/of_core`` NApp may be installed and enabled, so you
 have to disable it with:

@@ -406,7 +406,7 @@ Let's start our controller:
 
 .. code-block:: bash
 
-   ~/tutorial03$ kyco
+   $ kyco
    2017-02-15 19:44:06,583 - INFO [kyco.controller] (MainThread) Starting Kyco - Kytos Controller
    2017-02-15 19:44:06,586 - INFO [kyco.core.tcp_server] (TCP server) Kyco listening at 0.0.0.0:6633
    2017-02-15 19:44:06,586 - INFO [kyco.controller] (RawEvent Handler) Raw Event Handler started
@@ -423,13 +423,7 @@ Let's start our controller:
    2017-02-15 19:44:06,639 - INFO [napps.tutorial.ping.settings] (Thread-4) 2017-02-15 19:44:06.639154 Ping sent.
    2017-02-15 19:44:06,642 - INFO [kyco.core.napps] (Thread-5) Running Thread-5 App
 
-
-
 You will get into the controller terminal, and you can see your NApps outputs.
-
-.. TODO:: Add here the output of the command
-
-
 
 .. include:: ../back_to_list.rst
 
