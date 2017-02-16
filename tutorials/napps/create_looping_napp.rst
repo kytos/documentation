@@ -14,9 +14,7 @@ Overview
 This tutorial covers the basics on how to create a Network Application (NApp)
 with a looping for *Kytos Controller* (|kyco|_).
 
-.. TODO:: Set the time
-
-The average time to go throught it is: XX min
+The average time to go throught it is: ``10 min``
 
 What you will learn
 ====================
@@ -53,7 +51,9 @@ You can create the napp structure manually, but the Kytos project has an
 ``kytos-utils`` package with few command line utilities that can help you to
 create this.
 
-.. NOTE:: Make sure that you have completed your |dev_env|_  setup.
+.. NOTE:: Make sure that you have completed your |dev_env|_  setup. and that
+    you have enable your virtual environment in order to have all kytos
+    projects available to you.
 
 Let's create the structure:
 
@@ -218,9 +218,9 @@ You can also see if your Napp is installed and enabled, by running the command:
 
   Status: (i)nstalled, (e)nabled
 
-For this demo, we don't wanna any other napp running except this created during
-this tutorial. So if your setup has multiple napps, please disable them, with
-the command:
+For this demo, we don't want any other napp running, except the one created
+during this tutorial. So if your setup has multiple napps enabled, please
+disable them, with the command:
 
 .. code-block:: bash
 
@@ -281,6 +281,8 @@ Let's start our controller:
   2017-02-16 02:22:15,631 - INFO [napps.tutorial.loopnapp.settings] (MainThread) NApp Loop Unloaded!
 
 You will get into the controller terminal, and you can see your NApp output.
+
+.. NOTE:: To stop your controller you must press CTRL+C
 
 .. include:: ../back_to_list.rst
 
