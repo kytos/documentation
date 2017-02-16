@@ -118,17 +118,31 @@ Let's create the structure:
    $ mkdir ~/tutorial01/
    $ cd ~/tutorial01/
    $ kytos napps create
-
-.. TODO:: We need to code the kytos napp init. Using jinja2 templates.
-
-.. Template should be inserted here: /etc/skell/kytos/napp-structre/ with the
-.. structure and template files.
+   --------------------------------------------------------------
+   Welcome to the bootstrap process of your NApp.
+   --------------------------------------------------------------
+   In order to answer both the author name and the napp name,
+   You must follow this naming rules:
+    - name starts with a letter
+    - name contains only letters, numbers or underscores
+    - at least three characters
+   --------------------------------------------------------------
+   
+   Please, insert your NApps Server username: tutorial
+   Please, insert you NApp name: helloworld
+   Please, insert a brief description for your NApp [optional]: 
+   
+   Congratulations! Your NApp have been bootsrapped!
+   Now you can go to the directory tutorial/helloworld and begin to code your NApp.
+   Have fun!
 
 You will be asked a few questions. Answer them according to your needs, they are
 very basic questions like author and NApp name.
 
 For this tutorial purpose, when asking for the author and NApp name, answer
 **tutorial** and **helloworld**, respectively.
+
+The output must be something like:
 
 .. TIP:: If you want to change the answers provided in the future, just edit
          the ``kytos.json`` file, and rename the directories if necessary.
@@ -158,7 +172,6 @@ During this tutorial, the only file that we need to worry about is the
 
       def shutdown(self):
           pass
-
 
 In this file, we have an entry point class (``Main``) to execute our NApp.
 This class has 3 basic methods: ``setup``, ``execute`` and ``shutdown``.
@@ -229,7 +242,12 @@ use the ``kytos`` command line from the ``kytos-utils`` package.
 
 .. code-block:: bash
 
-  $ sudo kytos napps install tutorial/heloworld
+  $ kytos napps install tutorial/helloworld
+  INFO  NApp tutorial/helloworld:
+  INFO    Searching local NApp...
+  INFO    Found and installed.
+  INFO    Enabling...
+  INFO    Enabled.
 
 .. NOTE:: This will try to get this NApp from your current directory, then
    install it into your system. This NApp will also be enable.
@@ -240,6 +258,20 @@ installed and enabled, by running the command:
 .. code-block:: bash
 
   $ kytos napps list
+  Status |          NApp ID          |                                                             Description
+  =======+===========================+=====================================================================================================================================
+   [ie]  | kytos/of_core             | OpenFlow Core of Kytos Controller, responsible for main OpenFlow operations.
+   [i-]  | kytos/of_flow_manager     | NApp that manages switches flows.
+   [i-]  | kytos/of_ipv6drop         | Install flows to DROP IPv6 packets on all switches.
+   [i-]  | kytos/of_l2ls             | An L2 learning switch application for OpenFlow switches.
+   [i-]  | kytos/of_l2lsloop         | A L2 learning switch application for openflow switches, with supports topologies with loops.
+   [i-]  | kytos/of_lldp             | App responsible by send packet with lldp protocol to network and to discover switches and hosts.
+   [i-]  | kytos/of_stats            | Provide statistics of openflow switches.
+   [i-]  | kytos/of_topology         | A simple app that update links between machines and swithes and return a json with network topology using the route /kytos/topology.
+   [i-]  | kytos/web_topology_layout | Manage endpoints related to the web interface settings and layout.
+   [ie]  | tutorial/helloworld       | # TODO: <<<< Insert here your NApp description >>>>
+  
+  Status: (i)nstalled, (e)nabled
 
 For this demo, we don't need to have any other NApp loaded except the one we
 just defined. So, if your setup has multiple NApps, please disable them,
@@ -249,6 +281,15 @@ with the command:
 
   $ kytos napps disable <author_name>/<napp_name>
 
+As default, the ``kytos/of_core`` NApp may be installed and enabled, so you
+have to disable it with:
+
+.. code-block:: bash
+
+  $ kytos napps disable kytos/of_core
+  INFO  NApp kytos/of_core:
+  INFO    Disabling...
+  INFO    Disabled.
 
 Yes, we are not running any NApp for now. We are disabling everything including
 OpenFlow NApps.
@@ -260,12 +301,42 @@ Let's start our controller:
 
 .. code-block:: bash
 
-  $ kytos-kyco start
+  $ kyco
+  2017-02-16 02:01:46,391 - INFO [kyco.controller] (MainThread) Starting Kyco - Kytos Controller
+  2017-02-16 02:01:46,394 - INFO [kyco.core.tcp_server] (TCP server) Kyco listening at 0.0.0.0:6633
+  2017-02-16 02:01:46,395 - INFO [kyco.controller] (RawEvent Handler) Raw Event Handler started
+  2017-02-16 02:01:46,401 - INFO [kyco.controller] (MsgInEvent Handler) Message In Event Handler started
+  2017-02-16 02:01:46,403 - INFO [kyco.controller] (MsgOutEvent Handler) Message Out Event Handler started
+  2017-02-16 02:01:46,408 - INFO [werkzeug] (Thread-2)  * Running on http://0.0.0.0:8181/ (Press CTRL+C to quit)
+  2017-02-16 02:01:46,409 - INFO [kyco.controller] (AppEvent Handler) App Event Handler started
+  2017-02-16 02:01:46,409 - INFO [kyco.controller] (MainThread) Loading kyco apps...
+  2017-02-16 02:01:46,410 - INFO [kyco.controller] (MainThread) Loading NApp tutorial/helloworld
+  2017-02-16 02:01:46,414 - INFO [kyco.core.napps] (Thread-3) Running Thread-3 App
+  2017-02-16 02:01:46,417 - INFO [napps.tutorial.helloworld.settings] (Thread-3) Hello World! I'm being loaded!
+  2017-02-16 02:01:46,417 - INFO [napps.tutorial.helloworld.settings] (Thread-3) Hello World! I'm being executed!
+  ^CStopping controller...
+  2017-02-16 02:01:48,402 - INFO [kyco.controller] (MainThread) Stopping Kyco
+  2017-02-16 02:01:48,903 - INFO [kyco.core.buffers] (MainThread) Stop signal received by Kyco buffers.
+  2017-02-16 02:01:48,904 - INFO [kyco.core.buffers] (MainThread) Sending KycoShutdownEvent to all apps.
+  2017-02-16 02:01:48,905 - INFO [kyco.core.buffers] (MainThread) [buffer: raw_event] Stop mode enabled. Rejecting new events.
+  2017-02-16 02:01:48,906 - INFO [kyco.core.buffers] (MainThread) [buffer: msg_in_event] Stop mode enabled. Rejecting new events.
+  2017-02-16 02:01:48,907 - INFO [napps.tutorial.helloworld.settings] (Thread-4) Bye world!
+  2017-02-16 02:01:48,908 - INFO [kyco.core.buffers] (MainThread) [buffer: msg_out_event] Stop mode enabled. Rejecting new events.
+  2017-02-16 02:01:48,908 - INFO [napps.tutorial.helloworld.settings] (Thread-5) Bye world!
+  2017-02-16 02:01:48,911 - INFO [kyco.core.buffers] (MainThread) [buffer: app_event] Stop mode enabled. Rejecting new events.
+  2017-02-16 02:01:48,913 - INFO [napps.tutorial.helloworld.settings] (Thread-6) Bye world!
+  2017-02-16 02:01:48,919 - INFO [werkzeug] (Thread-7) 127.0.0.1 - - [16/Feb/2017 02:01:48] "GET /kytos/shutdown HTTP/1.1" 200 -
+  2017-02-16 02:01:48,920 - INFO [kyco.controller] (MainThread) Stopping thread: Thread-2
+  2017-02-16 02:01:49,421 - INFO [kyco.controller] (MainThread) Stopping thread: TCP server
+  2017-02-16 02:01:49,422 - INFO [kyco.controller] (MainThread) Stopping thread: RawEvent Handler
+  2017-02-16 02:01:49,423 - INFO [kyco.controller] (MainThread) Stopping thread: MsgInEvent Handler
+  2017-02-16 02:01:49,424 - INFO [kyco.controller] (MainThread) Stopping thread: MsgOutEvent Handler
+  2017-02-16 02:01:49,424 - INFO [kyco.controller] (MainThread) Stopping thread: AppEvent Handler
+  2017-02-16 02:01:49,424 - INFO [napps.tutorial.helloworld.settings] (MainThread) Bye world!
+
+.. $ kytos-kyco start
 
 You will get into the controller terminal, and you can see your NApp output.
-
-.. TODO:: Execute all the steps on this tutorial, and paste here the console
-   output.
 
 Congratulations! You have created your first Kytos NApp!
 
