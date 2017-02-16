@@ -11,15 +11,11 @@ How to use Kytos with Mininet
 Overview
 ********
 
-In this tutorial you will learn how to manager your Napps
-(Network Applications) to be used with Kytos Controller (**Kyco**). Then, you
-will learn how to use the tool |mininet|_ to simulate a virtual network using
-the Openflow protocol and turn on the Kyco to handle that virtual network using
-the Napps enabled.
+In this tutorial you will learn how to use the |mininet|_ tool to simulate a
+virtual network using the Openflow protocol and manage this virtual network
+with **Kyco** and some of our Kytos NApps.
 
-.. TODO:: Set the time
-
-The average time to go throught it is: XX min
+The average time to go throught it is: ``XX min``
 
 What you will need
 ===================
@@ -31,7 +27,7 @@ What you will learn
 
 * How to manage the Kytos Napps
 * About the Napps used in this tutorial
-* How to build a simple topology
+* How to build a simple topology on mininet
 * Understanding Kyco's logs
 * Verify if ping is working
 
@@ -40,22 +36,24 @@ Introduction
 ************
 
 Now that you have your own development environment you can build a simple
-virtual network using the tool |mininet|_. In this tutorial you will build a
-simple topology composed by two switches and two hosts connected.This virtual
-network should be handled by the controller Kyco using the openflow protocols.
+virtual network using the |mininet|_ tool. In this tutorial you will build a
+simple topology, composed by two switches and two hosts connected one to each
+switch. This virtual network should be handled by the controller **Kyco** and
+will use the openflow protocol.
 
-In this tutorial the Napps *of_core*, *of_l2ls* and *of_lldp* must be installed
-and enabled to allow the hosts into the network to be connected and recognized
-by your IP Address.
+In this tutorial the Napps ``of_core``, ``of_l2ls`` and ``of_lldp`` must be
+installed and enabled in order to make the network work as expected.
 
 *****************************
-How to manage the Kytos Napps
+How to manage the Kytos NApps
 *****************************
 
-In order to run the Napps used by this tutorial, first you have to install
-them.Once more use the ``kytos`` command line from the ``kytos-utils`` package.
+To run the NApps used in this tutorial, you need to have them installed on your
+system. You probably already have them, but, in case you don't, you can install
+them with the kytos-utils package by doinbg:
 
-To install and enable the Napps run the commands below:
+.. NOTE:: Do not forget to enable your virtualenv, where you installed the
+    kytos projects.
 
 .. code-block:: bash
 
@@ -72,58 +70,45 @@ comamnd:
 
   $ kytos napps list
 
-If you want enable a Napp listed you can run the command:
+If you already have them installed, but they are disabled, you can enable them
+with the command:
 
 .. code-block:: bash
 
-  $ kytos napps enable <author_name>/<napp_name>
-
-On the other hand if you want to disable an installed napp you can run the
-command:
-
-.. code-block:: bash
-
-  $ kytos napps disable <author_name>/<napp_name>
-
-
-.. NOTE::
-  For this tutorial, you don't want any other napp running except those
-  selected. So if your setup has several napps enabled, please disable them,
-  with the command that you have learned in this section.
-
+  $ kytos napps enable kytos/of_core kytos/of_l2ls kytos/of_lldp
 
 *******************************************************
 Brief description about the Napps used in this tutorial
 *******************************************************
 
-As we said earlier we will use the napps **of_core**, **of_l2ls** and
-**of_lldp** build by the kytos team.In this section you will learn a little
-about each one.
+As said earlier, we will use the napps **of_core**, **of_l2ls** and **of_lldp**
+provided by the Kytos team. In this section you will learn a little about each
+one.
 
 of_core
 =======
 
-The **of_core** application is the default Kytos Network Application because
-that is responsible to handle OpenFlow basic operations such as handle hello
-messages, echo request/reply messages and send/receive openflow message by
-network.
+The **of_core** application is responsible for doing basic OpenFlow operations,
+such as handling hello and echo request/reply messages as much as receiving and
+unpacking openflow message from network.
 
 of_l2ls
 =======
 
 The **of_l2ls** application is used to allow basic operations of switches. It
-implements the algorithm know as L2 Learning Switch, which aims to figure out
-which host is attached to which port.So if you enable this app you will be able
-to ping machines.
+implements the algorithm known as *L2 Learning Switch*, which aims to figure
+out which host is attached to which port. So, if you enable this app you will
+be able to ping machines.
 
 of_lldp
 =======
 
-The **of_lldp** application implements the protocol Link Layer Discovery
-Protocol (LLDP).This protocol is vendor free and used to discover network
-devices and all links between them.This protocol is implemented as layer 2 (L2)
-and defined in the IEEE 802.lab.A network manager system(NMS) can rapidly
-obtain the L2 network topology and topology changes over the time using LLDP.
+The **of_lldp** application implements the protocol *Link Layer Discovery
+Protocol* (LLDP). This protocol is vendor free and used to discover network
+devices and all links between them. This protocol is implemented at network
+layer 2 (L2), and defined in the IEEE 802.1ab. A network manager system(NMS)
+can rapidly obtain the L2 network topology and topology changes over the time
+using LLDP.
 
 ******************************
 How to build a simple topology
