@@ -12,55 +12,56 @@ Overview
 ********
 
 This tutorial covers the basics on how to create a Network Application (NApp)
-with a looping for *Kytos Controller* (|kyco|_).
+with an execution loop for *Kytos Controller* (|kyco|_).
 
 The average time to go throught it is: ``10 min``
 
 What you will learn
 ====================
-* How to Create a NApp with a loop
-* How to adjust `settings.py` file to your NApp
+* How to Create a NApp with a loop;
+* How to adjust `settings.py` file for your NApp.
 
 What you will need
 ===================
-* How to create a basic NApp - Refer to |Tutorial_01|_
+* How to create a basic NApp - Refer to |Tutorial_01|_.
 
 ************
 Introduction
 ************
 
 Now that you have learned how to build a simple NApp, in this tutorial we will
-help you to develop a more sophisticated NApp.
+help you to develop a more sophisticated one.
 
-Suppose that you need an application that gather some data sporadically from
-the controller or from the switches. In this situation is desirable to have a
-NApp that can run repeatedly without creating complexes loops. Kytos provides
-the necessary tools to create such NApp.
+Suppose that you need an application that gather some data periodically from
+the controller or from the switches. In this situation, it is desirable to have
+a NApp that can run repeatedly without creating complex loops. Kytos provides
+the necessary tools to quick and easily create such a NApp.
 
-******************
-Creating Loop NApp
-******************
+***********************
+Creating a looping NApp
+***********************
 
-In this tutorial we will create a simple NApp, too. This NApp gets the
-controller uptime from time to time and display it.
+In this tutorial, we will create a simple NApp, for learning purposes.
+This NApp will get the controller uptime from time to time and display it.
 
-Also we are going to introduce you to the NApps settings, a basic python module
-where you can store all variables used by your NApp.
+Also, we are going to introduce you to the NApps settings, a basic Python module
+where you can store, for example, configuration constants used by your NApp.
+This way, it is easier to maintain, understand and customize your code.
 
-You can create the napp structure manually, but the Kytos project has an
-``kytos-utils`` package with few command line utilities that can help you to
-create this.
+You can create the NApp structure manually, but Kytos has the ``kytos-utils``
+project with a few command line utilities that can help you to create it.
 
-.. NOTE:: Make sure that you have completed your |dev_env|_  setup. and that
-    you have enable your virtual environment in order to have all kytos
+.. NOTE:: Make sure that you have completed your |dev_env|_  setup and that
+    you have enabled your virtual environment in order to have all kytos
     projects available to you.
 
 Let's create the structure:
 
 .. code-block:: bash
 
-   $ mkdir ~/tutorials/
-   $ cd ~/tutorials/
+   $ cd
+   $ mkdir tutorials
+   $ cd tutorials
    $ kytos napps create
    --------------------------------------------------------------
    Welcome to the bootstrap process of your NApp.
@@ -73,37 +74,36 @@ Let's create the structure:
    --------------------------------------------------------------
 
    Please, insert your NApps Server username: tutorial
-   Please, insert you NApp name: loopnapp
-   Please, insert a brief description for your NApp [optional]:
+   Please, insert your NApp name: loopnapp
+   Please, insert a brief description for your NApp [optional]: Loop NApp
 
    Congratulations! Your NApp have been bootsrapped!
    Now you can go to the directory tutorial/loopnapp and begin to code your NApp.
    Have fun!
 
 You will be asked for few questions. Answer them according to your needs, they
-are very basic questions like author and napp name.
-
-For this tutorial, when asking for the author and napp name, answer
+are very basic questions like username and NApp name. For this tutorial, answer
 **tutorial** and **loopnapp**, respectively.
 
-.. TIP:: If you wanna to change the answers on the future, just edit the
-   ``kytos.json`` file, and rename the directories if necessary.
+.. TIP:: If you want to change the answers in the future, just edit the
+   ``kytos.json`` file and rename the directories if necessary.
 
-Now you have a bootstrap napp struct to work on it.
+Now you have a bootstrap NApp structure to work on.
 
 During this tutorial, the only files that we need to worry about are the
 ``main.py`` and ``settings.py``.  Open with your preferred editor and let's
-code.
+code::
 
-.. TIP:: ``main.py`` is located inside your napp folder.
+  $ cd ~/tutorials/tutorial/loopnapp
+  $ gedit main.py settings.py
 
 settings.py
 ===========
 
-In order to adjust the pooling frequency, let's define a variable on
-`settings.py`. For instance: `STATS_INTERVAL` it will store a number (in
-seconds) that we will use it for determine our pooling interval. In this
-example, NApp will get the controller uptime every fifteen seconds.
+In order to adjust the polling frequency, let's define a variable in
+`settings.py`. For instance, `STATS_INTERVAL` will store a number, in
+seconds, that we will use to determine our polling interval. In this
+example, our NApp will get the controller uptime every fifteen seconds.
 
 .. code-block:: python
 
@@ -112,7 +112,7 @@ example, NApp will get the controller uptime every fifteen seconds.
     # Log Registry Type
     log = logging.getLogger(__name__)
 
-    # Pooling frequency
+    # Polling frequency
     STATS_INTERVAL = 5
 
 
@@ -122,39 +122,39 @@ main.py
 Setup
 ^^^^^
 
-In `main.py` file, we have to adjust the `setup()` method. This adjust tells
-the controller that this NApp will run repeatedly.
+In `main.py` file, we have to adjust the `setup()` method. We will add a
+line to tell the controller that this NApp will run repeatedly.
 
 .. code-block:: python
 
    def setup(self):
-       log.info("NApp Loop Loaded!")
+       log.info("Loop NApp Loaded!")
        self.execute_as_loop(settings.STATS_INTERVAL)
 
 
-The method execute_as_loop() is a built in Kytos NApps method that instructs
-the controller to execute the method `execute` every x seconds.
+The method execute_as_loop() is a Kytos NApp built-in method that instructs
+the controller to execute the method `execute` every *x* seconds.
 
-If you dont call `execute_as_loop` the `execute` method it will be executed
-only once, right after the `setup` method.
+If you don't call `execute_as_loop`, the `execute` method will be executed
+only once, right after the `setup` method is finished.
 
 Execute
 ^^^^^^^
 
-In `execute()` method we code what will be execute every fifteen seconds. In
-this case, we gather the controller's uptime and print in log file.
+In the `execute` method, we code what will be execute every fifteen seconds. In
+this case, we gather the controller's uptime and print it in the logs.
 
 .. code-block:: python
 
    def execute(self):
        uptime = self.controller.uptime()
-       log.info("Controller Uptime: {}".format(uptime))
+       log.info("Controller Uptime: %s", uptime)
 
 
 Running Periodically
 ~~~~~~~~~~~~~~~~~~~~
 
-Following, the entire NApp's source code of the looping NApp.
+The entire NApp's source code of the looping NApp follows:
 
 .. code-block:: python
 
@@ -166,25 +166,26 @@ Following, the entire NApp's source code of the looping NApp.
     class Main(KycoNApp):
 
         def setup(self):
-            log.info("NApp Loop Loaded!")
+            log.info("Loop NApp Loaded!")
             self.execute_as_loop(settings.STATS_INTERVAL)
 
         def execute(self):
             uptime = self.controller.uptime()
-            log.info("Controller Uptime: {}".format(uptime))
+            log.info("Controller Uptime: %s", uptime)
 
         def shutdown(self):
-            log.info("NApp Loop Unloaded!")
+            log.info("Loop NApp Unloaded!")
 
 *****************
 Running your NApp
 *****************
 
-In order to run your napp, first your have to install it. Again, we are going
+In order to run your NApp, first you have to install it. Again, we are going
 to use the ``kytos`` command line from the ``kytos-utils`` package.
 
 .. code-block:: bash
 
+  $ cd ~/tutorials
   $ kytos napps install tutorial/loopnapp
   INFO  NApp tutorial/loopnapp:
   INFO    Searching local NApp...
@@ -202,37 +203,37 @@ You can also see if your Napp is installed and enabled, by running the command:
 .. code-block:: bash
 
   $ kytos napps list
-  Status |          NApp ID          |                                                             Description
-  =======+===========================+=====================================================================================================================================
-   [i-]  | kytos/of_core             | OpenFlow Core of Kytos Controller, responsible for main OpenFlow operations.
+
+  Status |          NApp ID          |                      Description
+  =======+===========================+=======================================================
+   [i-]  | kytos/of_core             | OpenFlow Core of Kytos Controller, responsible for ...
    [i-]  | kytos/of_flow_manager     | NApp that manages switches flows.
    [i-]  | kytos/of_ipv6drop         | Install flows to DROP IPv6 packets on all switches.
-   [i-]  | kytos/of_l2ls             | An L2 learning switch application for OpenFlow switches.
-   [i-]  | kytos/of_l2lsloop         | A L2 learning switch application for openflow switches, with supports topologies with loops.
-   [i-]  | kytos/of_lldp             | App responsible by send packet with lldp protocol to network and to discover switches and hosts.
+   [i-]  | kytos/of_l2ls             | An L2 learning switch application for OpenFlow swit...
+   [i-]  | kytos/of_l2lsloop         | A L2 learning switch application for openflow switc...
+   [i-]  | kytos/of_lldp             | App responsible by send packet with lldp protocol t...
    [i-]  | kytos/of_stats            | Provide statistics of openflow switches.
-   [i-]  | kytos/of_topology         | A simple app that update links between machines and swithes and return a json with network topology using the route /kytos/topology.
-   [i-]  | kytos/web_topology_layout | Manage endpoints related to the web interface settings and layout.
-   [ie]  | tutorial/helloworld       | # TODO: <<<< Insert here your NApp description >>>>
-   [ie]  | tutorial/loopnapp         | # TODO: <<<< Insert here your NApp description >>>>
+   [i-]  | kytos/of_topology         | A simple app that update links between machines and...
+   [i-]  | kytos/web_topology_layout | Manage endpoints related to the web interface setti...
+   [i-]  | tutorial/helloworld       | Hello, World!
+   [ie]  | tutorial/loopnapp         | Loop NApp
 
-  Status: (i)nstalled, (e)nabled
-
-For this demo, we don't want any other napp running, except the one created
-during this tutorial. So if your setup has multiple napps enabled, please
-disable them, with the command:
+For this demo, we don't need to have any other NApp loaded except the one we've
+just created. So, if your setup has multiple enabled NApps, please, disable them
+with the command:
 
 .. code-block:: bash
 
-  $ kytos napps disable <author_name>/<napp_name>
+  $ kytos napps disable <NApp ID>
 
-Yes, we are not running any napp for now, we are disabling everything including
-OpenFlow Napps.
+Yes, we are not running any other NApp for now, we are disabling everything,
+including OpenFlow NApps.
 
 Testing your NApp
 =================
 
-Let's start our controller:
+Let's start our controller and check the log messages. After seeing several
+lines with ``Controller Uptime``, press ``ctrl+c`` to stop the controller.
 
 .. code-block:: bash
 
@@ -244,12 +245,9 @@ Let's start our controller:
   2017-02-16 02:21:41,546 - INFO [kyco.controller] (MsgOutEvent Handler) Message Out Event Handler started
   2017-02-16 02:21:41,547 - INFO [kyco.controller] (AppEvent Handler) App Event Handler started
   2017-02-16 02:21:41,547 - INFO [kyco.controller] (MainThread) Loading kyco apps...
-  2017-02-16 02:21:41,552 - INFO [kyco.controller] (MainThread) Loading NApp tutorial/helloworld
   2017-02-16 02:21:41,555 - INFO [kyco.core.napps] (Thread-3) Running Thread-3 App
   2017-02-16 02:21:41,556 - INFO [kyco.controller] (MainThread) Loading NApp tutorial/loopnapp
   2017-02-16 02:21:41,556 - INFO [werkzeug] (Thread-2)  * Running on http://0.0.0.0:8181/ (Press CTRL+C to quit)
-  2017-02-16 02:21:41,556 - INFO [napps.tutorial.helloworld.settings] (Thread-3) Hello World! I'm being loaded!
-  2017-02-16 02:21:41,562 - INFO [napps.tutorial.helloworld.settings] (Thread-3) Hello World! I'm being executed!
   2017-02-16 02:21:41,559 - INFO [kyco.core.napps] (Thread-4) Running Thread-4 App
   2017-02-16 02:21:41,563 - INFO [napps.tutorial.loopnapp.settings] (Thread-4) NApp Loop Loaded!
   2017-02-16 02:21:41,563 - INFO [napps.tutorial.loopnapp.settings] (Thread-4) Controller Uptime: -1 day, 23:59:59.996963
@@ -261,14 +259,11 @@ Let's start our controller:
   2017-02-16 02:22:15,110 - INFO [kyco.core.buffers] (MainThread) Sending KycoShutdownEvent to all apps.
   2017-02-16 02:22:15,111 - INFO [kyco.core.buffers] (MainThread) [buffer: raw_event] Stop mode enabled. Rejecting new events.
   2017-02-16 02:22:15,114 - INFO [kyco.core.buffers] (MainThread) [buffer: msg_in_event] Stop mode enabled. Rejecting new events.
-  2017-02-16 02:22:15,115 - INFO [napps.tutorial.helloworld.settings] (Thread-5) Bye world!
-  2017-02-16 02:22:15,116 - INFO [napps.tutorial.helloworld.settings] (Thread-6) Bye world!
   2017-02-16 02:22:15,117 - INFO [napps.tutorial.loopnapp.settings] (Thread-7) NApp Loop Unloaded!
   2017-02-16 02:22:15,117 - INFO [napps.tutorial.loopnapp.settings] (Thread-4) Controller Uptime: -1 day, 23:59:26.442766
   2017-02-16 02:22:15,118 - INFO [kyco.core.buffers] (MainThread) [buffer: msg_out_event] Stop mode enabled. Rejecting new events.
   2017-02-16 02:22:15,123 - INFO [kyco.core.buffers] (MainThread) [buffer: app_event] Stop mode enabled. Rejecting new events.
   2017-02-16 02:22:15,121 - INFO [napps.tutorial.loopnapp.settings] (Thread-8) NApp Loop Unloaded!
-  2017-02-16 02:22:15,127 - INFO [napps.tutorial.helloworld.settings] (Thread-9) Bye world!
   2017-02-16 02:22:15,129 - INFO [werkzeug] (Thread-10) 127.0.0.1 - - [16/Feb/2017 02:22:15] "GET /kytos/shutdown HTTP/1.1" 200 -
   2017-02-16 02:22:15,130 - INFO [napps.tutorial.loopnapp.settings] (Thread-11) NApp Loop Unloaded!
   2017-02-16 02:22:15,134 - INFO [kyco.controller] (MainThread) Stopping thread: Thread-2
@@ -277,12 +272,14 @@ Let's start our controller:
   2017-02-16 02:22:15,630 - INFO [kyco.controller] (MainThread) Stopping thread: MsgInEvent Handler
   2017-02-16 02:22:15,630 - INFO [kyco.controller] (MainThread) Stopping thread: MsgOutEvent Handler
   2017-02-16 02:22:15,630 - INFO [kyco.controller] (MainThread) Stopping thread: AppEvent Handler
-  2017-02-16 02:22:15,631 - INFO [napps.tutorial.helloworld.settings] (MainThread) Bye world!
   2017-02-16 02:22:15,631 - INFO [napps.tutorial.loopnapp.settings] (MainThread) NApp Loop Unloaded!
 
-You will get into the controller terminal, and you can see your NApp output.
+As you can see, the uptime was reported several times, at 02:21:41, 02:21:56 and
+02:22:11 with an interval of 15 seconds, as expected.
 
-.. NOTE:: To stop your controller you must press CTRL+C
+That's it! With only one line added in the `setup` method, your code will be
+running periodically. If you want to change the interval later, modify only the
+`settings.py` file and the new value will be used next time the NApp is loaded.
 
 .. include:: ../back_to_list.rst
 
