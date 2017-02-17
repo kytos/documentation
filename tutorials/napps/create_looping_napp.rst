@@ -77,7 +77,7 @@ Let's create the structure:
    Please, insert your NApp name: loopnapp
    Please, insert a brief description for your NApp [optional]: Loop NApp
 
-   Congratulations! Your NApp have been bootsrapped!
+   Congratulations! Your NApp have been bootstrapped!
    Now you can go to the directory tutorial/loopnapp and begin to code your NApp.
    Have fun!
 

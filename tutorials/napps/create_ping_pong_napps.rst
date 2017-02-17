@@ -112,7 +112,7 @@ to insert a description right now (later, you can edit the *kytos.json* file).
 
 .. code-block:: bash
 
-  Congratulations! Your NApp have been bootsrapped!
+  Congratulations! Your NApp have been bootstrapped!
   Now you can go to the directory tutorial/ping and begin to code your NApp.
   Have fun!
 
@@ -284,7 +284,7 @@ And the NApp description
 
 .. code-block:: bash
 
-  Congratulations! Your NApp have been bootsrapped!
+  Congratulations! Your NApp have been bootstrapped!
   Now you can go to the directory tutorial/pong and begin to code your NApp.
   Have fun!
 
