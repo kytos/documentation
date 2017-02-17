@@ -314,7 +314,7 @@ First, define your new ``pong`` method inside the ``Main`` class:
         message = 'Hi, here is the Pong NApp answering a ping.'
         message += 'The current time is {}, and the ping was dispatched'
         message += 'at {}.'
-        log.info(message.format(datetime.now(), ping_event.content['message']))
+        log.info(message.format(datetime.now(), event.content['message']))
 
 Now, you must use the ``listen_to`` decorator do define the method that will
 respond to ``tutorial/ping.periodic_ping`` events.
@@ -326,7 +326,7 @@ respond to ``tutorial/ping.periodic_ping`` events.
         message = 'Hi, here is the Pong NApp answering a ping.'
         message += 'The current time is {}, and the ping was dispatched'
         message += 'at {}.'
-        log.info(message.format(datetime.now(), ping_event.content['message']))
+        log.info(message.format(datetime.now(), event.content['message']))
 
 This decorator ensures that the controller is aware that the method must be
 called whenever the given event happens.
@@ -361,7 +361,7 @@ So, the ``main.py`` file of the ``pong`` napp will be:
             message += 'The current time is {}, and the ping was dispatched'
             message += 'at {}.'
             log.info(message.format(datetime.now(),
-                                    ping_event.content['message']))
+                                    event.content['message']))
 
         def shutdown(self):
             pass
