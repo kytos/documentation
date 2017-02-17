@@ -4,7 +4,7 @@
 .. _tutorial-publishing_your_napp:
 
 ####################
-Publishing your Napp
+Publishing your NApp
 ####################
 
 ********
@@ -34,7 +34,7 @@ Introduction
 ************
 
 Now that you have learned how to install the environment and how to create your
-own Napp, you can publish it on the |napps_server|_. The |napps_server|_ works
+own NApp, you can publish it on the |napps_server|_. The |napps_server|_ works
 similarly to the application stores for mobile operating systems, or packages
 repositories for linux distributions.
 
@@ -145,7 +145,7 @@ And here are an example of how can we complete this file:
     "author": "<username>",
     "name": "my_first_napp",
     "description": "This is my first NApp, I have built it while doing a Kytos Tutorial.",
-    "long_description": "This is my first NApp. I've built it as an example NApp and also to thet who the upload of a NApp work. I think I have reached my goal here =). But keep in mind that this NApp does nothing when loaded!",
+    "long_description": "This is my first NApp. I've built it as an example NApp to upload to NApps Server. I think I have reached my goal here =). But keep in mind that this NApp does nothing when loaded!",
     "version": "0.0.1",
     "napp_dependencies": [],
     "license": "MIT",
@@ -159,7 +159,7 @@ README.rst
 Among other things, the **README.rst** will be presented as the main content of
 the NApp page on the NApps Server (https://napps.kytos.io/<author>/<name>).
 
-We recomend two initial sections, **Overview** and **Requirements**. The first
+We recommend two initial sections, **Overview** and **Requirements**. The first
 will contain a more complete description of your NApp, while the latter will
 hold any non-NApp requirement of your NApp.
 
@@ -169,7 +169,7 @@ hold any non-NApp requirement of your NApp.
     ========
     This is my first NApp, I have built it while doing the Kytos Tutorial on
     how to upload a NApp.
-    
+
     This NApp, for now, is just a 'mock' NApp that does nothing. May be, on the
     future, I'll play with it while doing some more tests on how NApps work.
 
@@ -186,12 +186,7 @@ Your NApp is now ready to be uploaded. To do it, use the following command:
 
 .. code-block:: bash
 
-  $ kytos napps upload <username>/my_first_napp
-
-If you are current inside the NApp root directory, you can use:
-
-.. code-block:: bash
-
+  $ cd ~/tutorials/<username>/my_first_napp
   $ kytos napps upload
   Enter the username: <username>
   Enter the password for <username>: <password>
@@ -210,7 +205,8 @@ the command line with the following command:
 
   Status |       NApp ID            |                     Description
   =======+==========================+====================================================
-   [--]  | <username>/my_first_napp | This is my first NApp, I have built it while doing a Kytos Tutorial.
+   [--]  | <username>/my_first_napp | This is my first NApp. I've built it as an examp...
+
 
   Status: (i)nstalled, (e)nabled
 
@@ -222,8 +218,8 @@ Now that you have published you NApp, you can install it by using the command
 ``kytos napps install <username>/my_first_napp``.
 
 You can also look for other NApps published on the |napps_server|_, by using
-the command ``kytos napps search`` followed by some keyworkd to match agains
-the author, napp name and/or description, such as.
+the command ``kytos napps search`` followed by some keyword to match against
+the username, NApp name, description or tags.
 
 .. code-block:: bash
 
