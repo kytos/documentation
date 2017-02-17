@@ -103,7 +103,7 @@ settings.py
 In order to adjust the polling frequency, let's define a variable in
 `settings.py`. For instance, `STATS_INTERVAL` will store a number, in
 seconds, that we will use to determine our polling interval. In this
-example, our NApp will get the controller uptime every fifteen seconds.
+example, our NApp will get the controller uptime every five seconds.
 
 .. code-block:: python
 

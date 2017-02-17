@@ -219,14 +219,14 @@ And your ``main.py`` file will look like:
     from datetime import datetime
 
     from kyco.core.events import KycoEvent
-    from kyco.core.napps import KycoCoreNApp
+    from kyco.core.napps import KycoNApp
 
     from napps.tutorial.ping import settings
 
     log = settings.log
 
 
-    class Main(KycoCoreNApp):
+    class Main(KycoNApp):
 
             def setup(self):
                 self.execute_as_loop(settings.PING_INTERVAL)
@@ -312,7 +312,7 @@ First, define your new ``pong`` method inside the ``Main`` class:
 
     def pong(self, event):
         message = 'Hi, here is the Pong NApp answering a ping.'
-        message += 'The current time is {}, and the ping was dispatched'
+        message += 'The current time is {}, and the ping was dispatched '
         message += 'at {}.'
         log.info(message.format(datetime.now(), event.content['message']))
 
@@ -324,7 +324,7 @@ respond to ``tutorial/ping.periodic_ping`` events.
     @listen_to('tutorial/ping.periodic_ping')
     def pong(self, event):
         message = 'Hi, here is the Pong NApp answering a ping.'
-        message += 'The current time is {}, and the ping was dispatched'
+        message += 'The current time is {}, and the ping was dispatched '
         message += 'at {}.'
         log.info(message.format(datetime.now(), event.content['message']))
 
@@ -339,7 +339,7 @@ So, the ``main.py`` file of the ``pong`` napp will be:
     from datetime import datetime
 
     from kyco.core.events import KycoEvent
-    from kyco.core.napps import KycoCoreNApp
+    from kyco.core.napps import KycoNApp
     from kyco.utils import listen_to
 
     from napps.tutorial.pong import settings
@@ -347,7 +347,7 @@ So, the ``main.py`` file of the ``pong`` napp will be:
     log = settings.log
 
 
-    class Main(KycoCoreNApp):
+    class Main(KycoNApp):
 
         def setup(self):
             pass
@@ -358,7 +358,7 @@ So, the ``main.py`` file of the ``pong`` napp will be:
         @listen_to('tutorial/ping.periodic_ping')
         def pong(self, event):
             message = 'Hi, here is the Pong NApp answering a ping.'
-            message += 'The current time is {}, and the ping was dispatched'
+            message += 'The current time is {}, and the ping was dispatched '
             message += 'at {}.'
             log.info(message.format(datetime.now(),
                                     event.content['message']))
