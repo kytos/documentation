@@ -195,7 +195,7 @@ detailed below:
 .. ATTENTION::
   In Python, you must be careful about indentation. The ``log.info(...)`` lines
   should start in the same column of ``pass`` (4 spaces after the beginning of
-  ``def ...(self)``).
+  ``def ...(self)``). Do not use tab to indent.
 
 The ``setup`` method is automatically called by the controller when our
 application is loaded.
