@@ -142,7 +142,7 @@ The output should be something like this:
   Please, insert your NApp name: helloworld
   Please, insert a brief description for your NApp [optional]: Hello, world!
 
-  Congratulations! Your NApp have been bootsrapped!
+  Congratulations! Your NApp have been bootstrapped!
   Now you can go to the directory tutorial/helloworld and begin to code your NApp.
   Have fun!
 
