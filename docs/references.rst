@@ -6,7 +6,7 @@
   index
   architecture
   installing
-  get_involved
+  contributing
   getting_help
   authors
   license
