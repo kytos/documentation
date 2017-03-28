@@ -168,8 +168,6 @@ During this tutorial, the only file that we need to worry about is the
   from kyco.core.napps import KycoNApp
   from napps.tutorial.helloworld import settings
 
-  log = settings.log
-
 
   class Main(KycoNApp):
 
@@ -189,11 +187,11 @@ This class has 3 basic methods: ``setup``, ``execute`` and ``shutdown``.
   method, let the ``pass`` statement as its only content.
 
 For this dummy NApp, let's just print some log messages. To do so, edit the file
-and replace ``pass`` (meaning "do nothing") by the ``log.info(...)`` as
+and replace ``pass`` (meaning "do nothing") by the ``self.log.info(...)`` as
 detailed below:
 
 .. ATTENTION::
-  In Python, you must be careful about indentation. The ``log.info(...)`` lines
+  In Python, you must be careful about indentation. The ``self.log.info(...)`` lines
   should start in the same column of ``pass`` (4 spaces after the beginning of
   ``def ...(self)``). Do not use tab to indent.
 
@@ -207,7 +205,8 @@ application is loaded.
 .. code-block:: python
 
       def setup(self):
-          log.info("Hello world! Now, I'm loaded!")
+          self.log.info("Hello world! Now, I'm loaded!")
+
 
 Right after the setup, there is the ``execute`` method that we are going to
 cover it deeper on part 2 of this tutorial.
@@ -215,7 +214,7 @@ cover it deeper on part 2 of this tutorial.
 .. code-block:: python
 
       def execute(self):
-          log.info("Hello world! I'm being executed!")
+          self.log.info("Hello world! I'm being executed!")
 
 
 Finally we have the ``shutdown`` method. This method is executed when the NApp
@@ -224,7 +223,7 @@ is unloaded.
 .. code-block:: python
 
       def shutdown(self):
-          log.info("Bye world!")
+          self.log.info("Bye world!")
 
 
 
@@ -236,19 +235,17 @@ this (simplified, without comments):
   from kyco.core.napps import KycoNApp
   from napps.tutorial.helloworld import settings
 
-  log = settings.log
-
 
   class Main(KycoNApp):
 
       def setup(self):
-          log.info("Hello world! Now, I'm loaded!")
+          self.log.info("Hello world! Now, I'm loaded!")
 
       def execute(self):
-          log.info("Hello world! I'm being executed!")
+          self.log.info("Hello world! I'm being executed!")
 
       def shutdown(self):
-          log.info("Bye world!")
+          self.log.info("Bye world!")
 
 *****************
 Running your NApp

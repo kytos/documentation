@@ -107,11 +107,6 @@ example, our NApp will get the controller uptime every five seconds.
 
 .. code-block:: python
 
-    import logging
-
-    # Log Registry Type
-    log = logging.getLogger(__name__)
-
     # Polling frequency
     STATS_INTERVAL = 5
 
@@ -128,7 +123,7 @@ line to tell the controller that this NApp will run repeatedly.
 .. code-block:: python
 
    def setup(self):
-       log.info("Loop NApp Loaded!")
+       self.log.info("Loop NApp Loaded!")
        self.execute_as_loop(settings.STATS_INTERVAL)
 
 
@@ -148,7 +143,7 @@ this case, we gather the controller's uptime and print it in the logs.
 
    def execute(self):
        uptime = self.controller.uptime()
-       log.info("Controller Uptime: %s", uptime)
+       self.log.info("Controller Uptime: %s", uptime)
 
 
 Running Periodically
@@ -161,20 +156,19 @@ The entire NApp's source code of the looping NApp follows:
     from kyco.core.napps import KycoNApp
     from napps.tutorial.loopnapp import settings
 
-    log = settings.log
 
     class Main(KycoNApp):
 
         def setup(self):
-            log.info("Loop NApp Loaded!")
+            self.log.info("Loop NApp Loaded!")
             self.execute_as_loop(settings.STATS_INTERVAL)
 
         def execute(self):
             uptime = self.controller.uptime()
-            log.info("Controller Uptime: %s", uptime)
+            self.log.info("Controller Uptime: %s", uptime)
 
         def shutdown(self):
-            log.info("Loop NApp Unloaded!")
+            self.log.info("Loop NApp Unloaded!")
 
 *****************
 Running your NApp
