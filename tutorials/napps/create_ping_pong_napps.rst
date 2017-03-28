@@ -132,11 +132,6 @@ it and see the difference.
 
 .. code-block:: python
 
-    import logging
-
-    # Log Registry Type
-    log = logging.getLogger(__name__)
-
     # interval to send a new ping event (in seconds)
     PING_INTERVAL = 5
 
@@ -206,7 +201,7 @@ Summing up, the ``execute()`` method will be:
         ping_event = KycoEvent(name='tutorial/ping.periodic_ping',
                                content={'message': datetime.now()})
         self.controller.buffers.app.put(ping_event)
-        log.info('%s Ping sent.', ping_event.content['message'])
+        self.log.info('%s Ping sent.', ping_event.content['message'])
 
 In the last line, log a message to inform that a ping has been sent and its
 timestamp.
@@ -223,8 +218,6 @@ And your ``main.py`` file will look like:
 
     from napps.tutorial.ping import settings
 
-    log = settings.log
-
 
     class Main(KycoNApp):
 
@@ -235,10 +228,11 @@ And your ``main.py`` file will look like:
                 ping_event = KycoEvent(name='tutorial/ping.periodic_ping',
                                        content={'message': datetime.now()})
                 self.controller.buffers.app.put(ping_event)
-                log.info('%s Ping sent.', ping_event.content['message'])
+                self.log.info('%s Ping sent.', ping_event.content['message'])
 
             def shutdown(self):
                pass
+
 
 *****************
 The **Pong** NApp
@@ -314,7 +308,7 @@ First, define your new ``pong`` method inside the ``Main`` class:
         message = 'Hi, here is the Pong NApp answering a ping.'
         message += 'The current time is {}, and the ping was dispatched '
         message += 'at {}.'
-        log.info(message.format(datetime.now(), event.content['message']))
+        self.log.info(message.format(datetime.now(), event.content['message']))
 
 Now, you must use the ``listen_to`` decorator do define the method that will
 respond to ``tutorial/ping.periodic_ping`` events.
@@ -326,7 +320,7 @@ respond to ``tutorial/ping.periodic_ping`` events.
         message = 'Hi, here is the Pong NApp answering a ping.'
         message += 'The current time is {}, and the ping was dispatched '
         message += 'at {}.'
-        log.info(message.format(datetime.now(), event.content['message']))
+        self.log.info(message.format(datetime.now(), event.content['message']))
 
 This decorator ensures that the controller is aware that the method must be
 called whenever the given event happens.
@@ -344,8 +338,6 @@ So, the ``main.py`` file of the ``pong`` napp will be:
 
     from napps.tutorial.pong import settings
 
-    log = settings.log
-
 
     class Main(KycoNApp):
 
@@ -360,8 +352,8 @@ So, the ``main.py`` file of the ``pong`` napp will be:
             message = 'Hi, here is the Pong NApp answering a ping.'
             message += 'The current time is {}, and the ping was dispatched '
             message += 'at {}.'
-            log.info(message.format(datetime.now(),
-                                    event.content['message']))
+            self.log.info(message.format(datetime.now(),
+                                         event.content['message']))
 
         def shutdown(self):
             pass
