@@ -333,8 +333,8 @@ So, the ``main.py`` file of the ``pong`` napp will be:
     """App for answering ping events."""
     from datetime import datetime
 
-    from kytos.core.events import KycoEvent
-    from kytos.core.napps import KycoNApp
+    from kytos.core.events import KytosEvent
+    from kytos.core.napps import KytosNApp
     from kytos.core.helpers import listen_to
 
     from napps.tutorial.pong import settings

@@ -153,7 +153,7 @@ The entire NApp's source code of the looping NApp follows:
 
 .. code-block:: python
 
-    from kytos.core.napps import KycoNApp
+    from kytos.core.napps import KytosNApp
     from napps.tutorial.loopnapp import settings
 
 

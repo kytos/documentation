@@ -236,7 +236,7 @@ this (simplified, without comments):
   from napps.tutorial.helloworld import settings
 
 
-  class Main(KycoNApp):
+  class Main(KytosNApp):
 
       def setup(self):
           self.log.info("Hello world! Now, I'm loaded!")
@@ -322,7 +322,7 @@ point, only our |nn| NApp will be loaded. The Kytos controller runs by default a
 
   $ kytosd -f
   2017-03-28 16:48:34,624 - INFO [kytos.core.core] (MainThread) Starting Kytos - Kytos Controller
-  2017-03-28 16:48:34,628 - INFO [kyco.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6633
+  2017-03-28 16:48:34,628 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6633
   2017-03-28 16:48:34,629 - INFO [kytos.core.core] (RawEvent Handler) Raw Event Handler started
   2017-03-28 16:48:34,630 - INFO [kytos.core.core] (MsgInEvent Handler) Message In Event Handler started
   2017-03-28 16:48:34,630 - INFO [kytos.core.core] (MsgOutEvent Handler) Message Out Event Handler started

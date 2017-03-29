@@ -1,7 +1,7 @@
 :tocdepth: 2
 :orphan:
 
-.. _tutorial-how-to-use-kyco-with-mininet:
+.. _tutorial-how-to-use-kytos-with-mininet:
 
 #############################
 How to use Kytos with Mininet
