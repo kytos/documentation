@@ -12,7 +12,7 @@ Overview
 ********
 
 This tutorial covers the basics on how to create a Network Application (NApp)
-with an execution loop for *Kytos Controller* (|kyco|_).
+with an execution loop for *Kytos Controller* (|kytos|_).
 
 The average time to go throught it is: ``10 min``
 
@@ -101,14 +101,14 @@ settings.py
 ===========
 
 In order to adjust the polling frequency, let's define a variable in
-`settings.py`. For instance, `STATS_INTERVAL` will store a number, in
+`settings.py`. For instance, `UPTIME_INTERVAL` will store a number, in
 seconds, that we will use to determine our polling interval. In this
-example, our NApp will get the controller uptime every five seconds.
+example, our NApp will get the controller uptime every fifteen seconds.
 
 .. code-block:: python
 
     # Polling frequency
-    STATS_INTERVAL = 5
+    UPTIME_INTERVAL = 15
 
 
 main.py
@@ -124,10 +124,10 @@ line to tell the controller that this NApp will run repeatedly.
 
    def setup(self):
        self.log.info("Loop NApp Loaded!")
-       self.execute_as_loop(settings.STATS_INTERVAL)
+       self.execute_as_loop(settings.UPTIME_INTERVAL)
 
 
-The method execute_as_loop() is a Kytos NApp built-in method that instructs
+The method execute_as_loop(x) is a Kytos NApp built-in method that instructs
 the controller to execute the method `execute` every *x* seconds.
 
 If you don't call `execute_as_loop`, the `execute` method will be executed
@@ -136,7 +136,7 @@ only once, right after the `setup` method is finished.
 Execute
 ^^^^^^^
 
-In the `execute` method, we code what will be execute every fifteen seconds. In
+In the `execute` method we code what will be executed every fifteen seconds. In
 this case, we gather the controller's uptime and print it in the logs.
 
 .. code-block:: python
@@ -153,15 +153,15 @@ The entire NApp's source code of the looping NApp follows:
 
 .. code-block:: python
 
-    from kyco.core.napps import KycoNApp
+    from kytos.core.napps import KycoNApp
     from napps.tutorial.loopnapp import settings
 
 
-    class Main(KycoNApp):
+    class Main(KytosNApp):
 
         def setup(self):
             self.log.info("Loop NApp Loaded!")
-            self.execute_as_loop(settings.STATS_INTERVAL)
+            self.execute_as_loop(settings.UPTIME_INTERVAL)
 
         def execute(self):
             uptime = self.controller.uptime()
@@ -188,11 +188,11 @@ to use the ``kytos`` command line from the ``kytos-utils`` package.
   INFO    Enabled.
 
 .. NOTE:: This will try to get this napp from your current directory, then
-   install it into your system. This napp it will also be enable.
+   install it into your system. The NApp will also be enabled.
 
-Now, your Napp is ready to be executed.
+Now, your NApp is ready to be executed.
 
-You can also see if your Napp is installed and enabled, by running the command:
+You can also see if your NApp is installed and enabled, by running the command:
 
 .. code-block:: bash
 
@@ -227,51 +227,51 @@ Testing your NApp
 =================
 
 Let's start our controller and check the log messages. After seeing several
-lines with ``Controller Uptime``, press ``ctrl+c`` to stop the controller.
+lines with ``Controller Uptime``, press ``CTRL+C`` to stop the controller.
 
 .. code-block:: bash
-
-  $ kyco
-  2017-02-16 02:21:41,530 - INFO [kyco.controller] (MainThread) Starting Kyco - Kytos Controller
-  2017-02-16 02:21:41,536 - INFO [kyco.core.tcp_server] (TCP server) Kyco listening at 0.0.0.0:6633
-  2017-02-16 02:21:41,540 - INFO [kyco.controller] (RawEvent Handler) Raw Event Handler started
-  2017-02-16 02:21:41,545 - INFO [kyco.controller] (MsgInEvent Handler) Message In Event Handler started
-  2017-02-16 02:21:41,546 - INFO [kyco.controller] (MsgOutEvent Handler) Message Out Event Handler started
-  2017-02-16 02:21:41,547 - INFO [kyco.controller] (AppEvent Handler) App Event Handler started
-  2017-02-16 02:21:41,547 - INFO [kyco.controller] (MainThread) Loading kyco apps...
-  2017-02-16 02:21:41,555 - INFO [kyco.core.napps] (Thread-3) Running Thread-3 App
-  2017-02-16 02:21:41,556 - INFO [kyco.controller] (MainThread) Loading NApp tutorial/loopnapp
-  2017-02-16 02:21:41,556 - INFO [werkzeug] (Thread-2)  * Running on http://0.0.0.0:8181/ (Press CTRL+C to quit)
-  2017-02-16 02:21:41,559 - INFO [kyco.core.napps] (Thread-4) Running Thread-4 App
-  2017-02-16 02:21:41,563 - INFO [napps.tutorial.loopnapp.settings] (Thread-4) NApp Loop Loaded!
-  2017-02-16 02:21:41,563 - INFO [napps.tutorial.loopnapp.settings] (Thread-4) Controller Uptime: -1 day, 23:59:59.996963
-  2017-02-16 02:21:56,564 - INFO [napps.tutorial.loopnapp.settings] (Thread-4) Controller Uptime: -1 day, 23:59:44.996224
-  2017-02-16 02:22:11,565 - INFO [napps.tutorial.loopnapp.settings] (Thread-4) Controller Uptime: -1 day, 23:59:29.995061
+  
+  $ kytosd -f
+  2017-03-28 16:45:44,915 - INFO [kytos.core.core] (MainThread) Starting Kytos - Kytos Controller
+  2017-03-28 16:45:44,916 - WARNING [werkzeug] (Thread-1) WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+  2017-03-28 16:45:44,918 - INFO [kytos.core.core] (RawEvent Handler) Raw Event Handler started
+  2017-03-28 16:45:44,919 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6633
+  2017-03-28 16:45:44,919 - INFO [kytos.core.core] (MsgInEvent Handler) Message In Event Handler started
+  2017-03-28 16:45:44,921 - INFO [kytos.core.core] (MsgOutEvent Handler) Message Out Event Handler started
+  2017-03-28 16:45:44,922 - INFO [kytos.core.core] (AppEvent Handler) App Event Handler started
+  2017-03-28 16:45:44,924 - INFO [kytos.core.core] (MainThread) Loading kytos apps...
+  2017-03-28 16:45:44,931 - INFO [kytos.core.core] (MainThread) Loading NApp tutorial/loopnapp
+  2017-03-28 16:45:44,932 - INFO [werkzeug] (Thread-1)  * Running on http://0.0.0.0:8181/ (Press CTRL+C to quit)
+  2017-03-28 16:45:44,939 - INFO [tutorial/loopnapp] (loopnapp) Running loopnapp App
+  2017-03-28 16:45:44,940 - INFO [tutorial/loopnapp] (loopnapp) LOAD
+  2017-03-28 16:45:44,940 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0
+  2017-03-28 16:45:59,941 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:00:15.000223
+  2017-03-28 16:46:14,942 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:00:30.000983
+  2017-03-28 16:46:29,943 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:00:45.001796
+  2017-03-28 16:46:44,945 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:01:00.004127
+  2017-03-28 16:46:59,946 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:01:15.004946
+  2017-03-28 16:47:14,947 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:01:30.005880
   ^CStopping controller...
-  2017-02-16 02:22:14,614 - INFO [kyco.controller] (MainThread) Stopping Kyco
-  2017-02-16 02:22:15,110 - INFO [kyco.core.buffers] (MainThread) Stop signal received by Kyco buffers.
-  2017-02-16 02:22:15,110 - INFO [kyco.core.buffers] (MainThread) Sending KycoShutdownEvent to all apps.
-  2017-02-16 02:22:15,111 - INFO [kyco.core.buffers] (MainThread) [buffer: raw_event] Stop mode enabled. Rejecting new events.
-  2017-02-16 02:22:15,114 - INFO [kyco.core.buffers] (MainThread) [buffer: msg_in_event] Stop mode enabled. Rejecting new events.
-  2017-02-16 02:22:15,117 - INFO [napps.tutorial.loopnapp.settings] (Thread-7) NApp Loop Unloaded!
-  2017-02-16 02:22:15,117 - INFO [napps.tutorial.loopnapp.settings] (Thread-4) Controller Uptime: -1 day, 23:59:26.442766
-  2017-02-16 02:22:15,118 - INFO [kyco.core.buffers] (MainThread) [buffer: msg_out_event] Stop mode enabled. Rejecting new events.
-  2017-02-16 02:22:15,123 - INFO [kyco.core.buffers] (MainThread) [buffer: app_event] Stop mode enabled. Rejecting new events.
-  2017-02-16 02:22:15,121 - INFO [napps.tutorial.loopnapp.settings] (Thread-8) NApp Loop Unloaded!
-  2017-02-16 02:22:15,129 - INFO [werkzeug] (Thread-10) 127.0.0.1 - - [16/Feb/2017 02:22:15] "GET /kytos/shutdown HTTP/1.1" 200 -
-  2017-02-16 02:22:15,130 - INFO [napps.tutorial.loopnapp.settings] (Thread-11) NApp Loop Unloaded!
-  2017-02-16 02:22:15,134 - INFO [kyco.controller] (MainThread) Stopping thread: Thread-2
-  2017-02-16 02:22:15,629 - INFO [kyco.controller] (MainThread) Stopping thread: TCP server
-  2017-02-16 02:22:15,630 - INFO [kyco.controller] (MainThread) Stopping thread: RawEvent Handler
-  2017-02-16 02:22:15,630 - INFO [kyco.controller] (MainThread) Stopping thread: MsgInEvent Handler
-  2017-02-16 02:22:15,630 - INFO [kyco.controller] (MainThread) Stopping thread: MsgOutEvent Handler
-  2017-02-16 02:22:15,630 - INFO [kyco.controller] (MainThread) Stopping thread: AppEvent Handler
-  2017-02-16 02:22:15,631 - INFO [napps.tutorial.loopnapp.settings] (MainThread) NApp Loop Unloaded!
+  2017-03-28 16:47:23,171 - INFO [kytos.core.core] (MainThread) Stopping Kytos
+  2017-03-28 16:47:23,568 - INFO [kytos.core.buffers] (MainThread) Stop signal received by Kytos buffers.
+  2017-03-28 16:47:23,568 - INFO [kytos.core.buffers] (MainThread) Sending KytosShutdownEvent to all apps.
+  2017-03-28 16:47:23,569 - INFO [kytos.core.buffers] (MainThread) [buffer: raw_event] Stop mode enabled. Rejecting new events.
+  2017-03-28 16:47:23,569 - INFO [kytos.core.buffers] (MainThread) [buffer: msg_in_event] Stop mode enabled. Rejecting new events.
+  2017-03-28 16:47:23,569 - INFO [kytos.core.buffers] (MainThread) [buffer: msg_out_event] Stop mode enabled. Rejecting new events.
+  2017-03-28 16:47:23,569 - INFO [kytos.core.buffers] (MainThread) [buffer: app_event] Stop mode enabled. Rejecting new events.
+  2017-03-28 16:47:23,579 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:01:38.638497
+  2017-03-28 16:47:23,585 - INFO [werkzeug] (Thread-6) 127.0.0.1 - - [28/Mar/2017 16:47:23] "GET /kytos/shutdown HTTP/1.1" 200 -
+  2017-03-28 16:47:23,587 - INFO [kytos.core.core] (MainThread) Stopping thread: Thread-1
+  2017-03-28 16:47:24,083 - INFO [kytos.core.core] (MainThread) Stopping thread: TCP server
+  2017-03-28 16:47:24,084 - INFO [kytos.core.core] (MainThread) Stopping thread: RawEvent Handler
+  2017-03-28 16:47:24,084 - INFO [kytos.core.core] (MainThread) Stopping thread: MsgInEvent Handler
+  2017-03-28 16:47:24,084 - INFO [kytos.core.core] (MainThread) Stopping thread: MsgOutEvent Handler
+  2017-03-28 16:47:24,085 - INFO [kytos.core.core] (MainThread) Stopping thread: AppEvent Handler
 
-As you can see, the uptime was reported several times, at 02:21:41, 02:21:56 and
-02:22:11 with an interval of 15 seconds, as expected.
+As you can see, the uptime was reported several times, at 16:45:44, 16:45:59 and
+16:46:14 with an interval of 15 seconds, as expected.
 
-That's it! With only one line added in the `setup` method, your code will be
+That's it! With only one line added to the `setup` method, your code will be
 running periodically. If you want to change the interval later, modify only the
 `settings.py` file and the new value will be used next time the NApp is loaded.
 
@@ -280,8 +280,8 @@ running periodically. If you want to change the interval later, modify only the
 .. |Tutorial_01| replace:: *Tutorial 01*
 .. _Tutorial_01: http://tutorials.kytos.io/napps/create_your_napp/
 
-.. |kyco| replace:: *Kyco*
-.. _kyco: http://docs.kytos.io/kyco
+.. |kytos| replace:: *Kytos*
+.. _kytos: http://docs.kytos.io/kytos
 
 .. |dev_env| replace:: *Development Environment*
 .. _dev_env: http://tutorials.kytos.io/napps/development_environment_setup/

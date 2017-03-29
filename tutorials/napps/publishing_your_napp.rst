@@ -13,7 +13,7 @@ Overview
 
 On this tutorial you will learn how to publish your NApp on the |napps_server|_
 repository in order to share you NApp with the Kytos Community and also make
-easier for you to install it on your **Kyco** instance.
+easier for you to install it on your **Kytos** instance.
 
 The average time to go throught it is: ``5 min``
 
@@ -91,11 +91,11 @@ We are going to start with the **kytos.json** file.
 kytos.json
 ==========
 
-The **kytos.json** contains the fields *author*, *name* (napp name),
-*description*, *long_description*, *version*, *napp_dependencies*, *license*,
+The **kytos.json** file contains the fields *author*, *name* (NApp name),
+*description*, *version*, *napp_dependencies*, *license*,
 *url* and *tags*. Some of these fields are mandatory, such as **author**,
 **name** and **license**, while other aren't, despite them being as important
-as those mandatory. They also accept different values.
+as the mandatory ones. They also accept different values.
 
 - **author**: String with the username of the NApp author. While uploading your
   NApp this field must match your username on the napps server.
@@ -104,8 +104,6 @@ as those mandatory. They also accept different values.
 
 - **description**: String with a small description of the NApp. One or two
   sentences.
-
-- **long_description**: String with a more complete description of the NApp.
 
 - **version**: String with the version of your NApp. We suggest you to use the
   `Semantic Versioning <http://semver.org/>`_.
@@ -129,7 +127,6 @@ So, here is the **kytos.json** that we have initially generated.
     "author": "<username>",
     "name": "my_first_napp",
     "description": "This is my first NApp, I have built it while doing a Kytos Tutorial.",
-    "long_description": "",
     "version": "",
     "napp_dependencies": [],
     "license": "",
@@ -137,7 +134,7 @@ So, here is the **kytos.json** that we have initially generated.
     "url": ""
   }
 
-And here are an example of how can we complete this file:
+And here are an example of how we can complete this file:
 
 .. code-block:: json
 
@@ -145,7 +142,6 @@ And here are an example of how can we complete this file:
     "author": "<username>",
     "name": "my_first_napp",
     "description": "This is my first NApp, I have built it while doing a Kytos Tutorial.",
-    "long_description": "This is my first NApp. I've built it as an example NApp to upload to NApps Server. I think I have reached my goal here =). But keep in mind that this NApp does nothing when loaded!",
     "version": "0.0.1",
     "napp_dependencies": [],
     "license": "MIT",
@@ -175,7 +171,7 @@ hold any non-NApp requirement of your NApp.
 
     Requirements
     ============
-    For now this NApp does not have any external requirement beyond *Kyco*
+    For now this NApp does not have any external requirement beyond *Kytos*
     itself.
 
 ******************
@@ -210,9 +206,9 @@ the command line with the following command:
 
   Status: (i)nstalled, (e)nabled
 
-********************************
-Install and Search a remote NApp
-********************************
+************************************
+Search for and Install a remote NApp
+************************************
 
 Now that you have published you NApp, you can install it by using the command
 ``kytos napps install <username>/my_first_napp``.

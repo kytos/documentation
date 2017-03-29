@@ -13,23 +13,23 @@ Overview
 
 In this tutorial you will learn how to use the |mininet|_ tool to simulate a
 virtual network using the Openflow protocol and manage this virtual network
-with **Kyco** and some of our Kytos NApps.
+with **Kytos** and some of our Kytos NApps.
 
 The average time to go throught it is: ``10 min``
 
 What you will need
 ===================
 
-* Your |dev_env|_ already setup
+* Your |dev_env|_ already up and running
 
 What you will learn
 ===================
 
-* How to manage the Kytos Napps
-* About the Napps used in this tutorial
-* How to build a simple topology on mininet
-* Understanding Kyco's logs
-* Verify if ping is working
+* How to manage the Kytos NApps
+* What NApps used in this tutorial can do
+* How to build a simple topology with mininet
+* Understanding Kytos logs
+* Verify network functionality with ping
 
 ************
 Introduction
@@ -38,10 +38,10 @@ Introduction
 Now that you have your own development environment you can build a simple
 virtual network using the |mininet|_ tool. In this tutorial you will build a
 simple topology, composed by two switches and two hosts connected one to each
-switch. This virtual network should be handled by the controller **Kyco** and
+switch. This virtual network should be handled by the controller **Kytos** and
 will use the openflow protocol.
 
-In this tutorial the Napps ``of_core``, ``of_l2ls`` and ``of_lldp`` must be
+In this tutorial the NApps ``of_core``, ``of_l2ls`` and ``of_lldp`` must be
 installed and enabled in order to make the network work as expected.
 
 *****************************
@@ -50,10 +50,10 @@ How to manage the Kytos NApps
 
 To run the NApps used in this tutorial, you need to have them installed on your
 system. You probably already have them, but, in case you don't, you can install
-them with the kytos-utils package by doinbg:
+them with the kytos-utils package by doing:
 
 .. NOTE:: Do not forget to enable your virtualenv, where you installed the
-    kytos projects.
+    Kytos project components.
 
 .. code-block:: bash
 
@@ -76,10 +76,10 @@ with the command:
   $ kytos napps enable kytos/of_core kytos/of_l2ls kytos/of_lldp
 
 *******************************************************
-Brief description about the Napps used in this tutorial
+Brief description about the NApps used in this tutorial
 *******************************************************
 
-As said earlier, we will use the napps **of_core**, **of_l2ls** and **of_lldp**
+As said earlier, we will use the NApps **of_core**, **of_l2ls** and **of_lldp**
 provided by the Kytos team. In this section you will learn a little about each
 one.
 
@@ -87,16 +87,16 @@ of_core
 =======
 
 The **of_core** application is responsible for doing basic OpenFlow operations,
-such as handling hello and echo request/reply messages as much as receiving and
-unpacking openflow message from network.
+such as handling hello and echo request/reply messages and also receiving and
+unpacking openflow messages from the network.
 
 of_l2ls
 =======
 
 The **of_l2ls** application is used to allow basic operations of switches. It
 implements the algorithm known as *L2 Learning Switch*, which aims to figure
-out which host is attached to which port. So, if you enable this app you will
-be able to ping machines.
+out which host is attached to which port. So, if you enable this NApp you will
+be able to ping from a host to another.
 
 of_lldp
 =======
@@ -167,16 +167,16 @@ can use the command below. ::
 
   mininet>
 
-Since **Kyco** is still not running, your network will not be functional. So,
-let's start **Kyco**. As you wan't to run both **Kyco** and Mininet at the same
+Since **Kytos** is not running, your network will not be functional. So,
+let's start **Kytos**. As you wan't to run both **Kytos** and Mininet at the same
 time, open a new terminal window, enable your virtual environment, and run
-your **Kyco**:
+the controller:
 
 .. code:: shell
 
   $ cd ~/
   $ source test42/bin/activate
-  $ kyco
+  $ kytosd -f
 
 Going back to your other terminal with mininet, now you can test the ping: ::
 
@@ -188,45 +188,45 @@ Going back to your other terminal with mininet, now you can test the ping: ::
   64 bytes from 10.0.0.2: icmp_seq=4 ttl=64 time=0.140 ms
 
 *************************
-Understanding Kyco's logs
+Understanding Kytos logs
 *************************
 
-Now that you have learned how to start Mininet and all NApps needed to this
-tutorial was installed and enabled you must start Kyco service running the
-command below.
+Let's take a look at the terminal:
 
 .. code-block:: bash
 
-  $ kyco
-  2017-02-10 18:35:03,833 - INFO [kyco.controller] (MainThread) Starting Kyco - Kytos Controller
-  2017-02-10 18:35:03,835 - INFO [kyco.core.tcp_server] (TCP server) Kyco listening at 0.0.0.0:6633
-  2017-02-10 18:35:03,836 - INFO [kyco.controller] (RawEvent Handler) Raw Event Handler started
-  2017-02-10 18:35:03,837 - INFO [kyco.controller] (MsgInEvent Handler) Message In Event Handler started
-  2017-02-10 18:35:03,837 - INFO [kyco.controller] (MsgOutEvent Handler) Message Out Event Handler started
-  2017-02-10 18:35:03,837 - INFO [kyco.controller] (AppEvent Handler) App Event Handler started
-  2017-02-10 18:35:03,838 - INFO [kyco.controller] (MainThread) Loading kyco apps...
-  2017-02-10 18:35:03,838 - INFO [kyco.controller] (MainThread) Loading NApp kytos/of_core
-  2017-02-10 18:35:03,862 - INFO [werkzeug] (Thread-2)  * Running on http://0.0.0.0:8181/ (Press CTRL+C to quit)
-  2017-02-10 18:35:03,892 - INFO [kyco.core.napps] (Thread-3) Running Thread-3 App
-  2017-02-10 18:35:03,892 - INFO [kyco.controller] (MainThread) Loading NApp kytos/of_l2ls
-  2017-02-10 18:35:03,895 - INFO [kyco.core.napps] (Thread-4) Running Thread-4 App
-  2017-02-10 18:35:04,640 - INFO [kyco.core.tcp_server] (Thread-5) New connection from 192.168.56.101:48857
-  2017-02-10 18:35:04,641 - INFO [kyco.controller] (RawEvent Handler) Handling KycoEvent:kytos/core.connection.new ...
-  2017-02-10 18:35:04,641 - INFO [kyco.core.tcp_server] (Thread-6) New connection from 192.168.56.101:48858
-  2017-02-10 18:35:04,648 - INFO [kyco.controller] (RawEvent Handler) Handling KycoEvent:kytos/core.connection.new ...
+  $ kytosd -f
+  2017-03-29 09:07:45,852 - INFO [kytos.core.core] (MainThread) Starting Kytos - Kytos Controller
+  2017-03-29 09:07:45,856 - INFO [kytos.core.core] (RawEvent Handler) Raw Event Handler started
+  2017-03-29 09:07:45,857 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6633
+  2017-03-29 09:07:45,857 - INFO [kytos.core.core] (MsgInEvent Handler) Message In Event Handler started
+  2017-03-29 09:07:45,859 - INFO [kytos.core.core] (MsgOutEvent Handler) Message Out Event Handler started
+  2017-03-29 09:07:45,860 - INFO [kytos.core.core] (AppEvent Handler) App Event Handler started
+  2017-03-29 09:07:45,861 - INFO [kytos.core.core] (MainThread) Loading kytos apps...
+  2017-03-29 09:07:45,864 - INFO [kytos.core.core] (MainThread) Loading NApp kytos/of_core
+  2017-03-29 09:07:45,869 - INFO [werkzeug] (Thread-1)  * Running on http://0.0.0.0:8181/ (Press CTRL+C to quit)
+  2017-03-29 09:07:45,953 - INFO [kytos/of_core] (of_core) Running of_core App
+  2017-03-29 09:07:45,955 - INFO [kytos.core.core] (MainThread) Loading NApp kytos/of_l2ls
+  2017-03-29 09:07:45,999 - INFO [kytos/of_l2ls] (of_l2ls) Running of_l2ls App
+  2017-03-29 09:07:45,999 - INFO [kytos.core.core] (MainThread) Loading NApp kytos/of_lldp
+  2017-03-29 09:07:46,007 - INFO [kytos/of_lldp] (of_lldp) Running of_lldp App
+  2017-03-29 09:07:46,042 - INFO [kytos.core.tcp_server] (Thread-5) New connection from 127.0.0.1:57730
+  2017-03-29 09:07:46,044 - INFO [kytos.core.core] (RawEvent Handler) Handling KytosEvent:kytos/core.connection.new ...
+  2017-03-29 09:07:46,050 - INFO [kytos.core.tcp_server] (Thread-6) New connection from 127.0.0.1:57732
+  2017-03-29 09:07:46,051 - INFO [kytos.core.core] (RawEvent Handler) Handling KytosEvent:kytos/core.connection.new ...
 
-On Kyco's logs you can see the logs of all Napps enabled.
+On Kytos logs you can see the logs of all NApps enabled.
 
 In the above output, the last four lines shows that two new switches were
-connected on Kyco.
+connected to Kytos. Those are the switches running in mininet.
 
-When a NApp write a log message, Kyco shows it in this format: ::
+When a NApp write a log message, Kytos shows it in this format: ::
 
   <date_format> - <TYPE_OF_MESSAGE> [<NAPP_NAME>] <MESSAGE>
 
-All messages shown above were written by Kyco. (except the *wekzeug* line)
+You can see messages logged by Kytos (kytos.core.*) and by the running NApps.
 
-Nice work! =)
+Good job!
 
 .. include:: ../back_to_list.rst
 

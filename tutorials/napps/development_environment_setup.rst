@@ -15,7 +15,7 @@ Overview
 ********
 
 This tutorial shows how to setup your development environment in order to run
-the latest Kytos Ecosystem code (python-openflow, kyco, kytos NApps, ...) and
+the latest Kytos SDN Platform code (python-openflow, kytos, kytos NApps, ...) and
 contribute to it.
 
 .. DANGER:: Do not use this procedure in production environments.
@@ -38,14 +38,14 @@ Installing required dependencies
 ********************************
 
 In order to start using and coding with Kytos, you need a few required
-dependencies. One of them is Python 3.6 that needs an additional step for
-Ubuntu older than 16.10.
+dependencies. One of them is Python 3.6. Note that an additional step is
+needed for Ubuntu releases older than 16.10.
 
 Python3.6 in old Ubuntu releases
 ================================
 
 If are you using Ubuntu 16.04 or older, you must add a PPA to be able to
-install Python 3.6 packages. To add this PPA, use the command:
+install Python 3.6 packages. To add this PPA, use the commands:
 
 .. code-block:: bash
 
@@ -73,7 +73,7 @@ Project Y needs 4.x” dilemma, and keeps your global site-packages directory
 clean and manageable.
 
 In this tutorial, we will use the new built-in :mod:`venv` Python module,
-but if you are used to another tool to create isolated environments or install
+but if you wish to use another tool to create isolated environments or install
 libraries on your global system, feel free to do it your way.
 
 Creating a new virtualenv
@@ -94,13 +94,13 @@ This environment will use 3.6 as the default Python version.
   language.
 
 Removing a virtualenv
-=====================
+---------------------
 
 If you want to remove an existing virtualenv, just delete its folder
 (e.g. ``rm -rf test42``).
 
 Using the virtual environment
------------------------------
+=============================
 
 If you want to use an existing environment you can use the following command:
 
@@ -138,16 +138,16 @@ Cloning existing projects
 If you want to contribute with a Kytos project by coding, you must clone/fork
 its repository located at `GitHub group <https://github.com/kytos>`_. Below, we
 are going to clone all major repositories (python-openflow, kytos-utils
-kyco-core-napps and kyco) and use the development branch:
+kytos-napps and kytos):
 
 .. code-block:: bash
 
-  $ for project in python-openflow kytos-utils kyco-core-napps kyco; do
-      git clone --branch develop https://github.com/kytos/$project.git
+  $ for project in python-openflow kytos-utils kytos-napps kytos; do
+      git clone https://github.com/kytos/$project.git
     done
 
 After this command, a folder will be created for each project with the latest
-development source code.
+version of the source code.
 
 Installing Python dependencies
 ==============================
@@ -158,7 +158,7 @@ virtualenv. The list of packages are available in files named like
 
 .. code-block:: bash
 
-  $ for project in python-openflow kytos-utils kyco-core-napps kyco; do
+  $ for project in python-openflow kytos-utils kytos-napps kytos; do
       cd $project
       pip install -r requirements.txt -r requirements-dev.txt -r requirements-docs.txt || break
       python setup.py develop || break
@@ -228,8 +228,8 @@ To see more about Mininet, you can access the webpage `mininet.org
 
 .. include:: ../back_to_list.rst
 
-.. |kyco| replace:: *Kyco*
-.. _kyco: http://docs.kytos.io/kyco
+.. |kytos| replace:: *Kytos*
+.. _kytos: http://docs.kytos.io/kytos
 
 .. |venv| replace:: *Virtual Environments*
 .. _venv: https://en.wikipedia.org/wiki/Virtual_environment_software
