@@ -12,8 +12,8 @@ Overview
 ********
 
 In this tutorial, you will learn how to create NApps that use events
-(|KycoEvents|_). You will buid one NApp that generate periodic events (*Ping*)
-and another one that listens to a specific event and execute an action (*Pong*)
+(|KytosEvents|_). You will build a NApp that generates periodic events (*Ping*)
+and another one that listens to a specific event and executes an action (*Pong*)
 whenever the listened event occurs.
 
 The average time to go through this is: ``15 min``.
@@ -27,10 +27,10 @@ What you will need
 What you will learn
 ====================
 
-* How KycoEvents works;
+* How KytosEvents works;
 * Create a Ping NApp (generate events);
-* Create a Pong NApp (listens to events);
-* Running your Ping and Pong Napps.
+* Create a Pong NApp (listen to events);
+* Running your Ping and Pong NApps.
 
 
 ************
@@ -39,12 +39,12 @@ Introduction
 
 Now that you have learned `how to build a simple NApp
 </napps/create_your_napp/>`_ and `how to implement a loop behavior on your NApp
-</napps/create_looping_napp/>`_, you will understand how *Kyco* deals with
-Events (|KycoEvents|_) by creating two NApps that use these events for both
-sending and receiving them to/from the Controller (*Kyco*).
+</napps/create_looping_napp/>`_, you will understand how *Kytos* deals with
+Events (|KytosEvents|_) by creating two NApps that use those events,
+sending and receiving them to/from the Controller (*Kytos*).
 
 The communication between the NApps and the Controller is done through what we
-call Events (|KycoEvents|_). These events have specific naming rules, and we use
+call Events (|KytosEvents|_). Events have specific naming rules, and we use
 a |pydeco|_ (``listen_to``) in order to define a method as a listener of a
 specific event.
 
@@ -59,7 +59,7 @@ itself - a NApp can generate many different events.
 
 Back to the tutorial, the first NApp will be called **ping**, and it will send
 ping events periodically. While the second NApp will be called **pong**, and it
-will listen to the ping events and register a pong message in the Kyco logger.
+will listen to the ping events and register a pong message in the Kytos logger.
 
 *****************
 The **Ping** NApp
@@ -116,7 +116,7 @@ to insert a description right now (later, you can edit the *kytos.json* file).
   Now you can go to the directory tutorial/ping and begin to code your NApp.
   Have fun!
 
-Now that your NApp has been created, and you can enter in its directory by typing:
+Now your NApp has been created. You can enter its directory by typing:
 
 .. code:: bash
 
@@ -126,7 +126,7 @@ The next step is editing the ``settings.py`` and ``main.py`` files.
 
 settings.py
 ===========
-In order to define the ping frequency, add a constant ``PING_INTERVAL`` on the
+In order to define the ping frequency, add a constant ``PING_INTERVAL`` to the
 settings file. Start with a 5 seconds interval for now. Later on you can change
 it and see the difference.
 
@@ -157,7 +157,7 @@ Sending the ping
 As you want a periodical routine to be executed, you must define your code
 inside the the `execute()` method.
 
-The routine will consist on creating a new event, an instance of ``KycoEvent``
+The routine will consist on creating a new event, an instance of ``KytosEvent``
 class and, later on, putting this event into the controller buffer.
 
 As said in the introduction, the event name must start with a composition
@@ -176,16 +176,17 @@ So, the code to create your ping event will be:
 
 .. code-block:: python
 
-  ping_event = KycoEvent(name='tutorial/ping.periodic_ping',
+  ping_event = KytosEvent(name='tutorial/ping.periodic_ping',
                          content={'message': datetime.now()})
 
 .. NOTE:: As we are using ``datetime.now()``, we must import the datetime module
     in our ``main.py`` file. See the final version of this file in the end of
     this tutorial.
 
-After creating the event, now add it into the controller buffer.
+After creating the event, now add it into the controller buffer. The event will
+be exchanged between NApps, so we will put it in the ``app`` buffer:
 
-.. NOTE:: For now, every NApp, when loaded by the controller, receives a
+.. NOTE:: For now every NApp, when loaded by the controller, receives a
     reference to the controller itself, so we can access its buffers. On the
     future this access will be handled in another way.
 
@@ -198,7 +199,7 @@ Summing up, the ``execute()`` method will be:
 .. code-block:: python
 
     def execute(self):
-        ping_event = KycoEvent(name='tutorial/ping.periodic_ping',
+        ping_event = KytosEvent(name='tutorial/ping.periodic_ping',
                                content={'message': datetime.now()})
         self.controller.buffers.app.put(ping_event)
         self.log.info('%s Ping sent.', ping_event.content['message'])
@@ -213,19 +214,19 @@ And your ``main.py`` file will look like:
     """App responsible for send ping events."""
     from datetime import datetime
 
-    from kyco.core.events import KycoEvent
-    from kyco.core.napps import KycoNApp
+    from kytos.core.events import KytosEvent
+    from kytos.core.napps import KytosNApp
 
     from napps.tutorial.ping import settings
 
 
-    class Main(KycoNApp):
+    class Main(KytosNApp):
 
             def setup(self):
                 self.execute_as_loop(settings.PING_INTERVAL)
 
             def execute(self):
-                ping_event = KycoEvent(name='tutorial/ping.periodic_ping',
+                ping_event = KytosEvent(name='tutorial/ping.periodic_ping',
                                        content={'message': datetime.now()})
                 self.controller.buffers.app.put(ping_event)
                 self.log.info('%s Ping sent.', ping_event.content['message'])
@@ -282,7 +283,7 @@ And the NApp description
   Now you can go to the directory tutorial/pong and begin to code your NApp.
   Have fun!
 
-Now your NApp has been created, and you can enter on its directory by typing:
+Now your NApp has been created, and you can enter its directory by typing:
 
 .. code:: bash
 
@@ -329,17 +330,17 @@ So, the ``main.py`` file of the ``pong`` napp will be:
 
 .. code-block:: python
 
-    """App responsible for answering to ping events."""
+    """App for answering ping events."""
     from datetime import datetime
 
-    from kyco.core.events import KycoEvent
-    from kyco.core.napps import KycoNApp
-    from kyco.utils import listen_to
+    from kytos.core.events import KytosEvent
+    from kytos.core.napps import KytosNApp
+    from kytos.core.helpers import listen_to
 
     from napps.tutorial.pong import settings
 
 
-    class Main(KycoNApp):
+    class Main(KytosNApp):
 
         def setup(self):
             pass
@@ -378,7 +379,7 @@ To install and enable your NApps, run the commands below:
 
 Now, your Ping and Pong NApps are ready to be executed.
 
-You can also see if your NApp is installed and enabled, by running the command:
+You can also check if your NApps are installed and enabled, by running the command:
 
 .. code:: bash
 
@@ -397,24 +398,29 @@ Let's start our controller:
 
 .. code-block:: bash
 
-   $ kyco
-   2017-02-15 19:44:06,583 - INFO [kyco.controller] (MainThread) Starting Kyco - Kytos Controller
-   2017-02-15 19:44:06,586 - INFO [kyco.core.tcp_server] (TCP server) Kyco listening at 0.0.0.0:6633
-   2017-02-15 19:44:06,586 - INFO [kyco.controller] (RawEvent Handler) Raw Event Handler started
-   2017-02-15 19:44:06,587 - INFO [kyco.controller] (MsgInEvent Handler) Message In Event Handler started
-   2017-02-15 19:44:06,598 - INFO [kyco.controller] (MsgOutEvent Handler) Message Out Event Handler started
-   2017-02-15 19:44:06,598 - INFO [kyco.controller] (AppEvent Handler) App Event Handler started
-   2017-02-15 19:44:06,599 - INFO [kyco.controller] (MainThread) Loading kyco apps...
-   2017-02-15 19:44:06,602 - INFO [kyco.controller] (MainThread) Loading NApp kytos/of_core
-   2017-02-15 19:44:06,603 - INFO [werkzeug] (Thread-2)  * Running on http://0.0.0.0:8181/ (Press CTRL+C to quit)
-   2017-02-15 19:44:06,634 - INFO [kyco.core.napps] (Thread-3) Running Thread-3 App
-   2017-02-15 19:44:06,635 - INFO [kyco.controller] (MainThread) Loading NApp tutorial/ping
-   2017-02-15 19:44:06,638 - INFO [kyco.core.napps] (Thread-4) Running Thread-4 App
-   2017-02-15 19:44:06,638 - INFO [kyco.controller] (MainThread) Loading NApp tutorial/pong
-   2017-02-15 19:44:06,639 - INFO [napps.tutorial.ping.settings] (Thread-4) 2017-02-15 19:44:06.639154 Ping sent.
-   2017-02-15 19:44:06,642 - INFO [kyco.core.napps] (Thread-5) Running Thread-5 App
+   $ kytosd -f
+   2017-03-29 08:45:12,180 - INFO [kytos.core.controller] (MainThread) Starting Kytos - Kytos Controller
+   2017-03-29 08:45:12,183 - INFO [kytos.core.controller] (RawEvent Handler) Raw Event Handler started
+   2017-03-29 08:45:12,185 - INFO [kytos.core.controller] (MsgInEvent Handler) Message In Event Handler started
+   2017-03-29 08:45:12,185 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6633
+   2017-03-29 08:45:12,186 - INFO [kytos.core.controller] (MsgOutEvent Handler) Message Out Event Handler started
+   2017-03-29 08:45:12,189 - INFO [kytos.core.controller] (AppEvent Handler) App Event Handler started
+   2017-03-29 08:45:12,189 - INFO [kytos.core.controller] (MainThread) Loading kytos apps...
+   2017-03-29 08:45:12,194 - INFO [werkzeug] (Thread-1)  * Running on http://0.0.0.0:8181/ (Press CTRL+C to quit)
+   2017-03-29 08:45:12,193 - INFO [kytos.core.controller] (MainThread) Loading NApp tutorial/ping
+   2017-03-29 08:45:12,201 - INFO [tutorial/ping] (ping) Running ping App
+   2017-03-29 08:45:12,205 - INFO [kytos.core.controller] (MainThread) Loading NApp tutorial/pong
+   2017-03-29 08:45:12,209 - INFO [tutorial/pong] (pong) Running pong App
+   2017-03-29 08:45:17,204 - INFO [tutorial/ping] (ping) 2017-03-29 08:45:17.204356 Ping sent.
+   2017-03-29 08:45:17,205 - INFO [tutorial/pong] (Thread-4) Hi, here is the Pong NApp answering a ping.The current time is 2017-03-29 08:45:17.205431, and the ping was dispatched at 2017-03-29 08:45:17.204356.
+   2017-03-29 08:45:22,205 - INFO [tutorial/ping] (ping) 2017-03-29 08:45:22.205096 Ping sent.
+   2017-03-29 08:45:22,206 - INFO [tutorial/pong] (Thread-5) Hi, here is the Pong NApp answering a ping.The current time is 2017-03-29 08:45:22.206499, and the ping was dispatched at 2017-03-29 08:45:22.205096.
+   2017-03-29 08:45:27,206 - INFO [tutorial/ping] (ping) 2017-03-29 08:45:27.206177 Ping sent.
+   2017-03-29 08:45:27,207 - INFO [tutorial/pong] (Thread-6) Hi, here is the Pong NApp answering a ping.The current time is 2017-03-29 08:45:27.207010, and the ping was dispatched at 2017-03-29 08:45:27.206177.
 
 You will get into the controller terminal, and you can see your NApps outputs.
+Note the ping NApp sending its timestamps each five seconds, and the pong NApp
+logging them when received.
 
 .. NOTE:: To stop your controller you must press CTRL+C
 
@@ -426,11 +432,11 @@ You will get into the controller terminal, and you can see your NApps outputs.
 .. |Tutorial_02| replace:: *Tutorial 02*
 .. _Tutorial_02: https://tutorials.kytos.io/napps/create_looping_napp/
 
-.. |kyco| replace:: *Kyco*
-.. _kyco: http://docs.kytos.io/kyco
+.. |kytos| replace:: *Kytos*
+.. _kytos: http://docs.kytos.io/kytos
 
-.. |kycoevents| replace:: *KycoEvents*
-.. _kycoevents: https://docs.kytos.io/kyco/developer/listened_events/
+.. |kytosevents| replace:: *KytosEvents*
+.. _kytosevents: https://docs.kytos.io/kytos/developer/listened_events/
 
 .. |pydeco| replace:: *decorator*
 .. _pydeco: https://wiki.python.org/moin/PythonDecorators#What_is_a_Decorator

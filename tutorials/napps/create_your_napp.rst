@@ -11,27 +11,27 @@ How to create your own NApp: Part 1
 Overview
 ********
 This tutorial covers the basics on how to create your own Network Application
-(**NApp**) for *Kytos Controller* (|kyco|_).
+(**NApp**) for *Kytos* (|kytos|_).
 
 The average time to go through this is: ``15 min``
 
 What you will learn
 ====================
 * How to create a basic NApp;
-* How your NApp communicate with the Kytos Controller;
+* How your NApp communicates with the Kytos Controller;
 * How to install, test, and debug your NApp.
 
 What you will need
 ===================
-* Your |dev_env|_ already setup.
+* Your |dev_env|_ already up and running.
 
 ************
 Introduction
 ************
-Most of the Kytos Ecosystem functionalities are delivered by Network
+Most of the Kytos Platform functionalities are delivered by Network
 Applications, **NApps** for short.
 These applications communicate with the controller and with each other through
-events (|KycoEvents|_), and they can also expose REST endpoints to the world.
+events (|KytosEvents|_), and they can also expose REST endpoints to the world.
 
 If you are developing a basic SDN application, you should be able to do
 everything inside a NApp, without having to patch the controller core.
@@ -97,18 +97,18 @@ If your code is big enough, feel free to split your NApp into multiples files.
 ************************
 Creating your first NApp
 ************************
-Now that we understand the basic structure of a |kyco|_ NApp, let's start
+Now that we understand the basic structure of a |kytos|_ NApp, let's start
 building our own, the |nn| NApp.
 
 You can create the NApp structure manually or use the command line utilities
 of the ``kytos-utils`` project.
 
-.. NOTE:: Make sure that you had completed your |dev_env|_ setup and its venv
-   is active.
+.. NOTE:: Make sure that you had completed your |dev_env|_ setup and the
+   virtual environment is active.
 
 During this first tutorial we are going to create a very dummy application.
 This application will print a message when loaded and another message when
-unloaded from the controller.
+unloaded by the controller.
 
 Let's create the NApp structure:
 
@@ -165,11 +165,11 @@ During this tutorial, the only file that we need to worry about is the
 
 .. code-block:: python
 
-  from kyco.core.napps import KycoNApp
+  from kytos.core.napps import KytosNApp
   from napps.tutorial.helloworld import settings
 
 
-  class Main(KycoNApp):
+  class Main(KytosNApp):
 
       def setup(self):
           pass
@@ -187,7 +187,7 @@ This class has 3 basic methods: ``setup``, ``execute`` and ``shutdown``.
   method, let the ``pass`` statement as its only content.
 
 For this dummy NApp, let's just print some log messages. To do so, edit the file
-and replace ``pass`` (meaning "do nothing") by the ``self.log.info(...)`` as
+and replace ``pass`` (meaning "do nothing") by ``self.log.info(...)`` as
 detailed below:
 
 .. ATTENTION::
@@ -199,7 +199,7 @@ The ``setup`` method is automatically called by the controller when our
 application is loaded.
 
 .. DANGER::
-   For Python programmers: do not override ``__init__``. A KycoNApp subclass
+   For Python programmers: do not override ``__init__``. A KytosNApp subclass
    must use the ``setup`` method instead.
 
 .. code-block:: python
@@ -208,8 +208,8 @@ application is loaded.
           self.log.info("Hello world! Now, I'm loaded!")
 
 
-Right after the setup, there is the ``execute`` method that we are going to
-cover it deeper on part 2 of this tutorial.
+Right after the setup there is the ``execute`` method, which we will cover in a
+deeper way on part 2 of the tutorial.
 
 .. code-block:: python
 
@@ -232,11 +232,11 @@ this (simplified, without comments):
 
 .. code-block:: python
 
-  from kyco.core.napps import KycoNApp
+  from kytos.core.napps import KytosNApp
   from napps.tutorial.helloworld import settings
 
 
-  class Main(KycoNApp):
+  class Main(KytosNApp):
 
       def setup(self):
           self.log.info("Hello world! Now, I'm loaded!")
@@ -314,52 +314,51 @@ including OpenFlow NApps.
 Testing your NApp
 =================
 
-Let's start our controller:
+Let's start our controller. When it is executed, it loads all of the enabled NApps. At this
+point, only our |nn| NApp will be loaded. The Kytos controller runs by default as a daemon. The
+``-f`` option runs it in foreground.
 
 .. code-block:: bash
 
-  $ kyco
-  2017-02-16 20:28:57,624 - INFO [kyco.controller] (MainThread) Starting Kyco - Kytos Controller
-  2017-02-16 20:28:57,628 - INFO [kyco.core.tcp_server] (TCP server) Kyco listening at 0.0.0.0:6633
-  2017-02-16 20:28:57,629 - INFO [kyco.controller] (RawEvent Handler) Raw Event Handler started
-  2017-02-16 20:28:57,630 - INFO [kyco.controller] (MsgInEvent Handler) Message In Event Handler started
-  2017-02-16 20:28:57,630 - INFO [kyco.controller] (MsgOutEvent Handler) Message Out Event Handler started
-  2017-02-16 20:28:57,631 - INFO [kyco.controller] (AppEvent Handler) App Event Handler started
-  2017-02-16 20:28:57,631 - INFO [kyco.controller] (MainThread) Loading kyco apps...
-  2017-02-16 20:28:57,632 - INFO [kyco.controller] (MainThread) Loading NApp tutorial/helloworld
-  2017-02-16 20:28:57,647 - INFO [werkzeug] (Thread-2)  * Running on http://0.0.0.0:8181/ (Press CTRL+C to quit)
-  2017-02-16 20:28:57,648 - INFO [kyco.core.napps] (Thread-3) Running Thread-3 App
-  2017-02-16 20:28:57,650 - INFO [napps.tutorial.helloworld.settings] (Thread-3) Hello world! Now, I'm loaded!
-  2017-02-16 20:28:57,650 - INFO [napps.tutorial.helloworld.settings] (Thread-3) Hello world! I'm being executed!
+  $ kytosd -f
+  2017-03-28 16:48:34,624 - INFO [kytos.core.controller] (MainThread) Starting Kytos - Kytos Controller
+  2017-03-28 16:48:34,628 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6633
+  2017-03-28 16:48:34,629 - INFO [kytos.core.controller] (RawEvent Handler) Raw Event Handler started
+  2017-03-28 16:48:34,630 - INFO [kytos.core.controller] (MsgInEvent Handler) Message In Event Handler started
+  2017-03-28 16:48:34,630 - INFO [kytos.core.controller] (MsgOutEvent Handler) Message Out Event Handler started
+  2017-03-28 16:48:34,631 - INFO [kytos.core.controller] (AppEvent Handler) App Event Handler started
+  2017-03-28 16:48:34,631 - INFO [kytos.core.controller] (MainThread) Loading kytos apps...
+  2017-03-28 16:48:34,632 - INFO [kytos.core.controller] (MainThread) Loading NApp tutorial/helloworld
+  2017-03-28 16:48:34,647 - INFO [werkzeug] (Thread-1)  * Running on http://0.0.0.0:8181/ (Press CTRL+C to quit)
+  2017-03-28 16:48:34,017 - INFO [tutorial/helloworld] (helloworld) Running helloworld App
+  2017-03-28 16:48:34,650 - INFO [tutorial/helloworld] (helloworld) Hello world! Now, I'm loaded!
+  2017-03-28 16:48:34,650 - INFO [tutorial/helloworld] (helloworld) Hello world! I'm being executed!
 
 Congratulations! You have created your first Kytos NApp! The last 2 lines show
 you NApp is working. To see the shutdown message, hit ``CTRL+C``::
 
   (...)
-  2017-02-16 22:02:48,168 - INFO [napps.tutorial.helloworld.settings] (Thread-6) Bye world!
+  2017-03-28 16:48:42,168 - INFO [tutorial/helloworld] (MainThread) Bye world!
   (...)
-
-.. NOTE:: You may see more than one shutdown message depending on how many
-   threads the controller was using for your NApp.
 
 .. include:: ../back_to_list.rst
 
 .. |controller_github| replace:: *Controller Github page*
-.. _controller_github: https://github.com/kytos/kyco/issues/
+.. _controller_github: https://github.com/kytos/kytos/issues/
 
 .. |nn| replace:: ``hello_world``
 
-.. |pyof| replace:: *python3-openflow*
-.. _pyof: http://docs.kytos.io/pyof
+.. |pyof| replace:: *python-openflow*
+.. _pyof: http://docs.kytos.io/python-openflow
 
-.. |kyco| replace:: *Kyco*
-.. _kyco: http://docs.kytos.io/kyco
+.. |kytos| replace:: *Kytos*
+.. _kytos: http://docs.kytos.io/kytos
 
 .. |dev_env| replace:: *Development Environment*
 .. _dev_env: http://tutorials.kytos.io/napps/development_environment_setup/
 
-.. |kycoevents| replace:: *KycoEvents*
-.. _kycoevents: https://docs.kytos.io/kyco/developer/listened_events/
+.. |kytosevents| replace:: *KytosEvents*
+.. _kytosevents: https://docs.kytos.io/kytos/developer/listened_events/
 
 .. |napps_server| replace:: *NApps Server*
 .. _napps_server: http://napps.kytos.io

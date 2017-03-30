@@ -40,7 +40,7 @@ objects into binary blobs that latter will be sent to the switches.
 
 For more information on python3-openflow, please refer to its documentation.
 
-Kytos Controller - Kyco
+Kytos Controller - kytos
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 As stated before, the controller is the component responsible for providing the
@@ -55,33 +55,31 @@ to specific queue change events, such as: new packet-in arrival.
 The communication between apps is also possible by means of the app event
 buffer.
 
-For more information on Kyco, please refer to its documentation.
+For more information on kytos, please refer to its documentation.
 
-Kytos Core Napps - kyco-core-napps
+Kytos NApps - kytos-napps
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The Core Napps package delivers the baisc Napps that allow a system
+The Kytos NApps package delivers the baisc NApps that allow a system
 administrator to deploy a basic infrastructure that relies on OpenFlow to
 provide communication between nodes, statistics and topology finding. The
-Napps inside this set are:
+NApps inside this set are:
 
-- of.core: provides communication and event management for all Napps; 
-- of.flow-manager: provides a service that allows to manipulate the flow table
+- of_core: provides communication and event management for all NApps; 
+- of_flow-manager: provides a service that allows to manipulate the flow table
   inside the switches;
-- of.ipv6drop: a basic firewall Napp that drops all packages that use IP v6
+- of_ipv6drop: a basic firewall NApp that drops all packages that use IPv6
   protocol;
-- of.l2ls: a basic layer 2 learning switch;
-- of.l2lsloop: the same as the l2ls but with the ability to handle topology
+- of_l2ls: a basic layer 2 learning switch;
+- of_l2lsloop: the same as the l2ls but with the ability to handle topology
   loops;
-- of.liveness: keeps the communication between the controller and the openflow
-  switches;
-- of.lldp: injects Link Layer Discovery Protocol (LLDP) packets in the
+- of_lldp: injects Link Layer Discovery Protocol (LLDP) packets in the
   network in order to detect the connection between switches, thus allowing to
   discover the topology;
-- of.stats: continuously collect OpenFlow statistics from the switch ports and
+- of_stats: continuously collect OpenFlow statistics from the switch ports and
   the flows themselves;
-- of.topology: responsible for discovering the connection between a common
+- of_topology: responsible for discovering the connection between a common
   host and a switch port;
-- web.topology.layout: this Napp is used by the Web Interface and allows a
+- web_topology_layout: this NApp is used by the Web Interface and allows a
   user to save and restore a topology layout manually defined.
 
