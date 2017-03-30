@@ -232,15 +232,14 @@ lines with ``Controller Uptime``, press ``CTRL+C`` to stop the controller.
 .. code-block:: bash
   
   $ kytosd -f
-  2017-03-28 16:45:44,915 - INFO [kytos.core.core] (MainThread) Starting Kytos - Kytos Controller
-  2017-03-28 16:45:44,916 - WARNING [werkzeug] (Thread-1) WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
-  2017-03-28 16:45:44,918 - INFO [kytos.core.core] (RawEvent Handler) Raw Event Handler started
+  2017-03-28 16:45:44,915 - INFO [kytos.core.controller] (MainThread) Starting Kytos - Kytos Controller
+  2017-03-28 16:45:44,918 - INFO [kytos.core.controller] (RawEvent Handler) Raw Event Handler started
   2017-03-28 16:45:44,919 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6633
-  2017-03-28 16:45:44,919 - INFO [kytos.core.core] (MsgInEvent Handler) Message In Event Handler started
-  2017-03-28 16:45:44,921 - INFO [kytos.core.core] (MsgOutEvent Handler) Message Out Event Handler started
-  2017-03-28 16:45:44,922 - INFO [kytos.core.core] (AppEvent Handler) App Event Handler started
-  2017-03-28 16:45:44,924 - INFO [kytos.core.core] (MainThread) Loading kytos apps...
-  2017-03-28 16:45:44,931 - INFO [kytos.core.core] (MainThread) Loading NApp tutorial/loopnapp
+  2017-03-28 16:45:44,919 - INFO [kytos.core.controller] (MsgInEvent Handler) Message In Event Handler started
+  2017-03-28 16:45:44,921 - INFO [kytos.core.controller] (MsgOutEvent Handler) Message Out Event Handler started
+  2017-03-28 16:45:44,922 - INFO [kytos.core.controller] (AppEvent Handler) App Event Handler started
+  2017-03-28 16:45:44,924 - INFO [kytos.core.controller] (MainThread) Loading kytos apps...
+  2017-03-28 16:45:44,931 - INFO [kytos.core.controller] (MainThread) Loading NApp tutorial/loopnapp
   2017-03-28 16:45:44,932 - INFO [werkzeug] (Thread-1)  * Running on http://0.0.0.0:8181/ (Press CTRL+C to quit)
   2017-03-28 16:45:44,939 - INFO [tutorial/loopnapp] (loopnapp) Running loopnapp App
   2017-03-28 16:45:44,940 - INFO [tutorial/loopnapp] (loopnapp) LOAD
@@ -252,7 +251,7 @@ lines with ``Controller Uptime``, press ``CTRL+C`` to stop the controller.
   2017-03-28 16:46:59,946 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:01:15.004946
   2017-03-28 16:47:14,947 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:01:30.005880
   ^CStopping controller...
-  2017-03-28 16:47:23,171 - INFO [kytos.core.core] (MainThread) Stopping Kytos
+  2017-03-28 16:47:23,171 - INFO [kytos.core.controller] (MainThread) Stopping Kytos
   2017-03-28 16:47:23,568 - INFO [kytos.core.buffers] (MainThread) Stop signal received by Kytos buffers.
   2017-03-28 16:47:23,568 - INFO [kytos.core.buffers] (MainThread) Sending KytosShutdownEvent to all apps.
   2017-03-28 16:47:23,569 - INFO [kytos.core.buffers] (MainThread) [buffer: raw_event] Stop mode enabled. Rejecting new events.
@@ -261,12 +260,12 @@ lines with ``Controller Uptime``, press ``CTRL+C`` to stop the controller.
   2017-03-28 16:47:23,569 - INFO [kytos.core.buffers] (MainThread) [buffer: app_event] Stop mode enabled. Rejecting new events.
   2017-03-28 16:47:23,579 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:01:38.638497
   2017-03-28 16:47:23,585 - INFO [werkzeug] (Thread-6) 127.0.0.1 - - [28/Mar/2017 16:47:23] "GET /kytos/shutdown HTTP/1.1" 200 -
-  2017-03-28 16:47:23,587 - INFO [kytos.core.core] (MainThread) Stopping thread: Thread-1
-  2017-03-28 16:47:24,083 - INFO [kytos.core.core] (MainThread) Stopping thread: TCP server
-  2017-03-28 16:47:24,084 - INFO [kytos.core.core] (MainThread) Stopping thread: RawEvent Handler
-  2017-03-28 16:47:24,084 - INFO [kytos.core.core] (MainThread) Stopping thread: MsgInEvent Handler
-  2017-03-28 16:47:24,084 - INFO [kytos.core.core] (MainThread) Stopping thread: MsgOutEvent Handler
-  2017-03-28 16:47:24,085 - INFO [kytos.core.core] (MainThread) Stopping thread: AppEvent Handler
+  2017-03-28 16:47:23,587 - INFO [kytos.core.controller] (MainThread) Stopping thread: Thread-1
+  2017-03-28 16:47:24,083 - INFO [kytos.core.controller] (MainThread) Stopping thread: TCP server
+  2017-03-28 16:47:24,084 - INFO [kytos.core.controller] (MainThread) Stopping thread: RawEvent Handler
+  2017-03-28 16:47:24,084 - INFO [kytos.core.controller] (MainThread) Stopping thread: MsgInEvent Handler
+  2017-03-28 16:47:24,084 - INFO [kytos.core.controller] (MainThread) Stopping thread: MsgOutEvent Handler
+  2017-03-28 16:47:24,085 - INFO [kytos.core.controller] (MainThread) Stopping thread: AppEvent Handler
 
 As you can see, the uptime was reported several times, at 16:45:44, 16:45:59 and
 16:46:14 with an interval of 15 seconds, as expected.

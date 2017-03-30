@@ -321,14 +321,14 @@ point, only our |nn| NApp will be loaded. The Kytos controller runs by default a
 .. code-block:: bash
 
   $ kytosd -f
-  2017-03-28 16:48:34,624 - INFO [kytos.core.core] (MainThread) Starting Kytos - Kytos Controller
+  2017-03-28 16:48:34,624 - INFO [kytos.core.controller] (MainThread) Starting Kytos - Kytos Controller
   2017-03-28 16:48:34,628 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6633
-  2017-03-28 16:48:34,629 - INFO [kytos.core.core] (RawEvent Handler) Raw Event Handler started
-  2017-03-28 16:48:34,630 - INFO [kytos.core.core] (MsgInEvent Handler) Message In Event Handler started
-  2017-03-28 16:48:34,630 - INFO [kytos.core.core] (MsgOutEvent Handler) Message Out Event Handler started
-  2017-03-28 16:48:34,631 - INFO [kytos.core.core] (AppEvent Handler) App Event Handler started
-  2017-03-28 16:48:34,631 - INFO [kytos.core.core] (MainThread) Loading kytos apps...
-  2017-03-28 16:48:34,632 - INFO [kytos.core.core] (MainThread) Loading NApp tutorial/helloworld
+  2017-03-28 16:48:34,629 - INFO [kytos.core.controller] (RawEvent Handler) Raw Event Handler started
+  2017-03-28 16:48:34,630 - INFO [kytos.core.controller] (MsgInEvent Handler) Message In Event Handler started
+  2017-03-28 16:48:34,630 - INFO [kytos.core.controller] (MsgOutEvent Handler) Message Out Event Handler started
+  2017-03-28 16:48:34,631 - INFO [kytos.core.controller] (AppEvent Handler) App Event Handler started
+  2017-03-28 16:48:34,631 - INFO [kytos.core.controller] (MainThread) Loading kytos apps...
+  2017-03-28 16:48:34,632 - INFO [kytos.core.controller] (MainThread) Loading NApp tutorial/helloworld
   2017-03-28 16:48:34,647 - INFO [werkzeug] (Thread-1)  * Running on http://0.0.0.0:8181/ (Press CTRL+C to quit)
   2017-03-28 16:48:34,017 - INFO [tutorial/helloworld] (helloworld) Running helloworld App
   2017-03-28 16:48:34,650 - INFO [tutorial/helloworld] (helloworld) Hello world! Now, I'm loaded!

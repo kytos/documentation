@@ -399,17 +399,17 @@ Let's start our controller:
 .. code-block:: bash
 
    $ kytosd -f
-   2017-03-29 08:45:12,180 - INFO [kytos.core.core] (MainThread) Starting Kytos - Kytos Controller
-   2017-03-29 08:45:12,183 - INFO [kytos.core.core] (RawEvent Handler) Raw Event Handler started
-   2017-03-29 08:45:12,185 - INFO [kytos.core.core] (MsgInEvent Handler) Message In Event Handler started
+   2017-03-29 08:45:12,180 - INFO [kytos.core.controller] (MainThread) Starting Kytos - Kytos Controller
+   2017-03-29 08:45:12,183 - INFO [kytos.core.controller] (RawEvent Handler) Raw Event Handler started
+   2017-03-29 08:45:12,185 - INFO [kytos.core.controller] (MsgInEvent Handler) Message In Event Handler started
    2017-03-29 08:45:12,185 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6633
-   2017-03-29 08:45:12,186 - INFO [kytos.core.core] (MsgOutEvent Handler) Message Out Event Handler started
-   2017-03-29 08:45:12,189 - INFO [kytos.core.core] (AppEvent Handler) App Event Handler started
-   2017-03-29 08:45:12,189 - INFO [kytos.core.core] (MainThread) Loading kytos apps...
+   2017-03-29 08:45:12,186 - INFO [kytos.core.controller] (MsgOutEvent Handler) Message Out Event Handler started
+   2017-03-29 08:45:12,189 - INFO [kytos.core.controller] (AppEvent Handler) App Event Handler started
+   2017-03-29 08:45:12,189 - INFO [kytos.core.controller] (MainThread) Loading kytos apps...
    2017-03-29 08:45:12,194 - INFO [werkzeug] (Thread-1)  * Running on http://0.0.0.0:8181/ (Press CTRL+C to quit)
-   2017-03-29 08:45:12,193 - INFO [kytos.core.core] (MainThread) Loading NApp tutorial/ping
+   2017-03-29 08:45:12,193 - INFO [kytos.core.controller] (MainThread) Loading NApp tutorial/ping
    2017-03-29 08:45:12,201 - INFO [tutorial/ping] (ping) Running ping App
-   2017-03-29 08:45:12,205 - INFO [kytos.core.core] (MainThread) Loading NApp tutorial/pong
+   2017-03-29 08:45:12,205 - INFO [kytos.core.controller] (MainThread) Loading NApp tutorial/pong
    2017-03-29 08:45:12,209 - INFO [tutorial/pong] (pong) Running pong App
    2017-03-29 08:45:17,204 - INFO [tutorial/ping] (ping) 2017-03-29 08:45:17.204356 Ping sent.
    2017-03-29 08:45:17,205 - INFO [tutorial/pong] (Thread-4) Hi, here is the Pong NApp answering a ping.The current time is 2017-03-29 08:45:17.205431, and the ping was dispatched at 2017-03-29 08:45:17.204356.

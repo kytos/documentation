@@ -110,7 +110,7 @@ After launching Kytos, there are two important lines in its log::
   (...)
   INFO [werkzeug] (Thread-1)  * Running on http://0.0.0.0:8181/
   (...)
-  INFO [kytos.core.core] (MainThread) Loading NApp kytos/of_stats
+  INFO [kytos.core.controller] (MainThread) Loading NApp kytos/of_stats
   (...)
 
 The first ``INFO`` line above shows that the REST API is available at port 8181

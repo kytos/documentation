@@ -196,24 +196,24 @@ Let's take a look at the terminal:
 .. code-block:: bash
 
   $ kytosd -f
-  2017-03-29 09:07:45,852 - INFO [kytos.core.core] (MainThread) Starting Kytos - Kytos Controller
-  2017-03-29 09:07:45,856 - INFO [kytos.core.core] (RawEvent Handler) Raw Event Handler started
+  2017-03-29 09:07:45,852 - INFO [kytos.core.controller] (MainThread) Starting Kytos - Kytos Controller
+  2017-03-29 09:07:45,856 - INFO [kytos.core.controller] (RawEvent Handler) Raw Event Handler started
   2017-03-29 09:07:45,857 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6633
-  2017-03-29 09:07:45,857 - INFO [kytos.core.core] (MsgInEvent Handler) Message In Event Handler started
-  2017-03-29 09:07:45,859 - INFO [kytos.core.core] (MsgOutEvent Handler) Message Out Event Handler started
-  2017-03-29 09:07:45,860 - INFO [kytos.core.core] (AppEvent Handler) App Event Handler started
-  2017-03-29 09:07:45,861 - INFO [kytos.core.core] (MainThread) Loading kytos apps...
-  2017-03-29 09:07:45,864 - INFO [kytos.core.core] (MainThread) Loading NApp kytos/of_core
+  2017-03-29 09:07:45,857 - INFO [kytos.core.controller] (MsgInEvent Handler) Message In Event Handler started
+  2017-03-29 09:07:45,859 - INFO [kytos.core.controller] (MsgOutEvent Handler) Message Out Event Handler started
+  2017-03-29 09:07:45,860 - INFO [kytos.core.controller] (AppEvent Handler) App Event Handler started
+  2017-03-29 09:07:45,861 - INFO [kytos.core.controller] (MainThread) Loading kytos apps...
+  2017-03-29 09:07:45,864 - INFO [kytos.core.controller] (MainThread) Loading NApp kytos/of_core
   2017-03-29 09:07:45,869 - INFO [werkzeug] (Thread-1)  * Running on http://0.0.0.0:8181/ (Press CTRL+C to quit)
   2017-03-29 09:07:45,953 - INFO [kytos/of_core] (of_core) Running of_core App
-  2017-03-29 09:07:45,955 - INFO [kytos.core.core] (MainThread) Loading NApp kytos/of_l2ls
+  2017-03-29 09:07:45,955 - INFO [kytos.core.controller] (MainThread) Loading NApp kytos/of_l2ls
   2017-03-29 09:07:45,999 - INFO [kytos/of_l2ls] (of_l2ls) Running of_l2ls App
-  2017-03-29 09:07:45,999 - INFO [kytos.core.core] (MainThread) Loading NApp kytos/of_lldp
+  2017-03-29 09:07:45,999 - INFO [kytos.core.controller] (MainThread) Loading NApp kytos/of_lldp
   2017-03-29 09:07:46,007 - INFO [kytos/of_lldp] (of_lldp) Running of_lldp App
   2017-03-29 09:07:46,042 - INFO [kytos.core.tcp_server] (Thread-5) New connection from 127.0.0.1:57730
-  2017-03-29 09:07:46,044 - INFO [kytos.core.core] (RawEvent Handler) Handling KytosEvent:kytos/core.connection.new ...
+  2017-03-29 09:07:46,044 - INFO [kytos.core.controller] (RawEvent Handler) Handling KytosEvent:kytos/core.connection.new ...
   2017-03-29 09:07:46,050 - INFO [kytos.core.tcp_server] (Thread-6) New connection from 127.0.0.1:57732
-  2017-03-29 09:07:46,051 - INFO [kytos.core.core] (RawEvent Handler) Handling KytosEvent:kytos/core.connection.new ...
+  2017-03-29 09:07:46,051 - INFO [kytos.core.controller] (RawEvent Handler) Handling KytosEvent:kytos/core.connection.new ...
 
 On Kytos logs you can see the logs of all NApps enabled.
 
