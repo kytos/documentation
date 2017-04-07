@@ -52,7 +52,7 @@ The basic naming rule for events will help you define which event you want to
 listen to and also help others to listen to events that your NApp generates. Here is
 an example of an event name: ``kytos/of_core.messages.in.ofpt_stats_reply``. It
 is composed by two mandatory parts, ``username`` (*kytos*) and ``napp_name``
-(*of_core*), and another part defined by the NApp author, the ``event_description``
+(*of_core*), and another part defined by the NApp developer, the ``event_description``
 (*messages.in.ofpt_stats_reply*). The first two parts help us identify the
 NApp that generated the event, while the last helps identifying the event
 itself - a NApp can generate many different events.
@@ -80,7 +80,7 @@ following commands:
   --------------------------------------------------------------
   Welcome to the bootstrap process of your NApp.
   --------------------------------------------------------------
-  In order to answer both the author name and the napp name,
+  In order to answer both the username and the napp name,
   You must follow this naming rules:
    - name starts with a letter
    - name contains only letters, numbers or underscores
@@ -252,18 +252,18 @@ your **Pong** NApp's structure:
   --------------------------------------------------------------
   Welcome to the bootstrap process of your NApp.
   --------------------------------------------------------------
-  In order to answer both the author name and the napp name,
+  In order to answer both the username and the napp name,
   You must follow this naming rules:
    - name starts with a letter
    - name contains only letters, numbers or underscores
    - at least three characters
   --------------------------------------------------------------
 
-Use the same author name, **tutorial**:
+Use the same username, **tutorial**:
 
 .. code:: bash
 
-  Please, insert your author name (username on the Napps Server): tutorial
+  Please, insert your NApps Server username: tutorial
 
 And **pong** and NApp name.
 

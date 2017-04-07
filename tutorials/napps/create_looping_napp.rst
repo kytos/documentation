@@ -66,7 +66,7 @@ Let's create the structure:
    --------------------------------------------------------------
    Welcome to the bootstrap process of your NApp.
    --------------------------------------------------------------
-   In order to answer both the author name and the napp name,
+   In order to answer both the username and the napp name,
    You must follow this naming rules:
     - name starts with a letter
     - name contains only letters, numbers or underscores

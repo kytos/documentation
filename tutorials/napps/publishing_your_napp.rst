@@ -63,15 +63,15 @@ using your **username** (the one you have just registered).
   --------------------------------------------------------------
   Welcome to the bootstrap process of your NApp.
   --------------------------------------------------------------
-  In order to answer both the author name and the napp name,
+  In order to answer both the username and the napp name,
   You must follow this naming rules:
    - name starts with a letter
    - name contains only letters, numbers or underscores
    - at least three characters
   --------------------------------------------------------------
 
-The first question is related to your author name, answer it with your
-**username**. The second question is the name of your NApp, and, for now,
+The first question is related to your **username**. The second question is the
+name of your NApp, and, for now,
 we will just use ``my_first_napp`` as NApp name. The third question is related
 to your NApp description. Let's put some meaningful information over there.
 
@@ -91,13 +91,13 @@ We are going to start with the **kytos.json** file.
 kytos.json
 ==========
 
-The **kytos.json** file contains the fields *author*, *name* (NApp name),
+The **kytos.json** file contains the fields *username*, *name* (NApp name),
 *description*, *version*, *napp_dependencies*, *license*,
-*url* and *tags*. Some of these fields are mandatory, such as **author**,
+*url* and *tags*. Some of these fields are mandatory, such as **username**,
 **name** and **license**, while other aren't, despite them being as important
 as the mandatory ones. They also accept different values.
 
-- **author**: String with the username of the NApp author. While uploading your
+- **username**: String with the username of the NApp creator. While uploading your
   NApp this field must match your username on the napps server.
 
 - **name**: String with the name of the NApp.
@@ -109,7 +109,7 @@ as the mandatory ones. They also accept different values.
   `Semantic Versioning <http://semver.org/>`_.
 
 - **napp_dependencies**: A list of other NApps that are required by your NApp,
-  on the form ``["<author>/<name>", "<other_author>/<other_name>", ...]``
+  on the form ``["<username>/<name>", "<other_username>/<other_name>", ...]``
 
 - **license**: The license of your NApp (*GPL*, *MIT*, *APACHE*, etc).
 
@@ -124,7 +124,7 @@ So, here is the **kytos.json** that we have initially generated.
 .. code-block:: json
 
   {
-    "author": "<username>",
+    "username": "<username>",
     "name": "my_first_napp",
     "description": "This is my first NApp, I have built it while doing a Kytos Tutorial.",
     "version": "",
@@ -139,7 +139,7 @@ And here are an example of how we can complete this file:
 .. code-block:: json
 
   {
-    "author": "<username>",
+    "username": "<username>",
     "name": "my_first_napp",
     "description": "This is my first NApp, I have built it while doing a Kytos Tutorial.",
     "version": "0.0.1",
@@ -153,7 +153,7 @@ README.rst
 ==========
 
 Among other things, the **README.rst** will be presented as the main content of
-the NApp page on the NApps Server (https://napps.kytos.io/<author>/<name>).
+the NApp page on the NApps Server (https://napps.kytos.io/<username>/<name>).
 
 We recommend two initial sections, **Overview** and **Requirements**. The first
 will contain a more complete description of your NApp, while the latter will
