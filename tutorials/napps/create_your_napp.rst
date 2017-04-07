@@ -58,7 +58,7 @@ Thus, two usernames can use the same NApp name.
 For instance: ``john/switchl2`` and ``mary/switchl2`` are both valid NApps
 *unique identifiers*.
 
-..  [proto][repo]/[author]/[napp]:[tag]
+..  [proto][repo]/[username]/[napp]:[tag]
 
 Since your NApp will work as a Python module, its name must follow the same
 naming rules of Python modules, defined by `PEP8
@@ -83,8 +83,8 @@ and files. We provide a tool to generate this structure for you! ::
       ├── README.rst
       └── settings.py
 
-- **kytos.json**: This file contains your NApp's metadata. **author** (soon to
-  be changed to *username*) and **name** are required. Other attributes are
+- **kytos.json**: This file contains your NApp's metadata. **username**
+  and **name** are required. Other attributes are
   used by the |napps_server|_ to publish and distribute your NApp worldwide.
 - **settings.py**: Main settings parameters of your NApp (if applicable).
 - **main.py**: Main source code of your NApp.
@@ -131,7 +131,7 @@ The output should be something like this:
   --------------------------------------------------------------
   Welcome to the bootstrap process of your NApp.
   --------------------------------------------------------------
-  In order to answer both the author name and the napp name,
+  In order to answer both the username and the napp name,
   You must follow this naming rules:
    - name starts with a letter
    - name contains only letters, numbers or underscores
