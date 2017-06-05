@@ -1,0 +1,9 @@
+{
+  "repositories": {
+    "kytos": "https://github.com/kytos/kytos",
+    "python-openflow": "https://github.com/kytos/python-openflow"
+  },
+  "versions":{
+    "bethania": "2017.1b1"
+  }
+}
