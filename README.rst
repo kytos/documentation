@@ -62,13 +62,11 @@ We always will keep this code open.
 
 Supported OpenFlow Versions
 ---------------------------
-We have a fully implemented OpenFlow 1.0 API and currently we are working to
-deliver versions 1.2 and 1.3.
-
+We have a fully implemented OpenFlow 1.0 and 1.3 APIs and currently we are
+working to deliver version 1.2.
 
 Disclaimer
 ----------
-
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT. IN NO EVENT SHALL
