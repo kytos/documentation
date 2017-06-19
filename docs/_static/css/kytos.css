@@ -1,8 +1,8 @@
 /* navbar */
 #navbar.navbar-kytos {
-  background-image: -webkit-linear-gradient(left, #554077 0%, #2c3e50 100%);
-  background-image: -o-linear-gradient(left, #554077 0%, #2c3e50 100%);
-  background-image: linear-gradient(to right, #554077 0%, #2c3e50 100%);
+  background-image: -webkit-linear-gradient(left, #68286a 0%, #322c5d 100%);
+  background-image: -o-linear-gradient(left, #68286a 0%, #322c5d 100%);
+  background-image: linear-gradient(to right, #68286a 0%, #322c5d 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF554077', endColorstr='#FF2C3E50', GradientType=1);
   padding: 10px;
@@ -13,7 +13,7 @@
 }
 
 .navbar-kytos .navbar-nav>li>a:hover {
-  background: #554077;
+  background: #68286a;
 }
 
 .navbar-kytos .navbar-brand {
@@ -75,6 +75,23 @@ div.sphinxsidebarwrapper {
 
 div#sidebar.bs-sidenav.affix {
   top: 92px;
+}
+
+/* Highlight current selected section on sidebar */
+#sidebar li.current a.current.reference {
+  font-weight: bold;
+  color: #563d7c;
+  border-right: 1px solid #563d7c;
+}
+
+/* Sidebar hierarchy left-padding size */
+#sidebar.bs-sidenav .nav li a {
+  padding: 5px;
+}
+
+#sidebar div.sphinxsidebar ul ul,
+#sidebar div.sphinxsidebar ul.want-points {
+  margin-left: 15px;
 }
 
 /* body */
@@ -301,6 +318,14 @@ div.admonition.alert-danger > p.admonition-title:before  {
   color: #554077;
   /* font-weight: bold; */
   font-family: Courier, "Lucida Console", monospace;
+}
+
+/* Fix top spacing for html anchors */
+:target:before {
+    content: "";
+    display: block;
+    height: 50px;
+    margin: -50px 0 0;
 }
 
 /*div.code .highlight pre {*/

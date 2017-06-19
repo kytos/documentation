@@ -53,9 +53,9 @@ source_suffix = '.rst'
 master_doc = 'references'
 
 # General information about the project.
-project_short_name = u'Kytos'
-project = u'Kytos project'
-copyright = u'2017, Kytos\' Project'
+project_short_name = u'Tutorials'
+project = u'Tutorials'
+copyright = u'2016, Kytos\' Development Team'
 author = u'Kytos\' Development Team'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -352,8 +352,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'kytos', u'Kytos Documentation',
-     author, 'kytos', 'One line description of project.',
+    (master_doc, 'kytos', u'Kytos Tutorials',
+     author, 'kytos', 'One line tutorials for Kytos project.',
      'Miscellaneous'),
 ]
 

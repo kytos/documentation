@@ -4,8 +4,9 @@
   :hidden:
 
   index
-  architecture_overview
-  create_your_napp
-  get_involved
+  architecture
+  installing
+  contributing
+  getting_help
   authors
   license
