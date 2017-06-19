@@ -5,7 +5,7 @@ controllers: a controller that could be easily deployed and that was centered
 on the development of applications by its users. Thus, our intention is not
 only to build a new OpenFlow controller, but also build a community of
 developers around it, creating new applications that benefit from the SDN
-paradigm. 
+paradigm.
 
 The project was born in 2014, when the first version of the message parsing
 library was built. After some time stalled, the development took off in earlier
@@ -13,7 +13,7 @@ library was built. After some time stalled, the development took off in earlier
 
 In less than a year a new library was built, following a strictly free open
 source software philosophy. Also, a new controller and a basic set of network
-applications known as NApps was developed. 
+applications known as NApps was developed.
 
 Our team is mainly composed by Computer Scientist and Engineers and some of us
 have participated in several demonstrations involving tests with high-speed
@@ -63,7 +63,7 @@ We always will keep this code open.
 Supported OpenFlow Versions
 ---------------------------
 We have a fully implemented OpenFlow 1.0 and 1.3 APIs and currently we are
-working to deliver version 1.2.
+working to deliver other versions.
 
 Disclaimer
 ----------
