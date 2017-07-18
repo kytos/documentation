@@ -142,7 +142,7 @@ kytos-napps and kytos):
 
 .. code-block:: bash
 
-  $ for project in python-openflow kytos-utils kytos-napps kytos; do
+  $ for project in python-openflow kytos-utils kytos kytos-napps; do
       git clone https://github.com/kytos/$project.git
     done
 
@@ -158,7 +158,7 @@ virtualenv. The list of packages are available in files named like
 
 .. code-block:: bash
 
-  $ for project in python-openflow kytos-utils kytos-napps kytos; do
+  $ for project in python-openflow kytos-utils kytos kytos-napps; do
       cd $project
       pip install -r requirements.txt -r requirements-dev.txt -r requirements-docs.txt || break
       python setup.py develop || break

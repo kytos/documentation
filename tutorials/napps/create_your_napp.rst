@@ -165,7 +165,7 @@ During this tutorial, the only file that we need to worry about is the
 
 .. code-block:: python
 
-  from kytos.core.napps import KytosNApp
+  from kytos.core import KytosNApp, log
   from napps.tutorial.helloworld import settings
 
 
@@ -187,11 +187,11 @@ This class has 3 basic methods: ``setup``, ``execute`` and ``shutdown``.
   method, let the ``pass`` statement as its only content.
 
 For this dummy NApp, let's just print some log messages. To do so, edit the file
-and replace ``pass`` (meaning "do nothing") by ``self.log.info(...)`` as
+and replace ``pass`` (meaning "do nothing") by ``log.info(...)`` as
 detailed below:
 
 .. ATTENTION::
-  In Python, you must be careful about indentation. The ``self.log.info(...)`` lines
+  In Python, you must be careful about indentation. The ``log.info(...)`` lines
   should start in the same column of ``pass`` (4 spaces after the beginning of
   ``def ...(self)``). Do not use tab to indent.
 
@@ -205,7 +205,7 @@ application is loaded.
 .. code-block:: python
 
       def setup(self):
-          self.log.info("Hello world! Now, I'm loaded!")
+          log.info("Hello world! Now, I'm loaded!")
 
 
 Right after the setup there is the ``execute`` method, which we will cover in a
@@ -214,7 +214,7 @@ deeper way on part 2 of the tutorial.
 .. code-block:: python
 
       def execute(self):
-          self.log.info("Hello world! I'm being executed!")
+          log.info("Hello world! I'm being executed!")
 
 
 Finally we have the ``shutdown`` method. This method is executed when the NApp
@@ -223,7 +223,7 @@ is unloaded.
 .. code-block:: python
 
       def shutdown(self):
-          self.log.info("Bye world!")
+          log.info("Bye world!")
 
 
 
@@ -232,24 +232,96 @@ this (simplified, without comments):
 
 .. code-block:: python
 
-  from kytos.core.napps import KytosNApp
+  from kytos.core import KytosNApp, log
   from napps.tutorial.helloworld import settings
 
 
   class Main(KytosNApp):
 
       def setup(self):
-          self.log.info("Hello world! Now, I'm loaded!")
+          log.info("Hello world! Now, I'm loaded!")
 
       def execute(self):
-          self.log.info("Hello world! I'm being executed!")
+          log.info("Hello world! I'm being executed!")
 
       def shutdown(self):
-          self.log.info("Bye world!")
+          log.info("Bye world!")
 
 *****************
 Running your NApp
 *****************
+
+In order to install and enable your NApp, you have to first run the Kytos controller. Kytos will then be
+able to recognize and manage installed/enabled NApps.
+
+Let's start our controller. When it is executed, it loads all of the previously enabled NApps.
+At this point, only the kytos/of_core NApp shall be loaded. The Kytos controller runs by default as a
+daemon. The ``-f`` option runs it in foreground. Open another terminal window, make sure to activate
+your virtual environment and execute:
+
+.. code-block:: bash
+
+  $ kytosd -f
+  2017-07-04 14:47:57,429 - INFO [kytos.core.logs] (MainThread) Logging config file "/home/user/test42/etc/kytos/logging.ini" loaded successfully.
+  2017-07-04 14:47:57,430 - INFO [kytos.core.controller] (MainThread) /home/user/test42/var/run/kytos
+  2017-07-04 14:47:57,431 - INFO [kytos.core.controller] (MainThread) Starting Kytos - Kytos Controller
+  2017-07-04 14:47:57,432 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6633
+  2017-07-04 14:47:57,435 - INFO [kytos.core.controller] (RawEvent Handler) Raw Event Handler started
+  2017-07-04 14:47:57,436 - INFO [kytos.core.controller] (MsgInEvent Handler) Message In Event Handler started
+  2017-07-04 14:47:57,439 - INFO [kytos.core.controller] (MsgOutEvent Handler) Message Out Event Handler started
+  2017-07-04 14:47:57,440 - INFO [kytos.core.controller] (AppEvent Handler) App Event Handler started
+  2017-07-04 14:47:57,441 - INFO [kytos.core.controller] (MainThread) Loading Kytos NApps...
+  2017-07-04 14:47:57,450 - INFO [kytos.core.napps.napp_dir_listener] (MainThread) NAppDirListener Started...
+  2017-07-04 14:47:57,452 - INFO [kytos.core.controller] (MainThread) Loading NApp kytos/of_core
+  2017-07-04 14:47:57,898 - INFO [root] (of_core) Running NApp: <Main(of_core, started 139884996060928)>
+  
+  (...)
+  
+  kytos $> 
+
+  
+In the Kytos console, you can see a log line pointing out that kytos/of_core is running.
+You can list all installed and enabled NApps by switching back to the previous terminal and
+running the command:
+
+.. code-block:: bash
+
+  $ kytos napps list
+
+  
+  Status |          NApp ID          |                      Description
+  =======+===========================+=======================================================
+   [i-]  | kytos/of_core             | OpenFlow Core of Kytos Controller, responsible for ...
+   [i-]  | kytos/of_flow_manager     | Manage switches' flows through a REST API.            
+   [i-]  | kytos/of_ipv6drop         | Install flows to DROP IPv6 packets on all switches.   
+   [i-]  | kytos/of_l2ls             | An L2 learning switch application for OpenFlow swit...
+   [i-]  | kytos/of_lldp             | Discovers switches and hosts in the network using t... 
+   [i-]  | kytos/of_stats            | Provide statistics of openflow switches.              
+   [i-]  | kytos/of_topology         | Keeps track of links between hosts and switches. Re...
+   [i-]  | kytos/web_topology_layout | Manage endpoints related to the web interface setti...
+
+  Status: (i)nstalled, (e)nabled
+
+For this demo, we don't need to have any other NApp loaded except the one we
+just created. So, if your setup has multiple enabled NApps, you can disable them
+with the command:
+
+.. code-block:: bash
+
+  $ kytos napps disable <NApp ID>
+
+As just seen before, the ``kytos/of_core`` NApp is installed and enabled. If so,
+disable it with:
+
+.. code-block:: bash
+
+  $ kytos napps disable kytos/of_core
+  INFO  NApp kytos/of_core:
+  INFO    Disabling...
+  INFO    Disabled.
+
+Yes, we are not running any other NApp for now. We are disabling everything
+including OpenFlow NApps.
 
 In order to run your NApp, you have to install it first. Again, we are going to
 use the ``kytos`` command line from the ``kytos-utils`` project.
@@ -266,80 +338,34 @@ use the ``kytos`` command line from the ``kytos-utils`` project.
 
 .. NOTE:: This will look for the *helloworld* NApp inside the
    *tutorial/helloworld* directory (and also the current one), then
-   install it into your system. This NApp will also be enabled.
+   install it into your system. This NApp will also be enabled and
+   immediately executed by Kytos.
 
-Now, your NApp is ready to be executed. You can also see if your NApp is
-installed and enabled, by running the command:
-
-.. code-block:: bash
-
-  $ kytos napps list
-
-  Status |          NApp ID          |                      Description
-  =======+===========================+=======================================================
-   [ie]  | kytos/of_core             | OpenFlow Core of Kytos Controller, responsible for ...
-   [i-]  | kytos/of_flow_manager     | NApp that manages switches flows.
-   [i-]  | kytos/of_ipv6drop         | Install flows to DROP IPv6 packets on all switches.
-   [i-]  | kytos/of_l2ls             | An L2 learning switch application for OpenFlow swit...
-   [i-]  | kytos/of_l2lsloop         | A L2 learning switch application for openflow switc...
-   [i-]  | kytos/of_lldp             | App responsible by send packet with lldp protocol t...
-   [i-]  | kytos/of_stats            | Provide statistics of openflow switches.
-   [i-]  | kytos/of_topology         | A simple app that update links between machines and...
-   [i-]  | kytos/web_topology_layout | Manage endpoints related to the web interface setti...
-   [ie]  | tutorial/helloworld       | Hello, World!
-
-  Status: (i)nstalled, (e)nabled
-
-For this demo, we don't need to have any other NApp loaded except the one we
-just created. So, if your setup has multiple enabled NApps, please, disable them
-with the command:
-
-.. code-block:: bash
-
-  $ kytos napps disable <NApp ID>
-
-As default, the ``kytos/of_core`` NApp may be installed and enabled. If so,
-disable it with:
-
-.. code-block:: bash
-
-  $ kytos napps disable kytos/of_core
-  INFO  NApp kytos/of_core:
-  INFO    Disabling...
-  INFO    Disabled.
-
-Yes, we are not running any other NApp for now. We are disabling everything
-including OpenFlow NApps.
 
 Testing your NApp
 =================
 
-Let's start our controller. When it is executed, it loads all of the enabled NApps. At this
-point, only our |nn| NApp will be loaded. The Kytos controller runs by default as a daemon. The
-``-f`` option runs it in foreground.
+You can check the logs in the Kytos console to verify your NApp working! The log messages are presented
+as follows:
+
 
 .. code-block:: bash
 
-  $ kytosd -f
-  2017-03-28 16:48:34,624 - INFO [kytos.core.controller] (MainThread) Starting Kytos - Kytos Controller
-  2017-03-28 16:48:34,628 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6633
-  2017-03-28 16:48:34,629 - INFO [kytos.core.controller] (RawEvent Handler) Raw Event Handler started
-  2017-03-28 16:48:34,630 - INFO [kytos.core.controller] (MsgInEvent Handler) Message In Event Handler started
-  2017-03-28 16:48:34,630 - INFO [kytos.core.controller] (MsgOutEvent Handler) Message Out Event Handler started
-  2017-03-28 16:48:34,631 - INFO [kytos.core.controller] (AppEvent Handler) App Event Handler started
-  2017-03-28 16:48:34,631 - INFO [kytos.core.controller] (MainThread) Loading kytos apps...
-  2017-03-28 16:48:34,632 - INFO [kytos.core.controller] (MainThread) Loading NApp tutorial/helloworld
-  2017-03-28 16:48:34,647 - INFO [werkzeug] (Thread-1)  * Running on http://0.0.0.0:8181/ (Press CTRL+C to quit)
-  2017-03-28 16:48:34,017 - INFO [tutorial/helloworld] (helloworld) Running helloworld App
-  2017-03-28 16:48:34,650 - INFO [tutorial/helloworld] (helloworld) Hello world! Now, I'm loaded!
-  2017-03-28 16:48:34,650 - INFO [tutorial/helloworld] (helloworld) Hello world! I'm being executed!
+  2017-07-04 14:51:59,931 - INFO [tutorial/helloworld] (Thread-1) Hello world! Now, I'm loaded!
+  2017-07-04 14:51:59,935 - INFO [root] (helloworld) Running NApp: <Main(helloworld, started 139884979275520)>
+  2017-07-04 14:51:59,938 - INFO [tutorial/helloworld] (helloworld) Hello world! I'm being executed!
 
-Congratulations! You have created your first Kytos NApp! The last 2 lines show
-you NApp is working. To see the shutdown message, hit ``CTRL+C``::
+Congratulations! You have created your first Kytos NApp!
+To see the shutdown message, type ``quit`` in the Kytos console:
 
+.. code-block:: bash
+
+  kytos $> quit
+  Stopping Kytos daemon... Bye, see you!
   (...)
-  2017-03-28 16:48:42,168 - INFO [tutorial/helloworld] (MainThread) Bye world!
-  (...)
+  2017-07-04 14:54:28,511 - INFO [kytos.core.controller] (MainThread) Shutting down NApp tutorial/helloworld...
+  2017-07-04 14:54:28,515 - INFO [tutorial/helloworld] (MainThread) Bye, world!
+
 
 .. include:: ../back_to_list.rst
 

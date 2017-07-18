@@ -37,9 +37,9 @@ Introduction
 
 Now that you have your own development environment you can build a simple
 virtual network using the |mininet|_ tool. In this tutorial you will build a
-simple topology, composed by two switches and two hosts connected one to each
+simple topology, composed of two switches and two hosts connected to each
 switch. This virtual network should be handled by the controller **Kytos** and
-will use the openflow protocol.
+will use the OpenFlow protocol.
 
 In this tutorial the NApps ``of_core``, ``of_l2ls`` and ``of_lldp`` must be
 installed and enabled in order to make the network work as expected.
@@ -48,7 +48,46 @@ installed and enabled in order to make the network work as expected.
 How to manage the Kytos NApps
 *****************************
 
-To run the NApps used in this tutorial, you need to have them installed on your
+First of all, you need to run Kytos to start the NApp management.
+
+.. code-block:: bash
+
+  kytosd -f
+  2017-07-18 10:37:07,409 - INFO [kytos.core.logs] (MainThread) Logging config file "/home/user/test42/etc/kytos/logging.ini" loaded successfully.
+  2017-07-18 10:37:07,410 - INFO [kytos.core.controller] (MainThread) /home/user/test42/var/run/kytos
+  2017-07-18 10:37:07,411 - INFO [kytos.core.controller] (MainThread) Starting Kytos - Kytos Controller
+  2017-07-18 10:37:07,415 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6633
+  2017-07-18 10:37:07,416 - INFO [kytos.core.controller] (RawEvent Handler) Raw Event Handler started
+  2017-07-18 10:37:07,423 - INFO [kytos.core.controller] (MsgInEvent Handler) Message In Event Handler started
+  2017-07-18 10:37:07,424 - INFO [kytos.core.controller] (MsgOutEvent Handler) Message Out Event Handler started
+  2017-07-18 10:37:07,447 - INFO [kytos.core.controller] (AppEvent Handler) App Event Handler started
+  2017-07-18 10:37:07,447 - INFO [kytos.core.controller] (MainThread) Loading Kytos NApps...
+  2017-07-18 10:37:07,460 - INFO [kytos.core.napps.napp_dir_listener] (MainThread) NAppDirListener Started...
+  2017-07-18 10:37:07,462 - INFO [kytos.core.controller] (MainThread) Loading NApp tutorial/ping
+  2017-07-18 10:37:07,471 - INFO [kytos.core.controller] (MainThread) Loading NApp tutorial/pong
+  2017-07-18 10:37:07,897 - INFO [root] (ping) Running NApp: <Main(ping, started 140237107877632)>
+  2017-07-18 10:37:07,908 - INFO [tutorial/ping] (ping) 2017-07-18 10:37:07.899829 Ping sent.
+  2017-07-18 10:37:07,912 - INFO [tutorial/pong] (Thread-6) Hi, here is the Pong NApp answering a ping.The current time is 2017-07-18 10:37:07.911947, and the ping was dispatched at 2017-07-18 10:37:07.899829.
+  2017-07-18 10:37:07,912 - INFO [root] (pong) Running NApp: <Main(pong, started 140237099484928)>
+  
+  (...)
+  
+  kytos $>
+
+If you are following the tutorials, you can see the ``tutorial/ping`` and ``tutorial/pong``
+NApps enabled and running. To disable them, run:
+
+.. code-block:: bash
+
+  $ kytos napps disable tutorial/ping tutorial/pong
+  INFO  NApp tutorial/ping:
+  INFO    Disabling...
+  INFO    Disabled.
+  INFO  NApp tutorial/pong:
+  INFO    Disabling...
+  INFO    Disabled.
+  
+To enable the NApps used in this tutorial, you need to have them installed on your
 system. You probably already have them, but, in case you don't, you can install
 them with the kytos-utils package by doing:
 
@@ -59,10 +98,9 @@ them with the kytos-utils package by doing:
 
  $ kytos napps install kytos/of_core kytos/of_l2ls kytos/of_lldp
 
-Now your Napps are ready to be executed.
+Now your Napps are installed, enabled, and being executed.
 
-You can also verify if the Napps are installed and enabled, by running the
-comamnd:
+You can also verify the NApps state by running the comamnd:
 
 .. code-block:: bash
 
@@ -167,18 +205,8 @@ can use the command below. ::
 
   mininet>
 
-Since **Kytos** is not running, your network will not be functional. So,
-let's start **Kytos**. As you wan't to run both **Kytos** and Mininet at the same
-time, open a new terminal window, enable your virtual environment, and run
-the controller:
-
-.. code:: shell
-
-  $ cd ~/
-  $ source test42/bin/activate
-  $ kytosd -f
-
-Going back to your other terminal with mininet, now you can test the ping: ::
+As Kytos is running with the necessary NApps, yout topology will be fully functional
+now. You can test it with ping (ICMP protocol) by running, in mininet: ::
 
   mininet> h1 ping h2
   PING 10.0.0.2 (10.0.0.2) 56(84) bytes of data.
@@ -195,27 +223,33 @@ Let's take a look at the terminal:
 
 .. code-block:: bash
 
-  $ kytosd -f
-  2017-03-29 09:07:45,852 - INFO [kytos.core.controller] (MainThread) Starting Kytos - Kytos Controller
-  2017-03-29 09:07:45,856 - INFO [kytos.core.controller] (RawEvent Handler) Raw Event Handler started
-  2017-03-29 09:07:45,857 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6633
-  2017-03-29 09:07:45,857 - INFO [kytos.core.controller] (MsgInEvent Handler) Message In Event Handler started
-  2017-03-29 09:07:45,859 - INFO [kytos.core.controller] (MsgOutEvent Handler) Message Out Event Handler started
-  2017-03-29 09:07:45,860 - INFO [kytos.core.controller] (AppEvent Handler) App Event Handler started
-  2017-03-29 09:07:45,861 - INFO [kytos.core.controller] (MainThread) Loading kytos apps...
-  2017-03-29 09:07:45,864 - INFO [kytos.core.controller] (MainThread) Loading NApp kytos/of_core
-  2017-03-29 09:07:45,869 - INFO [werkzeug] (Thread-1)  * Running on http://0.0.0.0:8181/ (Press CTRL+C to quit)
-  2017-03-29 09:07:45,953 - INFO [kytos/of_core] (of_core) Running of_core App
-  2017-03-29 09:07:45,955 - INFO [kytos.core.controller] (MainThread) Loading NApp kytos/of_l2ls
-  2017-03-29 09:07:45,999 - INFO [kytos/of_l2ls] (of_l2ls) Running of_l2ls App
-  2017-03-29 09:07:45,999 - INFO [kytos.core.controller] (MainThread) Loading NApp kytos/of_lldp
-  2017-03-29 09:07:46,007 - INFO [kytos/of_lldp] (of_lldp) Running of_lldp App
-  2017-03-29 09:07:46,042 - INFO [kytos.core.tcp_server] (Thread-5) New connection from 127.0.0.1:57730
-  2017-03-29 09:07:46,044 - INFO [kytos.core.controller] (RawEvent Handler) Handling KytosEvent:kytos/core.connection.new ...
-  2017-03-29 09:07:46,050 - INFO [kytos.core.tcp_server] (Thread-6) New connection from 127.0.0.1:57732
-  2017-03-29 09:07:46,051 - INFO [kytos.core.controller] (RawEvent Handler) Handling KytosEvent:kytos/core.connection.new ...
+  kytosd -f
+  2017-07-18 10:53:56,567 - INFO [kytos.core.logs] (MainThread) Logging config file "/home/user/test42/etc/kytos/logging.ini" loaded successfully.
+  2017-07-18 10:53:56,568 - INFO [kytos.core.controller] (MainThread) /home/user/test42/var/run/kytos
+  2017-07-18 10:53:56,569 - INFO [kytos.core.controller] (MainThread) Starting Kytos - Kytos Controller
+  2017-07-18 10:53:56,577 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6633
+  2017-07-18 10:53:56,579 - INFO [kytos.core.controller] (RawEvent Handler) Raw Event Handler started
+  2017-07-18 10:53:56,584 - INFO [kytos.core.controller] (MsgInEvent Handler) Message In Event Handler started
+  2017-07-18 10:53:56,585 - INFO [kytos.core.controller] (MsgOutEvent Handler) Message Out Event Handler started
+  2017-07-18 10:53:56,590 - INFO [kytos.core.controller] (AppEvent Handler) App Event Handler started
+  2017-07-18 10:53:56,591 - INFO [kytos.core.controller] (MainThread) Loading Kytos NApps...
+  2017-07-18 10:53:56,595 - INFO [kytos.core.napps.napp_dir_listener] (MainThread) NAppDirListener Started...
+  2017-07-18 10:53:56,598 - INFO [kytos.core.controller] (MainThread) Loading NApp kytos/of_lldp
+  2017-07-18 10:53:56,746 - INFO [kytos.core.controller] (MainThread) Loading NApp kytos/of_l2ls
+  2017-07-18 10:53:56,756 - INFO [root] (of_lldp) Running NApp: <Main(of_lldp, started 139968915678976)>
+  2017-07-18 10:53:56,761 - INFO [kytos.core.controller] (MainThread) Loading NApp kytos/of_core
+  2017-07-18 10:53:56,766 - INFO [root] (of_l2ls) Running NApp: <Main(of_l2ls, started 139968907286272)>
+  2017-07-18 10:53:56,875 - INFO [root] (kytos/of_core) Running NApp: <Main(kytos/of_core, started 139968907286272)>
+  
+  (...)
+  
+  kytos $> 2017-07-18 10:54:01,761 - INFO [kytos.core.tcp_server] (Thread-23) New connection from 127.0.0.1:56658
+  2017-07-18 10:54:01,766 - INFO [kytos.core.tcp_server] (Thread-26) New connection from 127.0.0.1:56660
+  2017-07-18 10:54:01,822 - INFO [kytos/of_core] (Thread-33) Connection ('127.0.0.1', 56660), Switch 00:00:00:00:00:00:00:02: OPENFLOW HANDSHAKE COMPLETE
+  2017-07-18 10:54:01,823 - INFO [kytos/of_core] (Thread-34) Connection ('127.0.0.1', 56658), Switch 00:00:00:00:00:00:00:01: OPENFLOW HANDSHAKE COMPLETE
 
-On Kytos logs you can see the logs of all NApps enabled.
+
+On Kytos logs you can see the logs of all enabled NApps.
 
 In the above output, the last four lines shows that two new switches were
 connected to Kytos. Those are the switches running in mininet.
