@@ -187,7 +187,7 @@ system.
 
 To test if the mininet is working for you, run the command:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ sudo mn --test pingall
   *** No default OpenFlow controller found for default switch!

@@ -71,7 +71,7 @@ First, you will create the basic structure of the NApp by using the ``kytos``
 command from the ``kytos-utils`` project. So, on the command line, write the
 following commands:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ cd
   $ mkdir tutorials
@@ -91,14 +91,14 @@ following commands:
 The first question is related to your username, let's answer with
 **tutorial** for now, since we are on our third tutorial:
 
-.. code:: bash
+.. code:: console
 
   Please, insert your NApps Server username: tutorial
 
 
 Then, you will insert the NApp name (**ping**):
 
-.. code:: bash
+.. code:: console
 
   Please, insert your NApp name: ping
 
@@ -106,11 +106,11 @@ At last, but not least, you will be asked for a description for the NApp. This
 is an optional argument and you can just hit Enter to pass it if you do not want
 to insert a description right now (later, you can edit the *kytos.json* file).
 
-.. code-block:: bash
+.. code-block:: console
 
   Please, insert a brief description for your NApp [optional]: This NApp sends a Ping event every N seconds (see settings.py for N).
 
-.. code-block:: bash
+.. code-block:: console
 
   Congratulations! Your NApp have been bootstrapped!
   Now you can go to the directory tutorial/ping and begin to code your NApp.
@@ -118,7 +118,7 @@ to insert a description right now (later, you can edit the *kytos.json* file).
 
 Now your NApp has been created. You can enter its directory by typing:
 
-.. code:: bash
+.. code:: console
 
   $ cd tutorial/ping
 
@@ -244,7 +244,7 @@ Bootstrapping your NApp
 Similarly to what you did on the Ping NApp, use the ``kytos`` command to create
 your **Pong** NApp's structure:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ cd ~/tutorials
   $ kytos napps create
@@ -260,23 +260,23 @@ your **Pong** NApp's structure:
 
 Use the same username, **tutorial**:
 
-.. code:: bash
+.. code:: console
 
   Please, insert your NApps Server username: tutorial
 
 And **pong** and NApp name.
 
-.. code:: bash
+.. code:: console
 
   Please, insert your NApp name: pong
 
 And the NApp description
 
-.. code-block:: bash
+.. code-block:: console
 
   Please, insert a brief description for your NApp [optional]: This NApp answers to a Ping event.
 
-.. code-block:: bash
+.. code-block:: console
 
   Congratulations! Your NApp have been bootstrapped!
   Now you can go to the directory tutorial/pong and begin to code your NApp.
@@ -284,7 +284,7 @@ And the NApp description
 
 Now your NApp has been created, and you can enter its directory by typing:
 
-.. code:: bash
+.. code:: console
 
   $ cd tutorial/pong
 
@@ -364,7 +364,7 @@ Running your Ping and Pong NApps
 In order to install and enable your NApp, you have to first run the Kytos controller. Kytos will then be
 able to recognize and manage installed/enabled NApps. In another terminal window, activate the virtual environment and run:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ kytosd -f
   2017-07-18 10:09:51,644 - INFO [kytos.core.logs] (MainThread) Logging config file "/home/user/test42/etc/kytos/logging.ini" loaded successfully.
@@ -388,7 +388,7 @@ able to recognize and manage installed/enabled NApps. In another terminal window
 
 If you are following the tutorials, you can see that ``tutorial/loopnapp`` is enabled. You can disable it by running:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ kytos napps disable tutorial/loopnapp
   INFO  NApp tutorial/loopnapp:
@@ -412,7 +412,7 @@ In order to run your NApps, first you have to install them. Once more use the
 
 To install and enable your NApps, run the commands below:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ cd ~/tutorials
   $ kytos napps install tutorial/ping tutorial/pong
@@ -449,7 +449,7 @@ Testing your NApp
 
 Let's see our controller logs in the console:
 
-.. code-block:: bash
+.. code-block:: console
 
   2017-07-18 10:23:05,578 - INFO [root] (ping) Running NApp: <Main(ping, started 139640979838720)>
   2017-07-18 10:23:05,604 - INFO [root] (pong) Running NApp: <Main(pong, started 139640954660608)>

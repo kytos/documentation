@@ -35,9 +35,10 @@ What you will need
 Running Kytos
 *************
 
-Before installing the statistics NApp you need Kytos running to enable NApp management:
+Before installing the statistics NApp you need Kytos running to enable NApp
+management:
 
-.. code-block::
+.. code-block:: console
 
   $ kytosd -f
 
@@ -57,7 +58,9 @@ this tutorial.
 Installing the statistics NApp
 ******************************
 
-Search for NApps with the term *of_stats*. You should see something like this::
+Search for NApps with the term *of_stats*. You should see something like this:
+
+.. code-block:: bash
 
   $ kytos napps search of_stats
 
@@ -70,8 +73,10 @@ Search for NApps with the term *of_stats*. You should see something like this::
 The status column shows that kytos/of_stats is installed but not enabled.
 If you see ``[--]`` in the status, it means it not installed.
 
-We can download, install and enable a NApp with a single command. If everything goes
-well, you should see an output like the one below::
+We can download, install and enable a NApp with a single command. If everything
+goes well, you should see an output like the one below:
+
+.. code-block:: console
 
   $ kytos napps install tutorial/of_stats
 
@@ -84,7 +89,9 @@ well, you should see an output like the one below::
 
 You can either check the status by running the search command again or by
 listing all of your local network applications. If the NApp is installed but
-not enabled, don't forget to enable it.::
+not enabled, don't forget to enable it:
+
+.. code-block:: bash
 
   $ kytos napps list
 
@@ -111,12 +118,16 @@ Running Mininet
 
 We are going to use the same command of the tutorial
 :doc:`how_to_use_kytos_with_mininet` but, before, we are going to run the clean
-command::
+command:
+
+.. code-block:: console
 
   $ sudo mn -c
   $ sudo mn --topo linear,2 --mac --controller=remote,ip=127.0.0.1 --switch ovsk,protocols=OpenFlow10
 
-Finally, let's generate 5 packets per second from host h1 to h2 with::
+Finally, let's generate 5 packets per second from host h1 to h2 with:
+
+.. code-block:: console
 
   mininet> h1 ping -i 0.2 h2
 
