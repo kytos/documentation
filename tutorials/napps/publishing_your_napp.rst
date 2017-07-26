@@ -231,7 +231,7 @@ the username, NApp name, description or tags.
    [i-]  | kytos/of_stats            | Provide statistics of openflow switches.
    [i-]  | kytos/of_topology         | Keeps track of links between hosts and switches. R...
    [i-]  | kytos/web_topology_layout | Manage endpoints related to the web interface sett...
-  
+
   Status: (i)nstalled, (e)nabled
 
 .. |Tutorial_01| replace:: *Tutorial 01*

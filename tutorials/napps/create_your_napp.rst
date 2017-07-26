@@ -274,12 +274,12 @@ your virtual environment and execute:
   2017-07-04 14:47:57,450 - INFO [kytos.core.napps.napp_dir_listener] (MainThread) NAppDirListener Started...
   2017-07-04 14:47:57,452 - INFO [kytos.core.controller] (MainThread) Loading NApp kytos/of_core
   2017-07-04 14:47:57,898 - INFO [root] (of_core) Running NApp: <Main(of_core, started 139884996060928)>
-  
-  (...)
-  
-  kytos $> 
 
-  
+  (...)
+
+  kytos $>
+
+
 In the Kytos console, you can see a log line pointing out that kytos/of_core is running.
 You can list all installed and enabled NApps by switching back to the previous terminal and
 running the command:
@@ -288,15 +288,14 @@ running the command:
 
   $ kytos napps list
 
-  
   Status |          NApp ID          |                      Description
   =======+===========================+=======================================================
-   [i-]  | kytos/of_core             | OpenFlow Core of Kytos Controller, responsible for ...
-   [i-]  | kytos/of_flow_manager     | Manage switches' flows through a REST API.            
-   [i-]  | kytos/of_ipv6drop         | Install flows to DROP IPv6 packets on all switches.   
+   [ie]  | kytos/of_core             | OpenFlow Core of Kytos Controller, responsible for ...
+   [i-]  | kytos/of_flow_manager     | Manage switches' flows through a REST API.
+   [i-]  | kytos/of_ipv6drop         | Install flows to DROP IPv6 packets on all switches.
    [i-]  | kytos/of_l2ls             | An L2 learning switch application for OpenFlow swit...
-   [i-]  | kytos/of_lldp             | Discovers switches and hosts in the network using t... 
-   [i-]  | kytos/of_stats            | Provide statistics of openflow switches.              
+   [i-]  | kytos/of_lldp             | Discovers switches and hosts in the network using t...
+   [i-]  | kytos/of_stats            | Provide statistics of openflow switches.
    [i-]  | kytos/of_topology         | Keeps track of links between hosts and switches. Re...
    [i-]  | kytos/web_topology_layout | Manage endpoints related to the web interface setti...
 

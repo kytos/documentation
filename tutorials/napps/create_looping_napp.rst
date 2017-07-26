@@ -197,10 +197,10 @@ able to recognize and manage installed/enabled NApps. In another terminal window
   2017-07-04 16:57:59,507 - INFO [tutorial/helloworld] (MainThread) Hello world! Now, I'm loaded!
   2017-07-04 16:57:59,520 - INFO [root] (helloworld) Running NApp: <Main(helloworld, started 139775231104768)>
   2017-07-04 16:57:59,527 - INFO [tutorial/helloworld] (helloworld) Hello world! I'm being executed!
-  
+
   (...)
-  
-  kytos $> 
+
+  kytos $>
 
 You can now list all NApps, verify which ones are enabled and disable them. Only the new NApp will run this time.
 Yes, we are not running any other NApp for now, we are disabling everything,
@@ -209,19 +209,19 @@ including OpenFlow NApps.
 .. code-block:: bash
 
   $ kytos napps list
-  
+
   Status |          NApp ID          |                      Description
   =======+===========================+=======================================================
    [i-]  | kytos/of_core             | OpenFlow Core of Kytos Controller, responsible for ...
-   [i-]  | kytos/of_flow_manager     | Manage switches' flows through a REST API.            
-   [i-]  | kytos/of_ipv6drop         | Install flows to DROP IPv6 packets on all switches.   
+   [i-]  | kytos/of_flow_manager     | Manage switches' flows through a REST API.
+   [i-]  | kytos/of_ipv6drop         | Install flows to DROP IPv6 packets on all switches.
    [i-]  | kytos/of_l2ls             | An L2 learning switch application for OpenFlow swit...
-   [i-]  | kytos/of_lldp             | Discovers switches and hosts in the network using t... 
-   [i-]  | kytos/of_stats            | Provide statistics of openflow switches.              
+   [i-]  | kytos/of_lldp             | Discovers switches and hosts in the network using t...
+   [i-]  | kytos/of_stats            | Provide statistics of openflow switches.
    [i-]  | kytos/of_topology         | Keeps track of links between hosts and switches. Re...
    [i-]  | kytos/web_topology_layout | Manage endpoints related to the web interface setti...
-   [ie]  | tutorial/helloworld       | Hello, world!                                         
-  
+   [ie]  | tutorial/helloworld       | Hello, world!
+
   Status: (i)nstalled, (e)nabled
 
   $ kytos napps disable tutorial/helloworld
@@ -252,18 +252,18 @@ You can now see your NApp installed and enabled by running the command:
 .. code-block:: bash
 
   $ kytos napps list
-  
+
   Status |          NApp ID          |                      Description
   =======+===========================+=======================================================
    [i-]  | kytos/of_core             | OpenFlow Core of Kytos Controller, responsible for ...
-   [i-]  | kytos/of_flow_manager     | Manage switches' flows through a REST API.            
-   [i-]  | kytos/of_ipv6drop         | Install flows to DROP IPv6 packets on all switches.   
+   [i-]  | kytos/of_flow_manager     | Manage switches' flows through a REST API.
+   [i-]  | kytos/of_ipv6drop         | Install flows to DROP IPv6 packets on all switches.
    [i-]  | kytos/of_l2ls             | An L2 learning switch application for OpenFlow swit...
-   [i-]  | kytos/of_lldp             | Discovers switches and hosts in the network using t... 
-   [i-]  | kytos/of_stats            | Provide statistics of openflow switches.              
+   [i-]  | kytos/of_lldp             | Discovers switches and hosts in the network using t...
+   [i-]  | kytos/of_stats            | Provide statistics of openflow switches.
    [i-]  | kytos/of_topology         | Keeps track of links between hosts and switches. Re...
-   [i-]  | kytos/web_topology_layout | Manage endpoints related to the web interface setti...                                                       
-   [i-]  | tutorial/helloworld       | Hello, world!                                         
+   [i-]  | kytos/web_topology_layout | Manage endpoints related to the web interface setti...
+   [i-]  | tutorial/helloworld       | Hello, world!
    [ie]  | tutorial/loopnapp         | Loop NApp
 
 
@@ -284,7 +284,7 @@ lines with ``Controller Uptime``, type ``quit`` to stop the controller.
   Stopping Kytos daemon... Bye, see you!
   2017-07-17 23:25:29,729 - INFO [kytos.core.controller] (MainThread) Stopping Kytos
   (...)
-  
+
 
 As you can see, the uptime was reported several times, at 23:24:53, 23:25:08 and
 23:25:23 with an interval of 15 seconds, as expected.
