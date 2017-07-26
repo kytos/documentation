@@ -78,9 +78,9 @@ goes well, you should see an output like the one below:
 
 .. code-block:: console
 
-  $ kytos napps install tutorial/of_stats
+  $ kytos napps install kytos/of_stats
 
-  INFO  NApp tutorial/of_stats:
+  INFO  NApp kytos/of_stats:
   INFO    Searching local NApp...
   INFO    Not found. Downloading from NApps Server...
   INFO    Downloaded and installed.
