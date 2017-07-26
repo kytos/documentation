@@ -50,9 +50,9 @@ How to manage the Kytos NApps
 
 First of all, you need to run Kytos to start the NApp management.
 
-.. code-block:: bash
+.. code-block:: console
 
-  kytosd -f
+  $ kytosd -f
   2017-07-18 10:37:07,409 - INFO [kytos.core.logs] (MainThread) Logging config file "/home/user/test42/etc/kytos/logging.ini" loaded successfully.
   2017-07-18 10:37:07,410 - INFO [kytos.core.controller] (MainThread) /home/user/test42/var/run/kytos
   2017-07-18 10:37:07,411 - INFO [kytos.core.controller] (MainThread) Starting Kytos - Kytos Controller
@@ -77,7 +77,7 @@ First of all, you need to run Kytos to start the NApp management.
 If you are following the tutorials, you can see the ``tutorial/ping`` and ``tutorial/pong``
 NApps enabled and running. To disable them, run:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ kytos napps disable tutorial/ping tutorial/pong
   INFO  NApp tutorial/ping:
@@ -94,7 +94,7 @@ them with the kytos-utils package by doing:
 .. NOTE:: Do not forget to enable your virtualenv, where you installed the
     Kytos project components.
 
-.. code-block:: bash
+.. code-block:: console
 
  $ kytos napps install kytos/of_core kytos/of_l2ls kytos/of_lldp
 
@@ -102,14 +102,14 @@ Now your Napps are installed, enabled, and being executed.
 
 You can also verify the NApps state by running the comamnd:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ kytos napps list
 
 If you already have them installed, but they are disabled, you can enable them
 with the command:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ kytos napps enable kytos/of_core kytos/of_l2ls kytos/of_lldp
 
@@ -157,7 +157,7 @@ need to define that the switches will work on the OpenFlow 1.0 protocol.
 
 To do this use the command below:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ sudo mn --topo linear,2 --mac --controller=remote,ip=127.0.0.1 --switch ovsk,protocols=OpenFlow10
   *** Creating network
@@ -182,7 +182,9 @@ After running that command, the mininet output will show that two hosts and two
 switches were created, and that the switches and the hosts are linked. So, the
 mininet console will be activated and you can send commands to each switch or
 host connected. For instance, if you need see the IP Address of the host 1 you
-can use the command below. ::
+can use the command below.
+
+.. code-block:: console
 
   mininet> h1 ifconfig
   h1-eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
@@ -205,8 +207,11 @@ can use the command below. ::
 
   mininet>
 
-As Kytos is running with the necessary NApps, yout topology will be fully functional
-now. You can test it with ping (ICMP protocol) by running, in mininet: ::
+As Kytos is running with the necessary NApps, yout topology will be fully
+functional now. You can test it with ping (ICMP protocol) by running, in
+mininet:
+
+.. code-block:: console
 
   mininet> h1 ping h2
   PING 10.0.0.2 (10.0.0.2) 56(84) bytes of data.
@@ -221,9 +226,9 @@ Understanding Kytos logs
 
 Let's take a look at the terminal:
 
-.. code-block:: bash
+.. code-block:: console
 
-  kytosd -f
+  $ kytosd -f
   2017-07-18 10:53:56,567 - INFO [kytos.core.logs] (MainThread) Logging config file "/home/user/test42/etc/kytos/logging.ini" loaded successfully.
   2017-07-18 10:53:56,568 - INFO [kytos.core.controller] (MainThread) /home/user/test42/var/run/kytos
   2017-07-18 10:53:56,569 - INFO [kytos.core.controller] (MainThread) Starting Kytos - Kytos Controller

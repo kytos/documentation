@@ -259,7 +259,7 @@ At this point, only the kytos/of_core NApp shall be loaded. The Kytos controller
 daemon. The ``-f`` option runs it in foreground. Open another terminal window, make sure to activate
 your virtual environment and execute:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ kytosd -f
   2017-07-04 14:47:57,429 - INFO [kytos.core.logs] (MainThread) Logging config file "/home/user/test42/etc/kytos/logging.ini" loaded successfully.
@@ -306,14 +306,14 @@ For this demo, we don't need to have any other NApp loaded except the one we
 just created. So, if your setup has multiple enabled NApps, you can disable them
 with the command:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ kytos napps disable <NApp ID>
 
 As just seen before, the ``kytos/of_core`` NApp is installed and enabled. If so,
 disable it with:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ kytos napps disable kytos/of_core
   INFO  NApp kytos/of_core:
@@ -326,7 +326,7 @@ including OpenFlow NApps.
 In order to run your NApp, you have to install it first. Again, we are going to
 use the ``kytos`` command line from the ``kytos-utils`` project.
 
-.. code-block:: bash
+.. code-block:: console
 
   $ cd ~/tutorials
   $ kytos napps install tutorial/helloworld
@@ -349,7 +349,7 @@ You can check the logs in the Kytos console to verify your NApp working! The log
 as follows:
 
 
-.. code-block:: bash
+.. code-block:: console
 
   2017-07-04 14:51:59,931 - INFO [tutorial/helloworld] (Thread-1) Hello world! Now, I'm loaded!
   2017-07-04 14:51:59,935 - INFO [root] (helloworld) Running NApp: <Main(helloworld, started 139884979275520)>
@@ -358,7 +358,7 @@ as follows:
 Congratulations! You have created your first Kytos NApp!
 To see the shutdown message, type ``quit`` in the Kytos console:
 
-.. code-block:: bash
+.. code-block:: console
 
   kytos $> quit
   Stopping Kytos daemon... Bye, see you!

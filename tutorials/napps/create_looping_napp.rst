@@ -57,7 +57,7 @@ project with a few command line utilities that can help you to create it.
 
 Let's create the structure:
 
-.. code-block:: bash
+.. code-block:: console
 
    $ cd
    $ mkdir tutorials
@@ -92,7 +92,9 @@ Now you have a bootstrap NApp structure to work on.
 
 During this tutorial, the only files that we need to worry about are the
 ``main.py`` and ``settings.py``.  Open with your preferred editor and let's
-code::
+code:
+
+.. code-block:: console
 
   $ cd ~/tutorials/tutorial/loopnapp
   $ gedit main.py settings.py
@@ -105,7 +107,7 @@ In order to adjust the polling frequency, let's define a variable in
 seconds, that we will use to determine our polling interval. In this
 example, our NApp will get the controller uptime every fifteen seconds.
 
-.. code-block:: python
+.. code-block:: python3
 
     # Polling frequency
     UPTIME_INTERVAL = 15
@@ -120,7 +122,7 @@ Setup
 In `main.py` file, we have to adjust the `setup()` method. We will add a
 line to tell the controller that this NApp will run repeatedly.
 
-.. code-block:: python
+.. code-block:: python3
 
    def setup(self):
        log.info("Loop NApp Loaded!")
@@ -139,7 +141,7 @@ Execute
 In the `execute` method we code what will be executed every fifteen seconds. In
 this case, we gather the controller's uptime and print it in the logs.
 
-.. code-block:: python
+.. code-block:: python3
 
    def execute(self):
        uptime = self.controller.uptime()
@@ -151,7 +153,7 @@ Running Periodically
 
 The entire NApp's source code of the looping NApp follows:
 
-.. code-block:: python
+.. code-block:: python3
 
     from kytos.core import KytosNApp, log
     from napps.tutorial.loopnapp import settings
@@ -177,7 +179,7 @@ Running your NApp
 In order to install and enable your NApp, you have to first run the Kytos controller. Kytos will then be
 able to recognize and manage installed/enabled NApps. In another terminal window, activate the virtual environment and run:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ kytosd -f
 
@@ -231,7 +233,7 @@ including OpenFlow NApps.
 In order to run your NApp, first you have to install it. Again, we are going
 to use the ``kytos`` command line from the ``kytos-utils`` package.
 
-.. code-block:: bash
+.. code-block:: console
 
   $ cd ~/tutorials
   $ kytos napps install tutorial/loopnapp
@@ -271,8 +273,8 @@ Testing your NApp
 Back to the Kytos console, we can check the log messages. After seeing several
 lines with ``Controller Uptime``, type ``quit`` to stop the controller.
 
-.. code-block:: bash
- 
+.. code-block:: console
+
   kytos $> 2017-07-17 23:24:53,128 - INFO [tutorial/loopnapp] (Thread-1) Loop NApp Loaded!
   2017-07-17 23:24:53,131 - INFO [root] (loopnapp) Running NApp: <Main(loopnapp, started 140460012750592)>
   2017-07-17 23:24:53,134 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:01:14.565704

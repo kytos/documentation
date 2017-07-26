@@ -55,7 +55,7 @@ Your NApp metadata
 First of all, you need to create a NApp. So, let's start creating a new NApp
 using your **username** (the one you have just registered).
 
-.. code-block:: bash
+.. code-block:: console
 
   $ mkdir -p ~/tutorials
   $ cd ~/tutorials
@@ -75,7 +75,7 @@ name of your NApp, and, for now,
 we will just use ``my_first_napp`` as NApp name. The third question is related
 to your NApp description. Let's put some meaningful information over there.
 
-.. code:: bash
+.. code:: console
 
   Please, insert your NApps Server username: <username>
   Please, insert your NApp name: my_first_napp
@@ -180,7 +180,7 @@ Uploading the NApp
 
 Your NApp is now ready to be uploaded. To do it, use the following command:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ cd ~/tutorials/<username>/my_first_napp
   $ kytos napps upload
