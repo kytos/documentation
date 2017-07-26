@@ -28,8 +28,20 @@ What you will need
 ==================
 
 * :doc:`Kytos and Mininet <how_to_use_kytos_with_mininet>`;
-* The dependencies *rrdtool* and *librrd-dev* (Ubuntu package names) as
-  installed in :doc:`development_environment_setup`.
+
+
+********************************
+Installing required dependencies
+********************************
+
+The NApp used in this tutorial, *kytos/of_stats*, has some dependencies that
+must be installed on your system beforehand. To get them, run:
+
+.. code-block:: bash
+
+  $ sudo apt update
+  $ sudo apt install rrdtool librrd-dev
+  $ pip install rrdtool
 
 *************
 Running Kytos
