@@ -173,6 +173,41 @@ virtualenv.
     done
 
 Cool! Now you have all dependencies and repositories cloned into your machine.
+
+Installing the NApps from Kytos team
+====================================
+
+We will now install the NApps developed by the Kytos team, which will be used
+later in the following tutorials. To enable NApps management, we need Kytos
+running, so open another terminal window, make sure your virtualenv is active
+and run:
+
+.. code-block:: bash
+
+  $ source test42/bin/activate
+  $ kytosd -f
+
+.. NOTE:: Don't worry about the Kytos main screen for now: we will have it
+    explained, as well as NApp management, in the next tutorials.
+
+Now that Kytos is running, switch back to the previous window and install the
+NApps using the ``kytos`` command line utility. You will also disable the NApps,
+just for now.
+
+.. code-block:: bash
+
+  $ kytos napps install kytos/of_core \
+     kytos/of_flow_manager \
+     kytos/of_ipv6drop \
+     kytos/of_l2ls \
+     kytos/of_lldp \
+     kytos/of_topology \
+     kytos/web_topology_layout
+
+  $ kytos napps disable all
+
+That's it! Now, you can go back to the Kytos screen and type ``quit`` to exit
+Kytos.
 One more step: Mininet.
 
 How to install Mininet
