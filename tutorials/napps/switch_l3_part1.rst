@@ -54,21 +54,25 @@ No. A router should be capable of switching packets between different networks, 
 to actively communicate with hosts using protocols such as ARP and ICMP. We will cover
 the steps to implement routing in future tutorials.
 
-For this implementation of *l3ls*, we will consider hosts are in the same logical
+For this implementation of *l3ls*, we will consider that hosts are in the same logical
 network.
 
 .. NOTE:: We are also considering the addresses to be IPv4 addresses and
     Mininet will handle the ARP tables for each host.
+
+.. ATTENTION:: This NApp was designed for instructional purposes. Running it in
+    production environments may lead to unwanted behavior.
 
 ******************
 Creating your NApp
 ******************
 
 First, create your NApp using the ``kytos`` command. Use 'tutorial' as the
-username and 'of_l3ls' as the NApp name, as follows:
+username and 'of_l3ls' as the NApp name, as follows (don't forget to create
+the ``~/tutorials`` folder if it does not exist):
 
-.. code-block:: bash
-
+.. code-block:: console
+  $ cd ~/tutorials
   $ kytos napps create
   --------------------------------------------------------------
   Welcome to the bootstrap process of your NApp.
@@ -142,37 +146,39 @@ You can also add a log message to know when the controller receives a packet.
             in_port = packet_in.in_port.value
             switch = event.source.switch
             switch.l3_table[ipv4.source] = in_port
-            log.info(f'Packet received from {ipv4.source} to {ipv4.destination}.')
+            log.info('Packet received from %s to %s.', ipv4.source,
+                     ipv4.destination)
 
 
 Create Flow Mods for IP Addresses
 =================================
 
-The next step is to check if the switch already knows which port the destination
-address is at. Your method will look for it in the l3 switching table.
+The next step is to check if the switch already knows from which port the destination
+address is reachable. Your method will look for it in the l3 switching table.
 
-If the switch does know the packet shall go to, you will install a Flow in it so
-new packets with the same source and destination addresses will be not sent to the controller from now on.
+If the switch does know where the packet shall go to, then you will install a Flow in it so
+new packets with the same source and destination addresses will be directly and
+correctly forwarded, without needing the controller.
 The Flow will instruct the switch to handle those new packets himself.
 
 Your Flow Mod message shall have:
  - A Flow Mod Command: as this is a new Flow, the command is OFPFC_ADD;
  - A Flow Match: A match has all information you want the switch to check before
-   deciding the packet belongs to this particular flow. You want the switch to match the
+   deciding if the packet belongs to this particular flow. You want the switch to match the
    source IP address, the destination IP address and the Ethernet Type (IP);
  - A list of Actions: All the actions to be performed on the incoming packet are
    executed by the switch. Given this is a switching NApp, you want the switch
-   to send the packet through the correct port, identified by the controller.
+   to send the packet through the correct port, defined by the controller.
 
 Once you have prepared the Flow Mod, create a KytosEvent containing it directed to the switch
-that sent you the Packet In, and put this event in the ``msg_out`` buffer.
+that sent you the PacketIn, and put this event in the ``msg_out`` buffer.
 
 .. code-block:: python
 
             dest_port = switch.l3_table.get(ipv4.destination, None)
 
             if dest_port is not None:
-                log.info(f'{ipv4.destination} is at port {dest_port}.')
+                log.info('%s is at port %d.', ipv4.destination, dest_port)
                 flow_mod = FlowMod()
                 flow_mod.command = FlowModCommand.OFPFC_ADD
                 flow_mod.match = Match()
@@ -193,9 +199,9 @@ Send the packet back to the network
 
 Whether your switch found a destination or not, the flow installed on the previous
 step will work only for new incoming packets. There is still need to handle this
-particular packet that generated the Packet In event.
+particular packet that generated the PacketIn event.
 
-Create a Packet Out with the content of the Packet In (same buffer_id, in_port
+Create a PacketOut with the content of the PacketIn (same buffer_id, in_port
 and data). If the controller knows the packet destination, then you can send it
 right away through the proper port. If the controller does not know it, then tell
 the switch to *flood* the packet: send it to all ports except the in_port.
@@ -266,12 +272,13 @@ needed imports, and comments were removed to improve readability.
                 in_port = packet_in.in_port.value
                 switch = event.source.switch
                 switch.l3_table[ipv4.source] = in_port
-                log.info(f'Packet received from {ipv4.source} to {ipv4.destination}.')
+                log.info('Packet received from %s to %s.', ipv4.source,
+                         ipv4.destination)
  
                 dest_port = switch.l3_table.get(ipv4.destination, None)
 
                 if dest_port is not None:
-                    log.info(f'{ipv4.destination} is at port {dest_port}.')
+                    log.info('%s is at port %d.', ipv4.destination, dest_port)
                     flow_mod = FlowMod()
                     flow_mod.command = FlowModCommand.OFPFC_ADD
                     flow_mod.match = Match()
@@ -312,7 +319,7 @@ Running and testing your NApp
 To run your NApp, you need to run *Kytos* first to enable NApp management. In
 another terminal window, make sure to activate your |dev_env|_ and run:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ kytosd -f
   2017-07-25 14:45:35,135 - INFO [kytos.core.logs] (MainThread) Logging config file "/home/user/test42/etc/kytos/logging.ini" loaded successfully.
@@ -353,14 +360,15 @@ it by running, in the previous terminal window:
 
 If the NApp is installed but not enabled, you can enable it by running:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ kytos napps enable kytos/of_core
 
 Now, install and run the *l3ls* NApp:
 
-.. code-block:: bash
+.. code-block:: console
 
+  $ cd ~/tutorials
   $ kytos napps install tutorial/of_l3ls
   INFO  NApp tutorial/of_l3ls:
   INFO    Searching local NApp...
@@ -370,7 +378,7 @@ Now, install and run the *l3ls* NApp:
 
 With the NApp installed and enabled, we can run Mininet to see it in action:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ sudo mn -c ; sudo mn --controller remote --arp --switch ovsk,protocols=OpenFlow10
 
@@ -379,9 +387,12 @@ With the NApp installed and enabled, we can run Mininet to see it in action:
     and 10.0.0.2. The ``--arp`` flag tells Mininet to populate the ARP tables, which
     is needed because we are only handling IP packets.
 
+.. ATTENTION:: Just like the l2ls implementation, this NApp will NOT work in
+    topologies containing loops. However, it works with linear and tree topologies.
+
 Now, in the Mininet console, run:
 
-.. code-block:: bash
+.. code-block:: console
 
   mininet> h1 ping h2
   PING 10.0.0.2 (10.0.0.2) 56(84) bytes of data.
@@ -395,7 +406,7 @@ The pings are sucessful! Communication between the hosts is possible because the
 *of_l3ls* NApp has dealt with the Flows. You can check it by looking at the controller
 logs:
 
-.. code-block:: bash
+.. code-block:: console
 
   2017-07-25 16:04:07,150 - INFO [tutorial/of_l3ls] (Thread-88) Packet received from 10.0.0.1 to 10.0.0.2.
   2017-07-25 16:04:07,165 - INFO [tutorial/of_l3ls] (Thread-90) Packet received from 10.0.0.2 to 10.0.0.1.
