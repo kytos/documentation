@@ -138,29 +138,36 @@ Cloning existing projects
 If you want to contribute with a Kytos project by coding, you must clone/fork
 its repository located at `GitHub group <https://github.com/kytos>`_. Below, we
 are going to clone all major repositories (python-openflow, kytos-utils
-kytos-napps and kytos):
+and kytos):
 
 .. code-block:: bash
 
-  $ for project in python-openflow kytos-utils kytos kytos-napps; do
+  $ for project in python-openflow kytos-utils kytos; do
       git clone https://github.com/kytos/$project.git
     done
 
 After this command, a folder will be created for each project with the latest
 version of the source code.
 
-Installing Python dependencies
-==============================
+Installing projects in develop mode
+===================================
 
-Each project requires a set of Python packages that are installed through
+In order to facilitate the development process, we install kytos projects in
+development mode, which means that they will be symlinked inside the virtualenv
+instead of just deploying them. With this process, all changes made to the
+source code within each project directory will be automatically avaiable at the
+virtualenv, without the need to reinstall the project.
+
+Also, each project requires a set of Python packages that are installed through
 virtualenv. The list of packages are available in files named like
-*requirements\*.txt*. Let's install all of them at once:
+*requirements\*.txt*. They will be automatically installed under the
+virtualenv.
 
 .. code-block:: bash
 
-  $ for project in python-openflow kytos-utils kytos kytos-napps; do
+  $ for project in python-openflow kytos-utils kytos; do
       cd $project
-      pip install -r requirements.txt -r requirements-dev.txt -r requirements-docs.txt || break
+      pip install -e .[dev]
       python setup.py develop || break
       cd -
     done
