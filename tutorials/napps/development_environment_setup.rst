@@ -59,7 +59,7 @@ The required Ubuntu packages can be installed by:
 
 .. code-block:: bash
 
-  $ sudo apt install git rrdtool librrd-dev libpython3.6-dev python3.6 python3.6-venv
+  $ sudo apt install git libpython3.6-dev python3.6 python3.6-venv
 
 ********************************
 Setting up a virtual environment
