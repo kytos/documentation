@@ -381,9 +381,9 @@ able to recognize and manage installed/enabled NApps. In another terminal window
   2017-07-18 10:09:51,938 - INFO [tutorial/loopnapp] (MainThread) Loop NApp Loaded!
   2017-07-18 10:09:51,957 - INFO [root] (loopnapp) Running NApp: <Main(loopnapp, started 139640979838720)>
   2017-07-18 10:09:51,960 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:00:00.018828
-  
+
   (...)
-  
+
   kytos $>
 
 If you are following the tutorials, you can see that ``tutorial/loopnapp`` is enabled. You can disable it by running:
@@ -427,7 +427,7 @@ by running the command:
 .. code:: bash
 
   $ kytos napps list
-  Status |          NApp ID          |                     Description                                                       
+  Status |          NApp ID          |                     Description
   =======+===========================+======================================================
    [i-]  | kytos/of_core             | OpenFlow Core of Kytos Controller, responsible for ...
    [i-]  | kytos/of_flow_manager     | Manage switches' flows through a REST API.
@@ -441,7 +441,7 @@ by running the command:
    [i-]  | tutorial/loopnapp         | Loop NApp
    [ie]  | tutorial/ping             | This NApp sends a Ping event every N seconds (see s...
    [ie]  | tutorial/pong             | This NApp answers to a Ping event.
- 
+
   Status: (i)nstalled, (e)nabled
 
 Testing your NApp

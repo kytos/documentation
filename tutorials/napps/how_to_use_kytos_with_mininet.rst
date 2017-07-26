@@ -69,9 +69,9 @@ First of all, you need to run Kytos to start the NApp management.
   2017-07-18 10:37:07,908 - INFO [tutorial/ping] (ping) 2017-07-18 10:37:07.899829 Ping sent.
   2017-07-18 10:37:07,912 - INFO [tutorial/pong] (Thread-6) Hi, here is the Pong NApp answering a ping.The current time is 2017-07-18 10:37:07.911947, and the ping was dispatched at 2017-07-18 10:37:07.899829.
   2017-07-18 10:37:07,912 - INFO [root] (pong) Running NApp: <Main(pong, started 140237099484928)>
-  
+
   (...)
-  
+
   kytos $>
 
 If you are following the tutorials, you can see the ``tutorial/ping`` and ``tutorial/pong``
@@ -86,7 +86,7 @@ NApps enabled and running. To disable them, run:
   INFO  NApp tutorial/pong:
   INFO    Disabling...
   INFO    Disabled.
-  
+
 To enable the NApps used in this tutorial, you need to have them installed on your
 system. You probably already have them, but, in case you don't, you can install
 them with the kytos-utils package by doing:
@@ -142,7 +142,7 @@ of_lldp
 The **of_lldp** application implements the protocol *Link Layer Discovery
 Protocol* (LLDP). This protocol is vendor free and used to discover network
 devices and all links between them. This protocol is implemented at network
-layer 2 (L2), and defined in the IEEE 802.1ab. A network manager system(NMS)
+layer 2 (L2), and defined in the IEEE 802.1ab. A network manager system (NMS)
 can rapidly obtain the L2 network topology and topology changes over the time
 using LLDP.
 
@@ -245,9 +245,9 @@ Let's take a look at the terminal:
   2017-07-18 10:53:56,761 - INFO [kytos.core.controller] (MainThread) Loading NApp kytos/of_core
   2017-07-18 10:53:56,766 - INFO [root] (of_l2ls) Running NApp: <Main(of_l2ls, started 139968907286272)>
   2017-07-18 10:53:56,875 - INFO [root] (kytos/of_core) Running NApp: <Main(kytos/of_core, started 139968907286272)>
-  
+
   (...)
-  
+
   kytos $> 2017-07-18 10:54:01,761 - INFO [kytos.core.tcp_server] (Thread-23) New connection from 127.0.0.1:56658
   2017-07-18 10:54:01,766 - INFO [kytos.core.tcp_server] (Thread-26) New connection from 127.0.0.1:56660
   2017-07-18 10:54:01,822 - INFO [kytos/of_core] (Thread-33) Connection ('127.0.0.1', 56660), Switch 00:00:00:00:00:00:00:02: OPENFLOW HANDSHAKE COMPLETE
