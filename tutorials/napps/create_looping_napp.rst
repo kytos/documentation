@@ -123,7 +123,7 @@ line to tell the controller that this NApp will run repeatedly.
 .. code-block:: python
 
    def setup(self):
-       self.log.info("Loop NApp Loaded!")
+       log.info("Loop NApp Loaded!")
        self.execute_as_loop(settings.UPTIME_INTERVAL)
 
 
@@ -143,7 +143,7 @@ this case, we gather the controller's uptime and print it in the logs.
 
    def execute(self):
        uptime = self.controller.uptime()
-       self.log.info("Controller Uptime: %s", uptime)
+       log.info("Controller Uptime: %s", uptime)
 
 
 Running Periodically
@@ -153,26 +153,80 @@ The entire NApp's source code of the looping NApp follows:
 
 .. code-block:: python
 
-    from kytos.core.napps import KytosNApp
+    from kytos.core import KytosNApp, log
     from napps.tutorial.loopnapp import settings
 
 
     class Main(KytosNApp):
 
         def setup(self):
-            self.log.info("Loop NApp Loaded!")
+            log.info("Loop NApp Loaded!")
             self.execute_as_loop(settings.UPTIME_INTERVAL)
 
         def execute(self):
             uptime = self.controller.uptime()
-            self.log.info("Controller Uptime: %s", uptime)
+            log.info("Controller Uptime: %s", uptime)
 
         def shutdown(self):
-            self.log.info("Loop NApp Unloaded!")
+            log.info("Loop NApp Unloaded!")
 
 *****************
 Running your NApp
 *****************
+
+In order to install and enable your NApp, you have to first run the Kytos controller. Kytos will then be
+able to recognize and manage installed/enabled NApps. In another terminal window, activate the virtual environment and run:
+
+.. code-block:: bash
+
+  $ kytosd -f
+
+  2017-07-04 16:57:59,351 - INFO [kytos.core.logs] (MainThread) Logging config file "/home/user/test42/etc/kytos/logging.ini" loaded successfully.
+  2017-07-04 16:57:59,352 - INFO [kytos.core.controller] (MainThread) /home/user/test42/var/run/kytos
+  2017-07-04 16:57:59,353 - INFO [kytos.core.controller] (MainThread) Starting Kytos - Kytos Controller
+  2017-07-04 16:57:59,354 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6633
+  2017-07-04 16:57:59,356 - INFO [kytos.core.controller] (RawEvent Handler) Raw Event Handler started
+  2017-07-04 16:57:59,358 - INFO [kytos.core.controller] (MsgInEvent Handler) Message In Event Handler started
+  2017-07-04 16:57:59,359 - INFO [kytos.core.controller] (MsgOutEvent Handler) Message Out Event Handler started
+  2017-07-04 16:57:59,361 - INFO [kytos.core.controller] (AppEvent Handler) App Event Handler started
+  2017-07-04 16:57:59,362 - INFO [kytos.core.controller] (MainThread) Loading Kytos NApps...
+  2017-07-04 16:57:59,371 - INFO [kytos.core.napps.napp_dir_listener] (MainThread) NAppDirListener Started...
+  2017-07-04 16:57:59,373 - INFO [kytos.core.controller] (MainThread) Loading NApp tutorial/helloworld
+  2017-07-04 16:57:59,507 - INFO [tutorial/helloworld] (MainThread) Hello world! Now, I'm loaded!
+  2017-07-04 16:57:59,520 - INFO [root] (helloworld) Running NApp: <Main(helloworld, started 139775231104768)>
+  2017-07-04 16:57:59,527 - INFO [tutorial/helloworld] (helloworld) Hello world! I'm being executed!
+  
+  (...)
+  
+  kytos $> 
+
+You can now list all NApps, verify which ones are enabled and disable them. Only the new NApp will run this time.
+Yes, we are not running any other NApp for now, we are disabling everything,
+including OpenFlow NApps.
+
+.. code-block:: bash
+
+  $ kytos napps list
+  
+  Status |          NApp ID          |                      Description
+  =======+===========================+=======================================================
+   [i-]  | kytos/of_core             | OpenFlow Core of Kytos Controller, responsible for ...
+   [i-]  | kytos/of_flow_manager     | Manage switches' flows through a REST API.            
+   [i-]  | kytos/of_ipv6drop         | Install flows to DROP IPv6 packets on all switches.   
+   [i-]  | kytos/of_l2ls             | An L2 learning switch application for OpenFlow swit...
+   [i-]  | kytos/of_lldp             | Discovers switches and hosts in the network using t... 
+   [i-]  | kytos/of_stats            | Provide statistics of openflow switches.              
+   [i-]  | kytos/of_topology         | Keeps track of links between hosts and switches. Re...
+   [i-]  | kytos/web_topology_layout | Manage endpoints related to the web interface setti...
+   [ie]  | tutorial/helloworld       | Hello, world!                                         
+  
+  Status: (i)nstalled, (e)nabled
+
+  $ kytos napps disable tutorial/helloworld
+  INFO  NApp tutorial/helloworld:
+  INFO    Disabling...
+  INFO    Disabled.
+
 
 In order to run your NApp, first you have to install it. Again, we are going
 to use the ``kytos`` command line from the ``kytos-utils`` package.
@@ -188,87 +242,50 @@ to use the ``kytos`` command line from the ``kytos-utils`` package.
   INFO    Enabled.
 
 .. NOTE:: This will try to get this napp from your current directory, then
-   install it into your system. The NApp will also be enabled.
+   install it into your system. The NApp will also be enabled and immediately
+   executed.
 
-Now, your NApp is ready to be executed.
-
-You can also see if your NApp is installed and enabled, by running the command:
+You can now see your NApp installed and enabled by running the command:
 
 .. code-block:: bash
 
   $ kytos napps list
-
+  
   Status |          NApp ID          |                      Description
   =======+===========================+=======================================================
    [i-]  | kytos/of_core             | OpenFlow Core of Kytos Controller, responsible for ...
-   [i-]  | kytos/of_flow_manager     | NApp that manages switches flows.
-   [i-]  | kytos/of_ipv6drop         | Install flows to DROP IPv6 packets on all switches.
+   [i-]  | kytos/of_flow_manager     | Manage switches' flows through a REST API.            
+   [i-]  | kytos/of_ipv6drop         | Install flows to DROP IPv6 packets on all switches.   
    [i-]  | kytos/of_l2ls             | An L2 learning switch application for OpenFlow swit...
-   [i-]  | kytos/of_l2lsloop         | A L2 learning switch application for openflow switc...
-   [i-]  | kytos/of_lldp             | App responsible by send packet with lldp protocol t...
-   [i-]  | kytos/of_stats            | Provide statistics of openflow switches.
-   [i-]  | kytos/of_topology         | A simple app that update links between machines and...
-   [i-]  | kytos/web_topology_layout | Manage endpoints related to the web interface setti...
-   [i-]  | tutorial/helloworld       | Hello, World!
+   [i-]  | kytos/of_lldp             | Discovers switches and hosts in the network using t... 
+   [i-]  | kytos/of_stats            | Provide statistics of openflow switches.              
+   [i-]  | kytos/of_topology         | Keeps track of links between hosts and switches. Re...
+   [i-]  | kytos/web_topology_layout | Manage endpoints related to the web interface setti...                                                       
+   [i-]  | tutorial/helloworld       | Hello, world!                                         
    [ie]  | tutorial/loopnapp         | Loop NApp
 
-For this demo, we don't need to have any other NApp loaded except the one we've
-just created. So, if your setup has multiple enabled NApps, please, disable them
-with the command:
-
-.. code-block:: bash
-
-  $ kytos napps disable <NApp ID>
-
-Yes, we are not running any other NApp for now, we are disabling everything,
-including OpenFlow NApps.
 
 Testing your NApp
 =================
 
-Let's start our controller and check the log messages. After seeing several
-lines with ``Controller Uptime``, press ``CTRL+C`` to stop the controller.
+Back to the Kytos console, we can check the log messages. After seeing several
+lines with ``Controller Uptime``, type ``quit`` to stop the controller.
 
 .. code-block:: bash
+ 
+  kytos $> 2017-07-17 23:24:53,128 - INFO [tutorial/loopnapp] (Thread-1) Loop NApp Loaded!
+  2017-07-17 23:24:53,131 - INFO [root] (loopnapp) Running NApp: <Main(loopnapp, started 140460012750592)>
+  2017-07-17 23:24:53,134 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:01:14.565704
+  2017-07-17 23:25:08,138 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:01:29.569314
+  2017-07-17 23:25:23,141 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:01:44.572042
+  kytos $> quit
+  Stopping Kytos daemon... Bye, see you!
+  2017-07-17 23:25:29,729 - INFO [kytos.core.controller] (MainThread) Stopping Kytos
+  (...)
   
-  $ kytosd -f
-  2017-03-28 16:45:44,915 - INFO [kytos.core.controller] (MainThread) Starting Kytos - Kytos Controller
-  2017-03-28 16:45:44,918 - INFO [kytos.core.controller] (RawEvent Handler) Raw Event Handler started
-  2017-03-28 16:45:44,919 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6633
-  2017-03-28 16:45:44,919 - INFO [kytos.core.controller] (MsgInEvent Handler) Message In Event Handler started
-  2017-03-28 16:45:44,921 - INFO [kytos.core.controller] (MsgOutEvent Handler) Message Out Event Handler started
-  2017-03-28 16:45:44,922 - INFO [kytos.core.controller] (AppEvent Handler) App Event Handler started
-  2017-03-28 16:45:44,924 - INFO [kytos.core.controller] (MainThread) Loading kytos apps...
-  2017-03-28 16:45:44,931 - INFO [kytos.core.controller] (MainThread) Loading NApp tutorial/loopnapp
-  2017-03-28 16:45:44,932 - INFO [werkzeug] (Thread-1)  * Running on http://0.0.0.0:8181/ (Press CTRL+C to quit)
-  2017-03-28 16:45:44,939 - INFO [tutorial/loopnapp] (loopnapp) Running loopnapp App
-  2017-03-28 16:45:44,940 - INFO [tutorial/loopnapp] (loopnapp) LOAD
-  2017-03-28 16:45:44,940 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0
-  2017-03-28 16:45:59,941 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:00:15.000223
-  2017-03-28 16:46:14,942 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:00:30.000983
-  2017-03-28 16:46:29,943 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:00:45.001796
-  2017-03-28 16:46:44,945 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:01:00.004127
-  2017-03-28 16:46:59,946 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:01:15.004946
-  2017-03-28 16:47:14,947 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:01:30.005880
-  ^CStopping controller...
-  2017-03-28 16:47:23,171 - INFO [kytos.core.controller] (MainThread) Stopping Kytos
-  2017-03-28 16:47:23,568 - INFO [kytos.core.buffers] (MainThread) Stop signal received by Kytos buffers.
-  2017-03-28 16:47:23,568 - INFO [kytos.core.buffers] (MainThread) Sending KytosShutdownEvent to all apps.
-  2017-03-28 16:47:23,569 - INFO [kytos.core.buffers] (MainThread) [buffer: raw_event] Stop mode enabled. Rejecting new events.
-  2017-03-28 16:47:23,569 - INFO [kytos.core.buffers] (MainThread) [buffer: msg_in_event] Stop mode enabled. Rejecting new events.
-  2017-03-28 16:47:23,569 - INFO [kytos.core.buffers] (MainThread) [buffer: msg_out_event] Stop mode enabled. Rejecting new events.
-  2017-03-28 16:47:23,569 - INFO [kytos.core.buffers] (MainThread) [buffer: app_event] Stop mode enabled. Rejecting new events.
-  2017-03-28 16:47:23,579 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:01:38.638497
-  2017-03-28 16:47:23,585 - INFO [werkzeug] (Thread-6) 127.0.0.1 - - [28/Mar/2017 16:47:23] "GET /kytos/shutdown HTTP/1.1" 200 -
-  2017-03-28 16:47:23,587 - INFO [kytos.core.controller] (MainThread) Stopping thread: Thread-1
-  2017-03-28 16:47:24,083 - INFO [kytos.core.controller] (MainThread) Stopping thread: TCP server
-  2017-03-28 16:47:24,084 - INFO [kytos.core.controller] (MainThread) Stopping thread: RawEvent Handler
-  2017-03-28 16:47:24,084 - INFO [kytos.core.controller] (MainThread) Stopping thread: MsgInEvent Handler
-  2017-03-28 16:47:24,084 - INFO [kytos.core.controller] (MainThread) Stopping thread: MsgOutEvent Handler
-  2017-03-28 16:47:24,085 - INFO [kytos.core.controller] (MainThread) Stopping thread: AppEvent Handler
 
-As you can see, the uptime was reported several times, at 16:45:44, 16:45:59 and
-16:46:14 with an interval of 15 seconds, as expected.
+As you can see, the uptime was reported several times, at 23:24:53, 23:25:08 and
+23:25:23 with an interval of 15 seconds, as expected.
 
 That's it! With only one line added to the `setup` method, your code will be
 running periodically. If you want to change the interval later, modify only the

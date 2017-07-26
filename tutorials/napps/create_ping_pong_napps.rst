@@ -55,7 +55,7 @@ is composed by two mandatory parts, ``username`` (*kytos*) and ``napp_name``
 (*of_core*), and another part defined by the NApp developer, the ``event_description``
 (*messages.in.ofpt_stats_reply*). The first two parts help us identify the
 NApp that generated the event, while the last helps identifying the event
-itself - a NApp can generate many different events.
+itself - a single NApp can generate many different events.
 
 Back to the tutorial, the first NApp will be called **ping**, and it will send
 ping events periodically. While the second NApp will be called **pong**, and it
@@ -202,7 +202,7 @@ Summing up, the ``execute()`` method will be:
         ping_event = KytosEvent(name='tutorial/ping.periodic_ping',
                                content={'message': datetime.now()})
         self.controller.buffers.app.put(ping_event)
-        self.log.info('%s Ping sent.', ping_event.content['message'])
+        log.info('%s Ping sent.', ping_event.content['message'])
 
 In the last line, log a message to inform that a ping has been sent and its
 timestamp.
@@ -214,8 +214,7 @@ And your ``main.py`` file will look like:
     """App responsible for send ping events."""
     from datetime import datetime
 
-    from kytos.core.events import KytosEvent
-    from kytos.core.napps import KytosNApp
+    from kytos.core import KytosEvent, KytosNApp, log
 
     from napps.tutorial.ping import settings
 
@@ -227,9 +226,9 @@ And your ``main.py`` file will look like:
 
             def execute(self):
                 ping_event = KytosEvent(name='tutorial/ping.periodic_ping',
-                                       content={'message': datetime.now()})
+                                        content={'message': datetime.now()})
                 self.controller.buffers.app.put(ping_event)
-                self.log.info('%s Ping sent.', ping_event.content['message'])
+                log.info('%s Ping sent.', ping_event.content['message'])
 
             def shutdown(self):
                pass
@@ -309,7 +308,7 @@ First, define your new ``pong`` method inside the ``Main`` class:
         message = 'Hi, here is the Pong NApp answering a ping.'
         message += 'The current time is {}, and the ping was dispatched '
         message += 'at {}.'
-        self.log.info(message.format(datetime.now(), event.content['message']))
+        log.info(message.format(datetime.now(), event.content['message']))
 
 Now, you must use the ``listen_to`` decorator do define the method that will
 respond to ``tutorial/ping.periodic_ping`` events.
@@ -321,7 +320,7 @@ respond to ``tutorial/ping.periodic_ping`` events.
         message = 'Hi, here is the Pong NApp answering a ping.'
         message += 'The current time is {}, and the ping was dispatched '
         message += 'at {}.'
-        self.log.info(message.format(datetime.now(), event.content['message']))
+        log.info(message.format(datetime.now(), event.content['message']))
 
 This decorator ensures that the controller is aware that the method must be
 called whenever the given event happens.
@@ -333,8 +332,7 @@ So, the ``main.py`` file of the ``pong`` napp will be:
     """App for answering ping events."""
     from datetime import datetime
 
-    from kytos.core.events import KytosEvent
-    from kytos.core.napps import KytosNApp
+    from kytos.core import KytosNApp, log
     from kytos.core.helpers import listen_to
 
     from napps.tutorial.pong import settings
@@ -363,6 +361,52 @@ So, the ``main.py`` file of the ``pong`` napp will be:
 Running your Ping and Pong NApps
 *********************************
 
+In order to install and enable your NApp, you have to first run the Kytos controller. Kytos will then be
+able to recognize and manage installed/enabled NApps. In another terminal window, activate the virtual environment and run:
+
+.. code-block:: bash
+
+  $ kytosd -f
+  2017-07-18 10:09:51,644 - INFO [kytos.core.logs] (MainThread) Logging config file "/home/user/test42/etc/kytos/logging.ini" loaded successfully.
+  2017-07-18 10:09:51,646 - INFO [kytos.core.controller] (MainThread) /home/user/test42/var/run/kytos
+  2017-07-18 10:09:51,648 - INFO [kytos.core.controller] (MainThread) Starting Kytos - Kytos Controller
+  2017-07-18 10:09:51,649 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6633
+  2017-07-18 10:09:51,651 - INFO [kytos.core.controller] (RawEvent Handler) Raw Event Handler started
+  2017-07-18 10:09:51,652 - INFO [kytos.core.controller] (MsgInEvent Handler) Message In Event Handler started
+  2017-07-18 10:09:51,653 - INFO [kytos.core.controller] (MsgOutEvent Handler) Message Out Event Handler started
+  2017-07-18 10:09:51,654 - INFO [kytos.core.controller] (AppEvent Handler) App Event Handler started
+  2017-07-18 10:09:51,654 - INFO [kytos.core.controller] (MainThread) Loading Kytos NApps...
+  2017-07-18 10:09:51,722 - INFO [kytos.core.napps.napp_dir_listener] (MainThread) NAppDirListener Started...
+  2017-07-18 10:09:51,730 - INFO [kytos.core.controller] (MainThread) Loading NApp tutorial/loopnapp
+  2017-07-18 10:09:51,938 - INFO [tutorial/loopnapp] (MainThread) Loop NApp Loaded!
+  2017-07-18 10:09:51,957 - INFO [root] (loopnapp) Running NApp: <Main(loopnapp, started 139640979838720)>
+  2017-07-18 10:09:51,960 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:00:00.018828
+  
+  (...)
+  
+  kytos $>
+
+If you are following the tutorials, you can see that ``tutorial/loopnapp`` is enabled. You can disable it by running:
+
+.. code-block:: bash
+
+  $ kytos napps disable tutorial/loopnapp
+  INFO  NApp tutorial/loopnapp:
+  INFO    Disabling...
+  INFO    Disabled.
+
+Only the new NApps will run this time.
+Yes, we are not running any other NApp for now, we are disabling everything,
+including OpenFlow NApps.
+
+
+.. NOTE::
+    For this demo, you don't want any other NApp running except those
+    created during this tutorial. So if your setup has multiple NApps enabled,
+    please, disable them with the command:
+    ``kytos napps disable <NApp ID>``
+
+
 In order to run your NApps, first you have to install them. Once more use the
 ``kytos`` command line from the ``kytos-utils`` package.
 
@@ -371,58 +415,61 @@ To install and enable your NApps, run the commands below:
 .. code-block:: bash
 
   $ cd ~/tutorials
-  $ kytos napps install tutorial/ping
-  $ kytos napps install tutorial/pong
+  $ kytos napps install tutorial/ping tutorial/pong
 
 .. NOTE:: This will try to get the NApps from the current directory and then
-   install and enable them into your system.
+   install and enable them into your system. The NApps will be executed as soon
+   as they are enabled.
 
-Now, your Ping and Pong NApps are ready to be executed.
-
-You can also check if your NApps are installed and enabled, by running the command:
+Now, your Ping and Pong NApps are installed, enabled, and being executed. You can see this
+by running the command:
 
 .. code:: bash
 
   $ kytos napps list
-
-.. NOTE::
-    For this demo, you don't want any other NApp running except those
-    created during this tutorial. So if your setup has multiple NApps enabled,
-    please, disable them with the command:
-    ``kytos napps disable <NApp ID>``
+  Status |          NApp ID          |                     Description                                                       
+  =======+===========================+======================================================
+   [i-]  | kytos/of_core             | OpenFlow Core of Kytos Controller, responsible for ...
+   [i-]  | kytos/of_flow_manager     | Manage switches' flows through a REST API.
+   [i-]  | kytos/of_ipv6drop         | Install flows to DROP IPv6 packets on all switches.
+   [i-]  | kytos/of_l2ls             | An L2 learning switch application for OpenFlow swit...
+   [i-]  | kytos/of_lldp             | Discovers switches and hosts in the network using t...
+   [i-]  | kytos/of_stats            | Provide statistics of openflow switches.
+   [i-]  | kytos/of_topology         | Keeps track of links between hosts and switches. Re...
+   [i-]  | kytos/web_topology_layout | Manage endpoints related to the web interface setti...
+   [i-]  | tutorial/helloworld       | Hello, world!
+   [i-]  | tutorial/loopnapp         | Loop NApp
+   [ie]  | tutorial/ping             | This NApp sends a Ping event every N seconds (see s...
+   [ie]  | tutorial/pong             | This NApp answers to a Ping event.
+ 
+  Status: (i)nstalled, (e)nabled
 
 Testing your NApp
 =================
 
-Let's start our controller:
+Let's see our controller logs in the console:
 
 .. code-block:: bash
 
-   $ kytosd -f
-   2017-03-29 08:45:12,180 - INFO [kytos.core.controller] (MainThread) Starting Kytos - Kytos Controller
-   2017-03-29 08:45:12,183 - INFO [kytos.core.controller] (RawEvent Handler) Raw Event Handler started
-   2017-03-29 08:45:12,185 - INFO [kytos.core.controller] (MsgInEvent Handler) Message In Event Handler started
-   2017-03-29 08:45:12,185 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6633
-   2017-03-29 08:45:12,186 - INFO [kytos.core.controller] (MsgOutEvent Handler) Message Out Event Handler started
-   2017-03-29 08:45:12,189 - INFO [kytos.core.controller] (AppEvent Handler) App Event Handler started
-   2017-03-29 08:45:12,189 - INFO [kytos.core.controller] (MainThread) Loading kytos apps...
-   2017-03-29 08:45:12,194 - INFO [werkzeug] (Thread-1)  * Running on http://0.0.0.0:8181/ (Press CTRL+C to quit)
-   2017-03-29 08:45:12,193 - INFO [kytos.core.controller] (MainThread) Loading NApp tutorial/ping
-   2017-03-29 08:45:12,201 - INFO [tutorial/ping] (ping) Running ping App
-   2017-03-29 08:45:12,205 - INFO [kytos.core.controller] (MainThread) Loading NApp tutorial/pong
-   2017-03-29 08:45:12,209 - INFO [tutorial/pong] (pong) Running pong App
-   2017-03-29 08:45:17,204 - INFO [tutorial/ping] (ping) 2017-03-29 08:45:17.204356 Ping sent.
-   2017-03-29 08:45:17,205 - INFO [tutorial/pong] (Thread-4) Hi, here is the Pong NApp answering a ping.The current time is 2017-03-29 08:45:17.205431, and the ping was dispatched at 2017-03-29 08:45:17.204356.
-   2017-03-29 08:45:22,205 - INFO [tutorial/ping] (ping) 2017-03-29 08:45:22.205096 Ping sent.
-   2017-03-29 08:45:22,206 - INFO [tutorial/pong] (Thread-5) Hi, here is the Pong NApp answering a ping.The current time is 2017-03-29 08:45:22.206499, and the ping was dispatched at 2017-03-29 08:45:22.205096.
-   2017-03-29 08:45:27,206 - INFO [tutorial/ping] (ping) 2017-03-29 08:45:27.206177 Ping sent.
-   2017-03-29 08:45:27,207 - INFO [tutorial/pong] (Thread-6) Hi, here is the Pong NApp answering a ping.The current time is 2017-03-29 08:45:27.207010, and the ping was dispatched at 2017-03-29 08:45:27.206177.
+  2017-07-18 10:23:05,578 - INFO [root] (ping) Running NApp: <Main(ping, started 139640979838720)>
+  2017-07-18 10:23:05,604 - INFO [root] (pong) Running NApp: <Main(pong, started 139640954660608)>
+  2017-07-18 10:23:05,608 - INFO [tutorial/ping] (ping) 2017-07-18 10:23:05.580778 Ping sent.
+  2017-07-18 10:23:10,618 - INFO [tutorial/ping] (ping) 2017-07-18 10:23:10.610590 Ping sent.
+  2017-07-18 10:23:10,772 - INFO [tutorial/pong] (Thread-31) Hi, here is the Pong NApp answering a ping.The current time is 2017-07-18 10:23:10.772534, and the ping was dispatched at 2017-07-18 10:23:10.61.
+  2017-07-18 10:23:15,622 - INFO [tutorial/ping] (ping) 2017-07-18 10:23:15.618841 Ping sent.
+  2017-07-18 10:23:15,624 - INFO [tutorial/pong] (Thread-32) Hi, here is the Pong NApp answering a ping.The current time is 2017-07-18 10:23:15.624875, and the ping was dispatched at 2017-07-18 10:23:15.61.
+  2017-07-18 10:23:20,627 - INFO [tutorial/ping] (ping) 2017-07-18 10:23:20.624353 Ping sent.
+  2017-07-18 10:23:20,627 - INFO [tutorial/pong] (Thread-33) Hi, here is the Pong NApp answering a ping.The current time is 2017-07-18 10:23:20.627384, and the ping was dispatched at 2017-07-18 10:23:20.62.
+  2017-07-18 10:23:25,633 - INFO [tutorial/ping] (ping) 2017-07-18 10:23:25.628697 Ping sent.
+  2017-07-18 10:23:25,635 - INFO [tutorial/pong] (Thread-35) Hi, here is the Pong NApp answering a ping.The current time is 2017-07-18 10:23:25.634935, and the ping was dispatched at 2017-07-18 10:23:25.62.
+  2017-07-18 10:23:30,639 - INFO [tutorial/ping] (ping) 2017-07-18 10:23:30.634607 Ping sent.
+  2017-07-18 10:23:30,638 - INFO [tutorial/pong] (Thread-36) Hi, here is the Pong NApp answering a ping.The current time is 2017-07-18 10:23:30.637920, and the ping was dispatched at 2017-07-18 10:23:30.63.
 
-You will get into the controller terminal, and you can see your NApps outputs.
+
 Note the ping NApp sending its timestamps each five seconds, and the pong NApp
 logging them when received.
 
-.. NOTE:: To stop your controller you must press CTRL+C
+.. NOTE:: To stop your controller, just run the *quit* command.
 
 .. include:: ../back_to_list.rst
 

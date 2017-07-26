@@ -31,6 +31,27 @@ What you will need
 * The dependencies *rrdtool* and *librrd-dev* (Ubuntu package names) as
   installed in :doc:`development_environment_setup`.
 
+*************
+Running Kytos
+*************
+
+Before installing the statistics NApp you need Kytos running to enable NApp management:
+
+.. code-block::
+
+  $ kytosd -f
+
+  (...)
+  
+  Kytos website.: https://kytos.io/
+  Documentation.: https://docs.kytos.io/
+  OF Address....: tcp://0.0.0.0:6633
+  WEB UI........: http://0.0.0.0:8181/
+  kytos $> 
+
+Note that the WEB UI is available at any local IP address at port 8181.
+Kytos API runs at the same address as the WEB UI. You will use this address later in
+this tutorial.
 
 ******************************
 Installing the statistics NApp
@@ -38,17 +59,17 @@ Installing the statistics NApp
 
 Search for NApps with the term *of_stats*. You should see something like this::
 
-  $ kytos napps search tutorial
+  $ kytos napps search of_stats
 
   Status |      NApp ID      |               Description
   =======+===================+=========================================
-   [--]  | kytos/of_stats    | Provide statistics of openflow switches.
+   [i-]  | kytos/of_stats    | Provide statistics of openflow switches.
 
   Status: (i)nstalled, (e)nabled
 
-The status column shows that kytos/of_stats is neither installed nor enabled.
-If you see ``[i-]`` in the status, it means it is already installed, but you need
-to enable it.
+The status column shows that kytos/of_stats is installed but not enabled.
+If you see ``[--]`` in the status, it means it not installed.
+
 We can download, install and enable a NApp with a single command. If everything goes
 well, you should see an output like the one below::
 
@@ -67,17 +88,16 @@ not enabled, don't forget to enable it.::
 
   $ kytos napps list
 
-  Status |          NApp ID          |                   Description
-  =======+===========================+=================================================
-   [ie]  | kytos/of_core             | OpenFlow Core of Kytos Controller, responsibl...
-   [i-]  | kytos/of_flow_manager     | NApp that manages switches flows.
-   [i-]  | kytos/of_ipv6drop         | Install flows to DROP IPv6 packets on all swi...
-   [ie]  | kytos/of_l2ls             | An L2 learning switch application for OpenFlo...
-   [i-]  | kytos/of_l2lsloop         | A L2 learning switch application for openflow...
-   [i-]  | kytos/of_lldp             | App responsible by send packet with lldp prot...
+  Status |          NApp ID          |                     Description
+  =======+===========================+======================================================
+   [ie]  | kytos/of_core             | OpenFlow Core of Kytos Controller, responsible for...
+   [i-]  | kytos/of_flow_manager     | Manage switches' flows through a REST API.
+   [i-]  | kytos/of_ipv6drop         | Install flows to DROP IPv6 packets on all switches.
+   [ie]  | kytos/of_l2ls             | An L2 learning switch application for OpenFlow swi...
+   [i-]  | kytos/of_lldp             | Discovers switches and hosts in the network using ...
    [ie]  | kytos/of_stats            | Provide statistics of openflow switches.
-   [i-]  | kytos/of_topology         | A simple app that update links between machin...
-   [i-]  | kytos/web_topology_layout | Manage endpoints related to the web interface...
+   [i-]  | kytos/of_topology         | Keeps track of links between hosts and switches. R...
+   [i-]  | kytos/web_topology_layout | Manage endpoints related to the web interface sett...
 
   Status: (i)nstalled, (e)nabled
 
@@ -85,9 +105,9 @@ not enabled, don't forget to enable it.::
    For this tutorial, make sure that you have only the following NApps enabled:
    *kytos/of_core*, *kytos/of\_l2ls* and *kytos/of_stats*.
 
-*****************
-Kytos and Mininet
-*****************
+***************
+Running Mininet
+***************
 
 We are going to use the same command of the tutorial
 :doc:`how_to_use_kytos_with_mininet` but, before, we are going to run the clean
@@ -100,21 +120,6 @@ Finally, let's generate 5 packets per second from host h1 to h2 with::
 
   mininet> h1 ping -i 0.2 h2
 
-Of course, this will fail until we launch the Kytos Controller. If it is
-running, remember that, at the moment of this writing, it is necessary to
-restart Kytos for any change in enabled/disabled NApps to take effect.
-
-After launching Kytos, there are two important lines in its log::
-
-  $ kytosd -f
-  (...)
-  INFO [werkzeug] (Thread-1)  * Running on http://0.0.0.0:8181/
-  (...)
-  INFO [kytos.core.controller] (MainThread) Loading NApp kytos/of_stats
-  (...)
-
-The first ``INFO`` line above shows that the REST API is available at port 8181
-and, the second, that *kytos/of_stats* was successfully loaded.
 
 ********
 REST API
