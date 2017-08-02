@@ -72,6 +72,7 @@ username and 'of_l3ls' as the NApp name, as follows (don't forget to create
 the ``~/tutorials`` folder if it does not exist):
 
 .. code-block:: console
+
   $ cd ~/tutorials
   $ kytos napps create
   --------------------------------------------------------------
