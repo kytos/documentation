@@ -18,7 +18,7 @@ apps to communicate with each other; and (c) a set of core applications that
 allows any systems administrator to deploy a (basic) SDN based infrastructure,
 providing communication between nodes, monitoring capability and an
 administrative interface that allows one to visualize the network topology and
-to deploy flows. 
+to deploy flows.
 
 ===============
 Main Components
@@ -33,7 +33,7 @@ Kytos OpenFlow Library - python3-openflow
 The main responsibility of this component is to read binary OpenFlow messages
 and building primary data structures from them. We've developed a set of basic
 classes that is really similar to the specification, so, anyone who reads the
-specification will be able to use this library. 
+specification will be able to use this library.
 
 Another primary responsibility of this component is to transform the message
 objects into binary blobs that latter will be sent to the switches.
@@ -41,7 +41,7 @@ objects into binary blobs that latter will be sent to the switches.
 For more information on python3-openflow, please refer to its documentation.
 
 Kytos Controller - kytos
-~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 As stated before, the controller is the component responsible for providing the
 communication infrastructure, registering, loading and unloading apps. It works
@@ -50,7 +50,7 @@ issues.
 
 The controller basically define three queues, one for arriving messages, one
 for app events and the last one for outgoing messages. The apps must register
-to specific queue change events, such as: new packet-in arrival. 
+to specific queue change events, such as: new packet-in arrival.
 
 The communication between apps is also possible by means of the app event
 buffer.
@@ -58,14 +58,14 @@ buffer.
 For more information on kytos, please refer to its documentation.
 
 Kytos NApps - kytos-napps
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The Kytos NApps package delivers the baisc NApps that allow a system
 administrator to deploy a basic infrastructure that relies on OpenFlow to
 provide communication between nodes, statistics and topology finding. The
 NApps inside this set are:
 
-- of_core: provides communication and event management for all NApps; 
+- of_core: provides communication and event management for all NApps;
 - of_flow-manager: provides a service that allows to manipulate the flow table
   inside the switches;
 - of_ipv6drop: a basic firewall NApp that drops all packages that use IPv6
