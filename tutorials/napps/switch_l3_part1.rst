@@ -3,9 +3,9 @@
 
 .. _tutorial-create-l3-sw-1:
 
-######################################
-Creating a L3 learning switch - Part 1
-######################################
+#######################################
+Creating an L3 learning switch - Part 1
+#######################################
 
 ********
 Overview
@@ -99,11 +99,11 @@ Open the ``main.py`` file in your preferred editor to start coding your NApp.
 Create the switching table
 ==========================
 
-First we will create an L3 switching table for each switch that connects to the
+First you will create an L3 switching table for each switch that connects to the
 controller. The table is implemented as a Python dictionary. The method needs
 a decorator in order to listen to the Kytos's *new switch* event.
 
-.. code-block:: python
+.. code-block::
 
     @listen_to('kytos/core.switches.new')
     def create_switching_table(self, event):
@@ -131,7 +131,7 @@ interface where the packet came from.
 
 You can also add a log message to know when the controller receives a packet.
 
-.. code-block:: python
+.. code-block::
 
     @listen_to('kytos/of_core.v0x01.messages.in.ofpt_packet_in')
     def handle_packet_in(self, event):
@@ -150,6 +150,7 @@ You can also add a log message to know when the controller receives a packet.
             log.info('Packet received from %s to %s.', ipv4.source,
                      ipv4.destination)
 
+            # (Continues...)
 
 Create Flow Mods for IP Addresses
 =================================
@@ -174,7 +175,14 @@ Your Flow Mod message shall have:
 Once you have prepared the Flow Mod, create a KytosEvent containing it directed to the switch
 that sent you the PacketIn, and put this event in the ``msg_out`` buffer.
 
-.. code-block:: python
+.. code-block::
+
+    @listen_to('kytos/of_core.v0x01.messages.in.ofpt_packet_in')
+    def handle_packet_in(self, event):
+        # (...)
+        if ethernet.ether_type.value == 0x800:
+
+        # (...)
 
             dest_port = switch.l3_table.get(ipv4.destination, None)
 
@@ -194,6 +202,7 @@ that sent you the PacketIn, and put this event in the ``msg_out`` buffer.
                 self.controller.buffers.msg_out.put(event_out)
                 log.info('Flow installed! Subsequent packets will be sent directly.')
 
+            # (Continues...)
 
 Send the packet back to the network
 ===================================
@@ -209,7 +218,16 @@ the switch to *flood* the packet: send it to all ports except the in_port.
 
 Once again, create a KytosEvent and put it in the ``msg_out`` buffer.
 
-.. code-block:: python
+.. code-block::
+
+    @listen_to('kytos/of_core.v0x01.messages.in.ofpt_packet_in')
+    def handle_packet_in(self, event):
+        # (...)
+        if ethernet.ether_type.value == 0x800:
+        # (...)
+
+            if dest_port is not None:
+            # (...)
 
             packet_out = PacketOut()
             packet_out.buffer_id = packet_in.buffer_id
@@ -232,12 +250,11 @@ Final main.py file
 Now your ``main.py`` file shall look like the one below. Here we have all the
 needed imports, and comments were removed to improve readability.
 
-.. code-block:: python
+.. code-block::
 
     from kytos.core import KytosEvent, KytosNApp, log
     from kytos.core.helpers import listen_to
     from pyof.foundation.network_types import Ethernet, IPv4
-    from pyof.v0x01.asynchronous.packet_in import PacketInReason
     from pyof.v0x01.common.action import ActionOutput
     from pyof.v0x01.common.flow_match import Match
     from pyof.v0x01.common.phy_port import Port
@@ -275,7 +292,7 @@ needed imports, and comments were removed to improve readability.
                 switch.l3_table[ipv4.source] = in_port
                 log.info('Packet received from %s to %s.', ipv4.source,
                          ipv4.destination)
- 
+
                 dest_port = switch.l3_table.get(ipv4.destination, None)
 
                 if dest_port is not None:
@@ -365,7 +382,7 @@ If the NApp is installed but not enabled, you can enable it by running:
 
   $ kytos napps enable kytos/of_core
 
-Now, install and run the *l3ls* NApp:
+Now, install and run the *of_l3ls* NApp:
 
 .. code-block:: console
 
@@ -377,7 +394,7 @@ Now, install and run the *l3ls* NApp:
   INFO    Enabling...
   INFO    Enabled.
 
-With the NApp installed and enabled, we can run Mininet to see it in action:
+With the NApp installed and enabled, you can run Mininet to see it in action:
 
 .. code-block:: console
 
@@ -423,7 +440,7 @@ Good job!
 .. include:: ../back_to_list.rst
 
 .. |osi_model| replace:: *OSI Model*
-.. _osi_model: https://en.wikipedia.org/wiki/OSI_model 
+.. _osi_model: https://en.wikipedia.org/wiki/OSI_model
 
 .. |ip_proto| replace:: *IP protocol*
 .. _ip_proto: https://en.wikipedia.org/wiki/Internet_Protocol
