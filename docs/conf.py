@@ -373,10 +373,10 @@ texinfo_documents = [
 # Note: links to Python doc only work if you are online or have python.inv
 #     file. To download it, run:
 #     curl https://docs.python.org/3/objects.inv >python.inv
-intersphinx_mapping = {'python-openflow': (
-                           'http://docs.kytos.io/python-openflow', None),
-                       'kytos-core': ('http://docs.kytos.io/kytos-core', None),
-                       'python': ('https://docs.python.org/3', None)}
+intersphinx_mapping = {
+        # 'python-openflow': ('https://docs.kytos.io/python-openflow', None),
+        # 'kytos': ('https://docs.kytos.io/kytos', None),
+        'python': ('https://docs.python.org/3', None)}
 
 # Napoleon settings from http://www.sphinx-doc.org/en/stable/ext/napoleon.html
 napoleon_google_docstring = True
