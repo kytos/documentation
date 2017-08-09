@@ -111,7 +111,7 @@ switch, as well as a virtual MAC address that will be used for routing purposes.
 The same IP addresses will be later configured as the *gateway* addresses for
 each host.
 
-.. code-block::
+.. code-block:: python3
 
   GW_MAC = '10:20:30:40:50:60'
   GW_IP = ['10.0.0.100', '20.0.0.100']
@@ -126,7 +126,7 @@ learn at which physical port each IP address can be reached.
 The tables are implemented as Python dictionaries. The metod needs a decorator
 in order to listen to the Kytos's *new switch* event.
 
-.. code-block::
+.. code-block:: python3
 
     @listen_to('kytos/core.switches.new')
     def create_switch_tables(self, event):
@@ -146,7 +146,7 @@ be taken depends on the ``ether_type`` of the packet, your method will unpack
 the data in an Ethernet instance and call another handler, for ARP or IPv4, as
 needed.
 
-.. code-block::
+.. code-block:: python3
 
   @listen_to('kytos/of_core.v0x01.messages.in.ofpt_packet_in')
   def handle_packet_in(self, event):
@@ -175,7 +175,7 @@ There's no need to decorate the ``handle_arp`` method as it does not need to be
 executed on PacketIn arrival, being actually called by ``handle_packet_in``.
 
 
-.. code-block::
+.. code-block:: python3
 
   def handle_arp(self, ethernet, in_port, source):
       arp = ARP()
@@ -211,7 +211,7 @@ port it came from. As in |L3_part1|_, create the ``KytosEvent`` and put it in
 the controller's ``msg_out`` buffer.
 
 
-.. code-block::
+.. code-block:: python3
 
   def handle_arp(self, ethernet, in_port, source):
 
@@ -258,7 +258,7 @@ address of the frame must be the one determined by the controller.
 Create the ``KytosEvent`` and put it out right away.
 
 
-.. code-block::
+.. code-block:: python3
 
   def handle_ip(self, ethernet, in_port, source):
       ipv4 = IPv4()
@@ -313,7 +313,7 @@ switch flood it in the network.
 Once this request gets a reply, the ``arp_handler`` method will learn the
 addresses enabling the *L3 switch* to create the FlowMod next time.
 
-.. code-block::
+.. code-block:: python3
 
   def handle_ip(self, ethernet, in_port, source):
       (...)
@@ -350,7 +350,7 @@ Final main.py file
 Now your ``main.py`` file shall look like the one below. Here we have all the
 needed imports, and comments were removed to improve readability.
 
-.. code-block::
+.. code-block:: python3
 
   from kytos.core import KytosEvent, KytosNApp, log
   from kytos.core.helpers import listen_to

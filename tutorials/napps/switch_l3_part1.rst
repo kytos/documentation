@@ -103,7 +103,7 @@ First you will create an L3 switching table for each switch that connects to the
 controller. The table is implemented as a Python dictionary. The method needs
 a decorator in order to listen to the Kytos's *new switch* event.
 
-.. code-block::
+.. code-block:: python3
 
     @listen_to('kytos/core.switches.new')
     def create_switching_table(self, event):
@@ -131,7 +131,7 @@ interface where the packet came from.
 
 You can also add a log message to know when the controller receives a packet.
 
-.. code-block::
+.. code-block:: python3
 
     @listen_to('kytos/of_core.v0x01.messages.in.ofpt_packet_in')
     def handle_packet_in(self, event):
@@ -175,7 +175,7 @@ Your Flow Mod message shall have:
 Once you have prepared the Flow Mod, create a KytosEvent containing it directed to the switch
 that sent you the PacketIn, and put this event in the ``msg_out`` buffer.
 
-.. code-block::
+.. code-block:: python3
 
     @listen_to('kytos/of_core.v0x01.messages.in.ofpt_packet_in')
     def handle_packet_in(self, event):
@@ -218,7 +218,7 @@ the switch to *flood* the packet: send it to all ports except the in_port.
 
 Once again, create a KytosEvent and put it in the ``msg_out`` buffer.
 
-.. code-block::
+.. code-block:: python3
 
     @listen_to('kytos/of_core.v0x01.messages.in.ofpt_packet_in')
     def handle_packet_in(self, event):
@@ -250,7 +250,7 @@ Final main.py file
 Now your ``main.py`` file shall look like the one below. Here we have all the
 needed imports, and comments were removed to improve readability.
 
-.. code-block::
+.. code-block:: python3
 
     from kytos.core import KytosEvent, KytosNApp, log
     from kytos.core.helpers import listen_to
