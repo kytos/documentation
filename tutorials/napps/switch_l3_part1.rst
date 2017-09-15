@@ -12,18 +12,18 @@ Overview
 ********
 This tutorial will show the first steps to create an L3 learning switch NApp
 using *Kytos* (|kytos|_).
-The average time to go through this is: ``25 min``
+The average time to go through this is: ``20 min``
 
 What you will learn
 ====================
-* How to capture OpenFlow Packet-In events;
 * How to unpack the Packet-In data looking for L3 information;
-* How to install flows for a switch to perform packet switching.
+* How to install proactive flows in switches using Kytos.
 
 What you will need
 ===================
 * Your |dev_env|_ already up and running.
 * The *kytos/of_core* NApp installed and enabled.
+* To have finished the |l2_tutorial|_.
 
 ************
 Introduction
@@ -45,7 +45,8 @@ The Layer 3 learning switch will operate similarly to the |l2ls|_,
 but working with IP addresses instead of MAC addresses.
 
 The *l3ls* NApp will learn at which port each IP address is, and install reactive
-flows in switches to handle traffic based on source IP and destination IP.
+flows in switches to handle traffic based on source IP and destination IP. ARP
+packets will be just flooded to the network, because they have different headers.
 
 Is this a router?
 =================
@@ -57,8 +58,7 @@ the steps to implement routing in future tutorials.
 For this implementation of *l3ls*, we will consider that hosts are in the same logical
 network.
 
-.. NOTE:: We are also considering the addresses to be IPv4 addresses and
-    Mininet will handle the ARP tables for each host.
+.. NOTE:: We are also considering the addresses to be IPv4 addresses.
 
 .. ATTENTION:: This NApp was designed for instructional purposes. Running it in
     production environments may lead to unwanted behavior.
@@ -93,156 +93,115 @@ the ``~/tutorials`` folder if it does not exist):
   Now you can go to the directory tutorial/of_l3ls and begin to code your NApp.
   Have fun!
 
-Open the ``main.py`` file in your preferred editor to start coding your NApp.
+Start copying the ``main.py`` file from the |l2_tutorial|_: you'll change it to
+use L3 information instead of L2. Then, open it in your preferred editor to start
+coding your NApp.
 
+.. code-block:: console
 
-Create the switching table
-==========================
+  $ cp tutorial/of_l2ls/main.py tutorial/of_l3ls/main.py
 
-First you will create an L3 switching table for each switch that connects to the
-controller. The table is implemented as a Python dictionary. The method needs
-a decorator in order to listen to the Kytos's *new switch* event.
+Create an L3 switching table
+============================
 
-.. code-block:: python3
+First of all, you will create an L3 table for each switch that connects to the
+controller. When a new switch is connected, *Kytos* generates a ``core.switches.new``
+KytosEvent. Your NApp will have a method to deal with those.
 
-    @listen_to('kytos/core.switches.new')
-    def create_switching_table(self, event):
-        switch = event.content['switch']
-        switch.l3_table = {}
-
-.. ATTENTION:: Some classes and methods used in the code snippets need to be imported
-    in your main.py file. Please check the full content of the file and import these
-    elements as needed.
-
-
-Update switching table with incoming packets
-============================================
-
-In this step, you will create a method to handle PacketIn events. A PacketIn is
-generated everytime the switchs sends a packet to the controller for analysis.
-
-The method has a decorator to listen to *packet in* events. It unpacks the
-``packet_in.data`` into an Ethernet instance. If the frame data contains an IP
-packet, we unpack it into an IPv4 instance.
-
-Once you have the IPv4 header information, you can use it to update the
-switching table, associating it with the *in_port* - the physical switch
-interface where the packet came from.
-
-You can also add a log message to know when the controller receives a packet.
+The L3 table will be a Python dictionary, mapping IP addresses to switch ports.
 
 .. code-block:: python3
 
-    @listen_to('kytos/of_core.v0x01.messages.in.ofpt_packet_in')
-    def handle_packet_in(self, event):
-        packet_in = event.content['message']
+  @listen_to('kytos/core.switches.new')
+  def initialize_switch(self, event):
+      switch = event.content['switch']
+      switch.l3_table = {}
 
-        ethernet = Ethernet()
-        ethernet.unpack(packet_in.data.value)
+      # (Continues...)
 
-        if ethernet.ether_type.value == 0x800:
-            ipv4 = IPv4()
-            ipv4.unpack(ethernet.data.value)
 
-            in_port = packet_in.in_port.value
-            switch = event.source.switch
-            switch.l3_table[ipv4.source] = in_port
-            log.info('Packet received from %s to %s.', ipv4.source,
-                     ipv4.destination)
+Deal with the ARP packets
+=========================
 
-            # (Continues...)
+When you perform packet switchin with L3 information, you have to deal separately with
+ARP. ARP packets will be sent in the network with a source MAC and a destination MAC,
+enabling the L2 learning switch to exchange them properly, but they have different
+L3 headers and do not carry a source IP or destination IP.
 
-Create Flow Mods for IP Addresses
-=================================
-
-The next step is to check if the switch already knows from which port the destination
-address is reachable. Your method will look for it in the l3 switching table.
-
-If the switch does know where the packet shall go to, then you will install a Flow in it so
-new packets with the same source and destination addresses will be directly and
-correctly forwarded, without needing the controller.
-The Flow will instruct the switch to handle those new packets himself.
-
-Your Flow Mod message shall have:
- - A Flow Mod Command: as this is a new Flow, the command is OFPFC_ADD;
- - A Flow Match: A match has all information you want the switch to check before
-   deciding if the packet belongs to this particular flow. You want the switch to match the
-   source IP address, the destination IP address and the Ethernet Type (IP);
- - A list of Actions: All the actions to be performed on the incoming packet are
-   executed by the switch. Given this is a switching NApp, you want the switch
-   to send the packet through the correct port, defined by the controller.
-
-Once you have prepared the Flow Mod, create a KytosEvent containing it directed to the switch
-that sent you the PacketIn, and put this event in the ``msg_out`` buffer.
+The naive solution is to just flood ARP packets, in a 'hub-like' behavior, without even
+sending them to the controller. While the L2 learning switch is only *reactive*, the
+L3 switch will have *proactive* flows matching ARP.
 
 .. code-block:: python3
 
-    @listen_to('kytos/of_core.v0x01.messages.in.ofpt_packet_in')
-    def handle_packet_in(self, event):
-        # (...)
-        if ethernet.ether_type.value == 0x800:
+  @listen_to('kytos/core.switches.new')
+  def initialize_switch(self, event):
+      # (...)
 
-        # (...)
+      arp_flow_mod = FlowMod()
+      arp_flow_mod.command = FlowModCommand.OFPFC_ADD
+      arp_flow_mod.match = Match()
+      arp_flow_mod.match.dl_type = 0x806 #Ethertype for ARP
+      arp_flow_mod.actions.append(ActionOutput(port=Port.OFPP_FLOOD))
+      event_out = KytosEvent(name=('tutorial/of_l3ls.messages.out.'
+                                   'ofpt_flow_mod'),
+                             content={'destination': switch.connection,
+                                      'message': arp_flow_mod})
+      self.controller.buffers.msg_out.put(event_out)
 
-            dest_port = switch.l3_table.get(ipv4.destination, None)
 
-            if dest_port is not None:
-                log.info('%s is at port %d.', ipv4.destination, dest_port)
-                flow_mod = FlowMod()
-                flow_mod.command = FlowModCommand.OFPFC_ADD
-                flow_mod.match = Match()
-                flow_mod.match.nw_src = ipv4.source
-                flow_mod.match.nw_dst = ipv4.destination
-                flow_mod.match.dl_type = ethernet.ether_type
-                flow_mod.actions.append(ActionOutput(port=dest_port))
-                event_out = KytosEvent(name=('tutorial/of_l3ls.messages.out.'
-                                             'ofpt_flow_mod'),
-                                       content={'destination': event.source,
-                                                'message': flow_mod})
-                self.controller.buffers.msg_out.put(event_out)
-                log.info('Flow installed! Subsequent packets will be sent directly.')
+Change ``handle_packet_in`` to use L3 information
+=================================================
 
-            # (Continues...)
-
-Send the packet back to the network
-===================================
-
-Whether your switch found a destination or not, the flow installed on the previous
-step will work only for new incoming packets. There is still need to handle this
-particular packet that generated the PacketIn event.
-
-Create a PacketOut with the content of the PacketIn (same buffer_id, in_port
-and data). If the controller knows the packet destination, then you can send it
-right away through the proper port. If the controller does not know it, then tell
-the switch to *flood* the packet: send it to all ports except the in_port.
-
-Once again, create a KytosEvent and put it in the ``msg_out`` buffer.
+Updating the L3 table
+---------------------
+To update the switch's L3 table, you need to get the IPV4 information of the
+PacketIn sent to the controller. You'll do it with one more ``unpack`` on the
+data field of the Ethernet frame. It's important to check if it is an IPV4 packet
+before the unpack, to avoid errors. Once unpacked, you can add the source IP to the
+L3 table. The needed changes are shown below:
 
 .. code-block:: python3
 
-    @listen_to('kytos/of_core.v0x01.messages.in.ofpt_packet_in')
-    def handle_packet_in(self, event):
-        # (...)
-        if ethernet.ether_type.value == 0x800:
-        # (...)
+  @listen_to('kytos/of_core.v0x01.messages.in.ofpt_packet_in')
+  def handle_packet_in(self, event):
+      #(...)
+      ethernet.unpack(packet_in.data.value)
+  
+      # Add the unpack here
+      if ethernet.ether_type = 0x800 
+          ipv4 = IPv4()
+          ipv4.unpack(ethernet.data.value)
+          
+          in_port = packet_in.in_port.value
+          switch = event.source.switch
+          switch.l3_table[ipv4.source] = in_port
+          log.info('Packet received from %s to %s.', ipv4.source,
+                   ipv4.destination)
 
-            if dest_port is not None:
-            # (...)
+          # To look for the port, we will use the dictionary's get() method.
+          dest_port = switch.l3_table.get(ipv4.destination, None)
 
-            packet_out = PacketOut()
-            packet_out.buffer_id = packet_in.buffer_id
-            packet_out.in_port = packet_in.in_port
-            packet_out.data = packet_in.data
+.. note:: All further code will be inside the above `if` statement. Check the
+    final main.py file in case of doubt.
 
-            port = dest_port if dest_port is not None else Port.OFPP_FLOOD
-            packet_out.actions.append(ActionOutput(port=port))
-            event_out = KytosEvent(name=('tutorial/of_l3ls.messages.out.'
-                                         'ofpt_packet_out'),
-                                   content={'destination': event.source,
-                                            'message': packet_out})
+.. warning:: As dest_port is now a single port and not a list, remove the
+    subscript (from dest_ports[0] to dest_port) in all the code.
 
-            self.controller.buffers.msg_out.put(event_out)
+Installing FlowMods with L3 information
+---------------------------------------
+To use L3 information on flows, you will change two lines used while constructing
+the FlowMod message.
 
+.. code-block:: python3
+
+  # flow_mod.match.dl_src = ethernet.source.value
+  # flow_mod.match.dl_dst = ethernet.destination.value
+  # Remove the lines above, using instead:
+  flow_mod.match.nw_src = ipv4.source
+  flow_mod.match.nw_dst = ipv4.destination
+
+You don't need to change the PacketOut code: it shall work the same.
 
 Final main.py file
 ==================
@@ -275,6 +234,17 @@ needed imports, and comments were removed to improve readability.
         def create_switching_table(self, event):
             switch = event.content['switch']
             switch.l3_table = {}
+            
+            arp_flow_mod = FlowMod()
+            arp_flow_mod.command = FlowModCommand.OFPFC_ADD
+            arp_flow_mod.match = Match()
+            arp_flow_mod.match.dl_type = 0x806 #Ethertype for ARP
+            arp_flow_mod.actions.append(ActionOutput(port=Port.OFPP_FLOOD))
+            event_out = KytosEvent(name=('tutorial/of_l3ls.messages.out.'
+                                   'ofpt_flow_mod'),
+                             content={'destination': switch.connection,
+                                      'message': arp_flow_mod})
+            self.controller.buffers.msg_out.put(event_out)
 
         @listen_to('kytos/of_core.v0x01.messages.in.ofpt_packet_in')
         def handle_packet_in(self, event):
@@ -398,12 +368,11 @@ With the NApp installed and enabled, you can run Mininet to see it in action:
 
 .. code-block:: console
 
-  $ sudo mn -c ; sudo mn --controller remote --arp --switch ovsk,protocols=OpenFlow10
+  $ sudo mn -c ; sudo mn --controller remote --switch ovsk,protocols=OpenFlow10
 
 .. IMPORTANT:: As no specific topology configuration was passed to Mininet, it
     will generate a virtual network with a switch connecting two hosts, 10.0.0.1
-    and 10.0.0.2. The ``--arp`` flag tells Mininet to populate the ARP tables, which
-    is needed because we are only handling IP packets.
+    and 10.0.0.2.
 
 .. ATTENTION:: Just like the l2ls implementation, this NApp will NOT work in
     topologies containing loops. However, it works with linear and tree topologies.
@@ -453,3 +422,6 @@ Good job!
 
 .. |dev_env| replace:: *Development Environment*
 .. _dev_env: http://tutorials.kytos.io/napps/development_environment_setup/
+
+.. |l2_tutorial| replace:: *L2 Learning Switch tutorial*
+.. _l2_tutorial: http://tutorials.kytos.io/napps/switch_l2/
