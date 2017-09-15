@@ -10,7 +10,7 @@ Creating an L2 learning switch - Part 1
 ********
 Overview
 ********
-This tutorial will show the first steps to create an L2 learning switch NApp
+This tutorial will show you how to create an L2 learning switch NApp
 using *Kytos* (|kytos|_).
 The average time to go through this is: ``25 min``
 
@@ -73,7 +73,7 @@ the ``~/tutorials`` folder if it does not exist):
   Please, insert a brief description for your NApp [optional]: This NApp does packet switching using L2 information
 
   Congratulations! Your NApp have been bootstrapped!
-  Now you can go to the directory tutorial/of_l3ls and begin to code your NApp.
+  Now you can go to the directory tutorial/of_l2ls and begin to code your NApp.
   Have fun!
 
 Open the ``main.py`` file in your preferred editor to start coding your NApp.
@@ -357,7 +357,7 @@ With the NApp installed and enabled, you can run Mininet to see it in action:
 
 .. IMPORTANT:: As no specific topology configuration was passed to Mininet, it
     will generate a virtual network with a switch connecting two hosts, 10.0.0.1
-    and 10.0.0.2.
+    and 10.0.0.2. If you want friendly MAC addresses, add the --mac flag.
 
 .. ATTENTION:: This NApp will NOT work in topologies containing loops. However,
     it works with linear and tree topologies.
