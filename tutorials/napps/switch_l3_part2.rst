@@ -128,7 +128,7 @@ in order to listen to the Kytos's *new switch* event.
 
 .. code-block:: python3
 
-    @listen_to('kytos/core.switches.new')
+    @listen_to('kytos/core.switch.new')
     def create_switch_tables(self, event):
         switch = event.content['switch']
         switch.fw_table = {}
@@ -372,7 +372,7 @@ needed imports, and comments were removed to improve readability.
       def execute(self):
           pass
 
-      @listen_to('kytos/core.switches.new')
+      @listen_to('kytos/core.switch.new')
       def create_switch_tables(self, event):
           switch = event.content['switch']
           switch.fw_table = {}

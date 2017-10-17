@@ -105,14 +105,14 @@ Create an L3 switching table
 ============================
 
 First of all, you will create an L3 table for each switch that connects to the
-controller. When a new switch is connected, *Kytos* generates a ``core.switches.new``
+controller. When a new switch is connected, *Kytos* generates a ``core.switch.new``
 KytosEvent. Your NApp will have a method to deal with those.
 
 The L3 table will be a Python dictionary, mapping IP addresses to switch ports.
 
 .. code-block:: python3
 
-  @listen_to('kytos/core.switches.new')
+  @listen_to('kytos/core.switch.new')
   def initialize_switch(self, event):
       switch = event.content['switch']
       switch.l3_table = {}
@@ -134,7 +134,7 @@ L3 switch will have *proactive* flows matching ARP.
 
 .. code-block:: python3
 
-  @listen_to('kytos/core.switches.new')
+  @listen_to('kytos/core.switch.new')
   def initialize_switch(self, event):
       # (...)
 
@@ -230,7 +230,7 @@ needed imports, and comments were removed to improve readability.
         def execute(self):
             pass
 
-        @listen_to('kytos/core.switches.new')
+        @listen_to('kytos/core.switch.new')
         def create_switching_table(self, event):
             switch = event.content['switch']
             switch.l3_table = {}
