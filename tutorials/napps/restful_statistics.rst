@@ -149,7 +149,7 @@ REST API
 ********
 
 To see some flow statistics, visit
-http://localhost:8181/kytos/stats/00:00:00:00:00:00:00:01/flows.
+http://localhost:8181/api/kytos/of_stats/v1/0:00:00:00:00:00:00:01/flows.
 At any time, refresh the page to get the latest statistics.
 
 This endpoint of *kytos/of_stats* will show statistics of the last second

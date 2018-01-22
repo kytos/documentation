@@ -351,7 +351,7 @@ So, the ``main.py`` file of the ``pong`` napp will be:
             message = 'Hi, here is the Pong NApp answering a ping.'
             message += 'The current time is {}, and the ping was dispatched '
             message += 'at {}.'
-            self.log.info(message.format(datetime.now(),
+            log.info(message.format(datetime.now(),
                                          event.content['message']))
 
         def shutdown(self):
