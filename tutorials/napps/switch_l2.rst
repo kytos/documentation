@@ -31,7 +31,7 @@ Introduction
 
 Layer 2
 =======
-*Layer 2* refers to the *Data Link layer*, the third one in the |osi_model|_. This layer
+*Layer 2* refers to the *Data Link layer*, the second one in the |osi_model|_. This layer
 is responsible for defining interfaces's fixed addresses for transmitting frames
 in a network as well as control the Physical layer.
 
@@ -110,7 +110,7 @@ You can also add a log message to know when the controller receives a packet.
         in_port = packet_in.in_port.value
         switch = event.source.switch
         switch.update_mac_table(ethernet.source, in_port)
-        log.info('Packet received from %s to %s.', ethernet.source.value',
+        log.info('Packet received from %s to %s.', ethernet.source.value,
                  ethernet.destination.value)
 
             # (Continues...)
@@ -224,33 +224,33 @@ needed imports, and comments were removed to improve readability.
   from pyof.v0x01.common.phy_port import Port
   from pyof.v0x01.controller2switch.flow_mod import FlowMod, FlowModCommand
   from pyof.v0x01.controller2switch.packet_out import PacketOut
-  
+
   from napps.tutorial.of_l2ls import settings
-  
-  
+
+
   class Main(KytosNApp):
-  
+
       def setup(self):
           pass
-  
+
       def execute(self):
           pass
-  
+
       @listen_to('kytos/of_core.v0x01.messages.in.ofpt_packet_in')
       def handle_packet_in(self, event):
           packet_in = event.content['message']
-  
+
           ethernet = Ethernet()
           ethernet.unpack(packet_in.data.value)
-  
+
           in_port = packet_in.in_port.value
           switch = event.source.switch
           switch.update_mac_table(ethernet.source, in_port)
-          log.info('Packet received from %s to %s.', ethernet.source.value',
+          log.info('Packet received from %s to %s.', ethernet.source.value,
                  ethernet.destination.value)
-  
+
           dest_ports = switch.where_is_mac(ethernet.destination)
-  
+
           if dest_ports:
               log.info('%s is at port %d.', ethernet.destination.value, dest_ports[0])
               flow_mod = FlowMod()
@@ -266,21 +266,21 @@ needed imports, and comments were removed to improve readability.
                                               'message': flow_mod})
               self.controller.buffers.msg_out.put(event_out)
               log.info('Flow installed! Subsequent packets will be sent directly.')
-  
+
           packet_out = PacketOut()
           packet_out.buffer_id = packet_in.buffer_id
           packet_out.in_port = packet_in.in_port
           packet_out.data = packet_in.data
-  
+
           port = dest_ports[0] if dest_ports else Port.OFPP_FLOOD
           packet_out.actions.append(ActionOutput(port=port))
           event_out = KytosEvent(name=('tutorial/of_l2ls.messages.out.'
                                        'ofpt_packet_out'),
                                  content={'destination': event.source,
                                           'message': packet_out})
-  
+
           self.controller.buffers.msg_out.put(event_out)
-  
+
       def shutdown(self):
           pass
 
