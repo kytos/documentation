@@ -177,7 +177,7 @@ Cool! Now you have all dependencies and repositories cloned into your machine.
 Installing the NApps from Kytos team
 ====================================
 
-We will now install the NApps developed by the Kytos team, which will be used
+We will now install some NApps developed by the Kytos team, which will be used
 later in the following tutorials. To enable NApps management, we need Kytos
 running, so open another terminal window, make sure your virtualenv is active
 and run:
@@ -197,12 +197,10 @@ just for now.
 .. code-block:: bash
 
   $ kytos napps install kytos/of_core \
-     kytos/of_flow_manager \
-     kytos/of_ipv6drop \
+     kytos/flow_manager \
      kytos/of_l2ls \
      kytos/of_lldp \
-     kytos/of_topology \
-     kytos/web_topology_layout
+     kytos/topology
 
   $ kytos napps disable all
 
