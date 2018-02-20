@@ -157,9 +157,9 @@ needed.
 
       in_port = packet_in.in_port.value
 
-      if ethernet.ether_type.value == 0x806:
+      if ethernet.ether_type.value == EtherType.ARP:
           self.handle_arp(ethernet, in_port, event.source)
-      elif ethernet.ether_type.value == 0x800:
+      elif ethernet.ether_type.value == EtherType.IPV4:
           self.handle_ip(ethernet, in_port, event.source)
 
 
@@ -227,7 +227,7 @@ the controller's ``msg_out`` buffer.
           frame = Ethernet()
           frame.source = settings.GW_MAC
           frame.destination = ethernet.source
-          frame.ether_type = 0x806
+          frame.ether_type = EtherType.ARP
           frame.data = reply.pack()
 
           packet_out = PacketOut()
@@ -279,7 +279,7 @@ Create the ``KytosEvent`` and put it out right away.
           flow_mod.match = Match()
           flow_mod.match.nw_src = ipv4.source
           flow_mod.match.nw_dst = ipv4.destination
-          flow_mod.match.dl_type = 0x800
+          flow_mod.match.dl_type = EtherType.IPV4
           flow_mod.actions.append(ActionDLAddr(action_type=ActionType.OFPAT_SET_DL_SRC,
                                                dl_addr=settings.GW_MAC))
           flow_mod.actions.append(ActionDLAddr(action_type=ActionType.OFPAT_SET_DL_DST,
@@ -328,7 +328,7 @@ addresses enabling the *L3 switch* to create the FlowMod next time.
           frame = Ethernet()
           frame.source = settings.GW_MAC
           frame.destination = 'ff:ff:ff:ff:ff:ff'
-          frame.ether_type = 0x806
+          frame.ether_type = EtherType.ARP
           frame.data = arp_request.pack()
 
           packet_out = PacketOut()
@@ -354,7 +354,7 @@ needed imports, and comments were removed to improve readability.
 
   from kytos.core import KytosEvent, KytosNApp, log
   from kytos.core.helpers import listen_to
-  from pyof.foundation.network_types import ARP, Ethernet, IPv4
+  from pyof.foundation.network_types import ARP, Ethernet, EtherType, IPv4
   from pyof.v0x01.common.action import ActionOutput, ActionDLAddr, ActionType
   from pyof.v0x01.common.flow_match import Match
   from pyof.v0x01.common.phy_port import Port
@@ -387,9 +387,9 @@ needed imports, and comments were removed to improve readability.
 
           in_port = packet_in.in_port.value
 
-          if ethernet.ether_type.value == 0x806:
+          if ethernet.ether_type.value == EtherType.ARP:
               self.handle_arp(ethernet, in_port, event.source)
-          elif ethernet.ether_type.value == 0x800:
+          elif ethernet.ether_type.value == EtherType.IPV4:
               self.handle_ip(ethernet, in_port, event.source)
 
       def handle_arp(self, ethernet, in_port, source):
@@ -412,7 +412,7 @@ needed imports, and comments were removed to improve readability.
               frame = Ethernet()
               frame.source = settings.GW_MAC
               frame.destination = ethernet.source
-              frame.ether_type = 0x806
+              frame.ether_type = EtherType.ARP
               frame.data = reply.pack()
 
               packet_out = PacketOut()
@@ -446,7 +446,7 @@ needed imports, and comments were removed to improve readability.
               flow_mod.match = Match()
               flow_mod.match.nw_src = ipv4.source
               flow_mod.match.nw_dst = ipv4.destination
-              flow_mod.match.dl_type = 0x800
+              flow_mod.match.dl_type = EtherType.IPV4
               flow_mod.actions.append(ActionDLAddr(action_type=ActionType.OFPAT_SET_DL_SRC,
                                                    dl_addr=settings.GW_MAC))
               flow_mod.actions.append(ActionDLAddr(action_type=ActionType.OFPAT_SET_DL_DST,
@@ -469,7 +469,7 @@ needed imports, and comments were removed to improve readability.
               frame = Ethernet()
               frame.source = settings.GW_MAC
               frame.destination = 'ff:ff:ff:ff:ff:ff'
-              frame.ether_type = 0x806
+              frame.ether_type = EtherType.ARP
               frame.data = arp_request.pack()
 
               packet_out = PacketOut()
