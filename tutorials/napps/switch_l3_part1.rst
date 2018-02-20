@@ -141,7 +141,7 @@ L3 switch will have *proactive* flows matching ARP.
       arp_flow_mod = FlowMod()
       arp_flow_mod.command = FlowModCommand.OFPFC_ADD
       arp_flow_mod.match = Match()
-      arp_flow_mod.match.dl_type = 0x806 #Ethertype for ARP
+      arp_flow_mod.match.dl_type = EtherType.ARP
       arp_flow_mod.actions.append(ActionOutput(port=Port.OFPP_FLOOD))
       event_out = KytosEvent(name=('tutorial/of_l3ls.messages.out.'
                                    'ofpt_flow_mod'),
@@ -169,7 +169,7 @@ L3 table. The needed changes are shown below:
       ethernet.unpack(packet_in.data.value)
   
       # Add the unpack here
-      if ethernet.ether_type = 0x800 
+      if ethernet.ether_type = EtherType.IPV4
           ipv4 = IPv4()
           ipv4.unpack(ethernet.data.value)
           
@@ -213,7 +213,7 @@ needed imports, and comments were removed to improve readability.
 
     from kytos.core import KytosEvent, KytosNApp, log
     from kytos.core.helpers import listen_to
-    from pyof.foundation.network_types import Ethernet, IPv4
+    from pyof.foundation.network_types import Ethernet, EtherType, IPv4
     from pyof.v0x01.common.action import ActionOutput
     from pyof.v0x01.common.flow_match import Match
     from pyof.v0x01.common.phy_port import Port
@@ -238,7 +238,7 @@ needed imports, and comments were removed to improve readability.
             arp_flow_mod = FlowMod()
             arp_flow_mod.command = FlowModCommand.OFPFC_ADD
             arp_flow_mod.match = Match()
-            arp_flow_mod.match.dl_type = 0x806 #Ethertype for ARP
+            arp_flow_mod.match.dl_type = EtherType.ARP
             arp_flow_mod.actions.append(ActionOutput(port=Port.OFPP_FLOOD))
             event_out = KytosEvent(name=('tutorial/of_l3ls.messages.out.'
                                    'ofpt_flow_mod'),
@@ -253,7 +253,7 @@ needed imports, and comments were removed to improve readability.
             ethernet = Ethernet()
             ethernet.unpack(packet_in.data.value)
 
-            if ethernet.ether_type.value == 0x800:
+            if ethernet.ether_type.value == EtherType.IPV4:
                 ipv4 = IPv4()
                 ipv4.unpack(ethernet.data.value)
 
@@ -338,13 +338,11 @@ it by running, in the previous terminal window:
   Status |          NApp ID          |                     Description
   =======+===========================+======================================================
    [ie]  | kytos/of_core             | OpenFlow Core of Kytos Controller, responsible for...
-   [i-]  | kytos/of_flow_manager     | Manage switches' flows through a REST API.
-   [i-]  | kytos/of_ipv6drop         | Install flows to DROP IPv6 packets on all switches.
+   [i-]  | kytos/flow_manager        | Manage switches' flows through a REST API.
    [i-]  | kytos/of_l2ls             | An L2 learning switch application for OpenFlow swi...
    [i-]  | kytos/of_lldp             | Discovers switches and hosts in the network using ...
    [i-]  | kytos/of_stats            | Provide statistics of openflow switches.
-   [i-]  | kytos/of_topology         | Keeps track of links between hosts and switches. R...
-   [i-]  | kytos/web_topology_layout | Manage endpoints related to the web interface sett...
+   [i-]  | kytos/topology            | Keeps track of links between hosts and switches. R...
 
 If the NApp is installed but not enabled, you can enable it by running:
 
