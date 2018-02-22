@@ -110,11 +110,11 @@ If you want to use an existing environment you can use the following command:
 
 After that, your console prompt will show the activated virtualenv name between
 parenthesis. Now, update the *pip* package that is already installed in the
-virtualenv:
+virtualenv, with setuptools and wheel as well:
 
 .. code-block:: bash
 
-  (test42) $ pip install --upgrade pip
+  (test42) $ pip install --upgrade pip setuptools wheel
 
 The parenthesis marker identifies that the test42 virtualenv is activated. If
 you want leave this virtualenv you can use the command ``deactivate``.
@@ -128,51 +128,22 @@ using your regular Ubuntu environment.
 If you want to read more about it, please visit: |virtualenv|_ and
 |virtualenv_docs|_ pages.
 
-******************************
-Using latest Kytos from Github
-******************************
+***********************************
+Installing the latest Kytos release
+***********************************
 
-Cloning existing projects
-=========================
+Installing with pip
+===================
 
-If you want to contribute with a Kytos project by coding, you must clone/fork
-its repository located at `GitHub group <https://github.com/kytos>`_. Below, we
-are going to clone all major repositories (python-openflow, kytos-utils
-and kytos):
+To install the latest Kytos from PyPI, just make sure the virtualenv is
+activated and run:
 
 .. code-block:: bash
 
-  $ for project in python-openflow kytos-utils kytos; do
-      git clone https://github.com/kytos/$project.git
-    done
+  (test42) $ pip install kytos
 
-After this command, a folder will be created for each project with the latest
-version of the source code.
-
-Installing projects in develop mode
-===================================
-
-In order to facilitate the development process, we install kytos projects in
-development mode, which means that they will be symlinked inside the virtualenv
-instead of just deploying them. With this process, all changes made to the
-source code within each project directory will be automatically avaiable at the
-virtualenv, without the need to reinstall the project.
-
-Also, each project requires a set of Python packages that are installed through
-virtualenv. The list of packages are available in files named like
-*requirements\*.txt*. They will be automatically installed under the
-virtualenv.
-
-.. code-block:: bash
-
-  $ for project in python-openflow kytos-utils kytos; do
-      cd $project
-      pip install -e .[dev]
-      python setup.py develop || break
-      cd -
-    done
-
-Cool! Now you have all dependencies and repositories cloned into your machine.
+This will install Kytos with all the dependencies, like kytos-utils and
+python-openflow.
 
 Installing the NApps from Kytos team
 ====================================
