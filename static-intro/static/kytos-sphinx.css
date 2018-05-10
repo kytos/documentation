@@ -224,9 +224,8 @@ div.sphinxsidebar {
   padding: 1em;
   margin: 0px;
   float: none;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
 }
 
 /* All levels of nav */
@@ -405,8 +404,6 @@ div.sphinxsidebar {
   .navbar-search,
   .navbar-header {
     float: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: inline-block;
   }
 }
