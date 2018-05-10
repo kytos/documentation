@@ -197,7 +197,7 @@ div.sphinxsidebar {
   padding-bottom: 5px;
   text-shadow: none;
   background-color: none;
-  background: none !important;
+  background: none;
   border-radius: 0px;
 }
 
