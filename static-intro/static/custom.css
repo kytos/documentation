@@ -110,14 +110,14 @@ aside {
 }
 
 .doc-dev .features-content {
-	background: url('/static/img/documentation/doc-wdev.svg');
+	background: url('./img/documentation/doc-wdev.svg');
        	background-position: center bottom 100px;
 	background-repeat: no-repeat;
 	padding-bottom: 600px;
 }
 
 .doc-admin .features-content {
-	background: url('/static/img/documentation/doc-admin.svg');
+	background: url('./img/documentation/doc-admin.svg');
        	background-position: center bottom 100px;
 	background-repeat: no-repeat;
 	padding-bottom:  600px;
