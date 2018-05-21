@@ -224,7 +224,7 @@ div.sphinxsidebar {
   padding: 1em;
   margin: 0px;
   float: none;
-  display: inline-flex;
+  display: block;
   align-items: center;
 }
 
@@ -277,14 +277,14 @@ div.sphinxsidebar {
   float: left;
   padding: 0px;
   margin: 0px;
-  margin-left: 1em;
+  margin-left: 3em;
 }
 
-.navbar-toggle { margin-top: 8px; }
+.navbar-toggle { top: 10px; right: 10px; position: absolute; }
 .navbar-toggle .icon-bar { background: #FFF; }
 .navbar-form { border: none; box-shadow: none; }
-.navbar-collapse { float: left; width: auto; }
-.navbar-collapse.in { width: 100%; float: none; } 
+.navbar-collapse { float: right; width: 500px; }
+.navbar-collapse.in { width: 100%; } 
 .collapse-header { padding-left: 10%; }
 
 #DocVersions { text-align: center; }
