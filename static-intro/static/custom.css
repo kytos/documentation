@@ -159,9 +159,10 @@ div#social-kytos p {
 	color: #FFF;
 	padding-bottom: 120px;
 }
-
-.navbar-options {
-	width: 400px;
+.navbar-nav {
+	margin: 0px;
+	display: inline-block;
+	float: right;
 }
 
 .navbar-options li {
@@ -173,7 +174,6 @@ div#social-kytos p {
     -webkit-box-shadow: none;
     box-shadow: none;
     border-radius: 5px;
-    display: inline-flex;
 }
 .navbar-options li.active {
     border: 1px solid #00b4c4; 
