@@ -128,21 +128,49 @@ using your regular Ubuntu environment.
 If you want to read more about it, please visit: |virtualenv|_ and
 |virtualenv_docs|_ pages.
 
-***********************************
-Installing the latest Kytos release
-***********************************
+********************************
+Installing the Kytos from Source
+********************************
 
-Installing with pip
-===================
+Downloading the source code
+===========================
 
-To install the latest Kytos from PyPI, just make sure the virtualenv is
-activated and run:
+To install the Kytos project from github you need to download the source code,
+just run the commad bellow.
 
 .. code-block:: bash
 
-  (test42) $ pip install kytos
+   (test42) $ git clone https://github.com/kytos/kytos.git
+   Cloning into 'kytos'...
+   remote: Counting objects: 8666, done.
+   remote: Compressing objects: 100% (22/22), done.
+   remote: Total 8666 (delta 7), reused 13 (delta 3), pack-reused 8641
+   Receiving objects: 100% (8666/8666), 7.50 MiB | 3.11 MiB/s, done.
+   Resolving deltas: 100% (5137/5137), done.
 
-This will install Kytos with all the dependencies, like kytos-utils and
+
+After that a folder called `kytos`  will appear in the current directory. Just
+run the following commands to change the directory and see all files inside the
+kytos project.
+
+.. code-block:: bash
+
+  (test42) $ cd kytos
+  (test42) $ ls
+  AUTHORS.rst  CHANGELOG.rst  etc    LICENSE      README.rst    setup.cfg  tests
+  bin          docs           kytos  MANIFEST.in  requirements  setup.py   tox.ini
+
+Installing
+==========
+
+Now to install the Kytos from github repository, just make sure the
+virtualenv is activated, you are inside the kytos project and run:
+
+.. code-block:: bash
+
+  (test42) $ pip install -r requirements/dev.txt
+
+This will install Kytos with all the develop dependencies, like kytos-utils and
 python-openflow.
 
 Installing the NApps from Kytos team
