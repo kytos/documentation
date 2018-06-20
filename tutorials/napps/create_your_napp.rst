@@ -74,14 +74,19 @@ Here you can see the basic NApp structure. A minimal working NApp must have the
 files **kytos.json** and **main.py**. Don't worry about creating these folders
 and files. We provide a tool to generate this structure for you! ::
 
-  <username>
+  <username>/
   ├── __init__.py
-  └── <napp_name>
-      ├── __init__.py
-      ├── kytos.json
-      ├── main.py
-      ├── README.rst
-      └── settings.py
+  └── <napp_name>/
+      ├── __init__.py
+      ├── kytos.json
+      ├── main.py
+      ├── README.rst
+      ├── settings.py
+      └── ui/
+          ├── k-action-menu
+          ├── k-info-panel
+          ├── k-toolbar
+          └── README.rst
 
 - **kytos.json**: This file contains your NApp's metadata. **username**
   and **name** are required. Other attributes are
@@ -89,6 +94,7 @@ and files. We provide a tool to generate this structure for you! ::
 - **settings.py**: Main settings parameters of your NApp (if applicable).
 - **main.py**: Main source code of your NApp.
 - **README.rst**: Main description and information about your NApp.
+- **ui**: Folder that contain all NApp components displayed by Kytos UI.
 
 During this tutorial we are going to use only the ``main.py`` file
 (``kytos.json`` content will be automatically created by our tool).
