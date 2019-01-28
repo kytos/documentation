@@ -132,18 +132,23 @@ If you want to read more about it, please visit: |virtualenv|_ and
 Installing the latest Kytos release
 ***********************************
 
-Installing with pip
+Download the kytos project from github
 ===================
 
-To install the latest Kytos from PyPI, just make sure the virtualenv is
-activated and run:
+To download the kytos from github you need run the command below to clone the project locally.
+
 
 .. code-block:: bash
 
-  (test42) $ pip install kytos
+  (test42) $ git clone https://github.com/kytos/kytos.git
 
-This will install Kytos with all the dependencies, like kytos-utils and
-python-openflow.
+After that change the directory to kytos project and install all development dependencies. Below we execute its commands.
+
+
+.. code-block:: bash                                                               
+
+  (test42) $ git cd kytos
+  (test42) $ git pip install -r requirements/dev.txt
 
 Installing the NApps from Kytos team
 ====================================
