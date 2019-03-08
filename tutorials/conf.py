@@ -14,7 +14,8 @@
 
 import sys
 import os
-import sphinx_bootstrap_theme
+
+import kytos_sphinx_theme
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -55,7 +56,7 @@ master_doc = 'references'
 # General information about the project.
 project_short_name = u'Tutorials'
 project = u'Tutorials'
-copyright = u'2016, Kytos\' Development Team'
+copyright = u'2017-2019 Kytos Project'
 author = u'Kytos\' Development Team'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -120,8 +121,8 @@ todo_include_todos = False
 # a list of builtin themes.
 # html_theme = 'alabaster'
 # html_theme = 'sphinx_rtd_theme'
-html_theme = 'bootstrap'
-html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
+html_theme = 'kytos'
+html_theme_path = kytos_sphinx_theme.get_html_theme_path()
 
 html_context = {
     'css_files': ['_static/custom.css'],
@@ -130,72 +131,72 @@ html_context = {
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-html_theme_options = {
-     # Navigation bar title. (Default: ``project`` value)
-    # 'navbar_title': '',
+# html_theme_options = {
+#      # Navigation bar title. (Default: ``project`` value)
+#     # 'navbar_title': '',
 
-    # Tab name for entire site. (Default: "Site")
-    'navbar_site_name': 'Sections',
+#     # Tab name for entire site. (Default: "Site")
+#     'navbar_site_name': 'Sections',
 
-    # A list of tuples containing pages or urls to link to.
-    # Valid tuples should be in the following forms:
-    #    (name, page)                 # a link to a page
-    #    (name, "/aa/bb", 1)          # a link to an arbitrary relative url
-    #    (name, "http://example.com", True) # arbitrary absolute url
-    # Note the "1" or "True" value above as the third argument to indicate
-    # an arbitrary url.
-    'navbar_links': False,
+#     # A list of tuples containing pages or urls to link to.
+#     # Valid tuples should be in the following forms:
+#     #    (name, page)                 # a link to a page
+#     #    (name, "/aa/bb", 1)          # a link to an arbitrary relative url
+#     #    (name, "http://example.com", True) # arbitrary absolute url
+#     # Note the "1" or "True" value above as the third argument to indicate
+#     # an arbitrary url.
+#     'navbar_links': False,
 
-    # Render the next and previous page links in navbar. (Default: true)
-    'navbar_sidebarrel': True,
+#     # Render the next and previous page links in navbar. (Default: true)
+#     'navbar_sidebarrel': True,
 
-    # Render the current pages TOC in the navbar. (Default: true)
-    'navbar_pagenav': False,
+#     # Render the current pages TOC in the navbar. (Default: true)
+#     'navbar_pagenav': False,
 
-    # Tab name for the current pages TOC. (Default: "Page")
-    'navbar_pagenav_name': "TOC",
+#     # Tab name for the current pages TOC. (Default: "Page")
+#     'navbar_pagenav_name': "TOC",
 
-    # Global TOC depth for "site" navbar tab. (Default: 1)
-    # Switching to -1 shows all levels.
-    'globaltoc_depth': 3,
+#     # Global TOC depth for "site" navbar tab. (Default: 1)
+#     # Switching to -1 shows all levels.
+#     'globaltoc_depth': 3,
 
-    # Include hidden TOCs in Site navbar?
-    #
-    # Note: If this is "false", you cannot have mixed ``:hidden:`` and
-    # non-hidden ``toctree`` directives in the same page, or else the build
-    # will break.
-    #
-    # Values: "true" (default) or "false"
-    'globaltoc_includehidden': True,
+#     # Include hidden TOCs in Site navbar?
+#     #
+#     # Note: If this is "false", you cannot have mixed ``:hidden:`` and
+#     # non-hidden ``toctree`` directives in the same page, or else the build
+#     # will break.
+#     #
+#     # Values: "true" (default) or "false"
+#     'globaltoc_includehidden': True,
 
-    # HTML navbar class (Default: "navbar") to attach to <div> element.
-    # For black navbar, do "navbar navbar-inverse"
-    'navbar_class': "navbar navbar-kytos",
+#     # HTML navbar class (Default: "navbar") to attach to <div> element.
+#     # For black navbar, do "navbar navbar-inverse"
+#     'navbar_class': "navbar navbar-kytos",
 
-    # Fix navigation bar to top of page?
-    # Values: "true" (default) or "false"
-    'navbar_fixed_top': "true",
+#     # Fix navigation bar to top of page?
+#     # Values: "true" (default) or "false"
+#     'navbar_fixed_top': "true",
 
-    # Location of link to source.
-    # Options are "nav" (default), "footer" or anything else to exclude.
-    'source_link_position': "nav",
+#     # Location of link to source.
+#     # Options are "nav" (default), "footer" or anything else to exclude.
+#     'source_link_position': "nav",
 
-    # Bootswatch (http://bootswatch.com/) theme.
-    #
-    # Options are nothing (default) or the name of a valid theme such
-    # as "amelia" or "cosmo".
-    #
-    # Example themes:
-    # * flatly
-    # * sandstone (v3 only)
-    # * united
-    # * yeti (v3 only)
-    'bootswatch_theme': "united",
+#     # Bootswatch (http://bootswatch.com/) theme.
+#     #
+#     # Options are nothing (default) or the name of a valid theme such
+#     # as "amelia" or "cosmo".
+#     #
+#     # Example themes:
+#     # * flatly
+#     # * sandstone (v3 only)
+#     # * united
+#     # * yeti (v3 only)
+#     'bootswatch_theme': "united",
 
-    # Choose Bootstrap version.
-    # Values: "3" (default) or "2" (in quotes)
-    'bootstrap_version': "3",
-}
+#     # Choose Bootstrap version.
+#     # Values: "3" (default) or "2" (in quotes)
+#     'bootstrap_version': "3",
+# }
 
 # Add any paths that contain custom themes here, relative to this directory.
 #html_theme_path = []
@@ -373,10 +374,12 @@ texinfo_documents = [
 # Note: links to Python doc only work if you are online or have python.inv
 #     file. To download it, run:
 #     curl https://docs.python.org/3/objects.inv >python.inv
-intersphinx_mapping = {
-        'python-openflow': ('https://docs.kytos.io/python-openflow', None),
-        'kytos': ('https://docs.kytos.io/kytos', None),
-        'python': ('https://docs.python.org/3', None)}
+# intersphinx_mapping = {
+#         'python-openflow': ('https://docs.kytos.io/python-openflow', None),
+#         'kytos': ('https://docs.kytos.io/kytos', None),
+#         'python': ('https://docs.python.org/3', None)}
+
+intersphinx_mapping = {}
 
 # Napoleon settings from http://www.sphinx-doc.org/en/stable/ext/napoleon.html
 napoleon_google_docstring = True
