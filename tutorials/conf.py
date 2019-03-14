@@ -56,7 +56,7 @@ master_doc = 'references'
 # General information about the project.
 project_short_name = u'Tutorials'
 project = u'Tutorials'
-copyright = u'2017-2019 Kytos Project'
+copyright = u'2016-2019 Kytos Project'
 author = u'Kytos\' Development Team'
 
 # The version info for the project you're documenting, acts as replacement for
