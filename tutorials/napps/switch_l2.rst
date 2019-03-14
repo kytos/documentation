@@ -3,9 +3,9 @@
 
 .. _tutorial-create-l2-sw:
 
-#######################################
-Creating an L2 learning switch - Part 1
-#######################################
+##############################
+Creating an L2 learning switch
+##############################
 
 ********
 Overview
