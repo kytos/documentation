@@ -56,7 +56,7 @@ First of all, you need to run Kytos to start the NApp management.
   2017-07-18 10:37:07,409 - INFO [kytos.core.logs] (MainThread) Logging config file "/home/user/test42/etc/kytos/logging.ini" loaded successfully.
   2017-07-18 10:37:07,410 - INFO [kytos.core.controller] (MainThread) /home/user/test42/var/run/kytos
   2017-07-18 10:37:07,411 - INFO [kytos.core.controller] (MainThread) Starting Kytos - Kytos Controller
-  2017-07-18 10:37:07,415 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6633
+  2017-07-18 10:37:07,415 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6653
   2017-07-18 10:37:07,416 - INFO [kytos.core.controller] (RawEvent Handler) Raw Event Handler started
   2017-07-18 10:37:07,423 - INFO [kytos.core.controller] (MsgInEvent Handler) Message In Event Handler started
   2017-07-18 10:37:07,424 - INFO [kytos.core.controller] (MsgOutEvent Handler) Message Out Event Handler started
@@ -162,7 +162,7 @@ To do this use the command below:
   $ sudo mn --topo linear,2 --mac --controller=remote,ip=127.0.0.1 --switch ovsk,protocols=OpenFlow10
   *** Creating network
   *** Adding controller
-  Unable to contact the remote controller at 127.0.0.1:6633
+  Unable to contact the remote controller at 127.0.0.1:6653
   *** Adding hosts:
   h1 h2
   *** Adding switches:
@@ -232,7 +232,7 @@ Let's take a look at the terminal:
   2017-07-18 10:53:56,567 - INFO [kytos.core.logs] (MainThread) Logging config file "/home/user/test42/etc/kytos/logging.ini" loaded successfully.
   2017-07-18 10:53:56,568 - INFO [kytos.core.controller] (MainThread) /home/user/test42/var/run/kytos
   2017-07-18 10:53:56,569 - INFO [kytos.core.controller] (MainThread) Starting Kytos - Kytos Controller
-  2017-07-18 10:53:56,577 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6633
+  2017-07-18 10:53:56,577 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6653
   2017-07-18 10:53:56,579 - INFO [kytos.core.controller] (RawEvent Handler) Raw Event Handler started
   2017-07-18 10:53:56,584 - INFO [kytos.core.controller] (MsgInEvent Handler) Message In Event Handler started
   2017-07-18 10:53:56,585 - INFO [kytos.core.controller] (MsgOutEvent Handler) Message Out Event Handler started
