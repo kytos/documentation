@@ -186,7 +186,7 @@ able to recognize and manage installed/enabled NApps. In another terminal window
   2017-07-04 16:57:59,351 - INFO [kytos.core.logs] (MainThread) Logging config file "/home/user/test42/etc/kytos/logging.ini" loaded successfully.
   2017-07-04 16:57:59,352 - INFO [kytos.core.controller] (MainThread) /home/user/test42/var/run/kytos
   2017-07-04 16:57:59,353 - INFO [kytos.core.controller] (MainThread) Starting Kytos - Kytos Controller
-  2017-07-04 16:57:59,354 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6633
+  2017-07-04 16:57:59,354 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6653
   2017-07-04 16:57:59,356 - INFO [kytos.core.controller] (RawEvent Handler) Raw Event Handler started
   2017-07-04 16:57:59,358 - INFO [kytos.core.controller] (MsgInEvent Handler) Message In Event Handler started
   2017-07-04 16:57:59,359 - INFO [kytos.core.controller] (MsgOutEvent Handler) Message Out Event Handler started

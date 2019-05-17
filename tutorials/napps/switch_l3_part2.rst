@@ -501,7 +501,7 @@ another terminal window, make sure to activate your |dev_env|_ and run:
   2017-08-04 13:00:48,988 - INFO [kytos.core.logs] (MainThread) Logging config file "/home/user/test42/etc/kytos/logging.ini" loaded successfully.
   2017-08-04 13:00:48,991 - INFO [kytos.core.controller] (MainThread) /home/user/test42/var/run/kytos
   2017-08-04 13:00:48,992 - INFO [kytos.core.controller] (MainThread) Starting Kytos - Kytos Controller
-  2017-08-04 13:00:48,994 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6633
+  2017-08-04 13:00:48,994 - INFO [kytos.core.tcp_server] (TCP server) Kytos listening at 0.0.0.0:6653
   2017-08-04 13:00:48,996 - INFO [kytos.core.controller] (RawEvent Handler) Raw Event Handler started
   2017-08-04 13:00:48,998 - INFO [kytos.core.controller] (MsgInEvent Handler) Message In Event Handler started
   2017-08-04 13:00:49,000 - INFO [kytos.core.controller] (MsgOutEvent Handler) Message Out Event Handler started
