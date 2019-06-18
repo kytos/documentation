@@ -178,7 +178,9 @@ hold any non-NApp requirement of your NApp.
 Uploading the NApp
 ******************
 
-Your NApp is now ready to be uploaded. To do it, use the following command:
+Your NApp is now ready to be uploaded. 
+Before that, if you do not want to send some files to the server, add them to .gitignore.
+To upload your Napp, use the following command:
 
 .. code-block:: console
 
