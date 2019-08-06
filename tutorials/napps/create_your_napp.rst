@@ -94,6 +94,12 @@ During this tutorial we are going to use only the ``main.py`` file
 (``kytos.json`` content will be automatically created by our tool).
 If your code is big enough, feel free to split your NApp into multiples files.
 
+Before proceeding to the next section of this tutorial, go to the
+|napps_server_sign_up| in order to create a user for you on our
+|napps_server|_. After you submit the form you will receive an email to confirm
+your registration. Click on the link present on the email body and, after
+seeing the confirmation message on the screnn, go to the next section.
+
 ************************
 Creating your first NApp
 ************************
@@ -121,8 +127,9 @@ Let's create the NApp structure:
 
 
 You will be asked a few questions. Answer them according to your needs, they are
-very basic questions like username and NApp name. For this tutorial purpose,
-answer **tutorial** and **helloworld**, respectively.
+very basic questions like username and NApp name. For this tutorial purpose, use
+your **<username>** (the one you have just registered) and **helloworld**,
+respectively.
 
 The output should be something like this:
 
@@ -138,12 +145,12 @@ The output should be something like this:
    - at least three characters
   --------------------------------------------------------------
 
-  Please, insert your NApps Server username: tutorial
+  Please, insert your NApps Server username: <username>
   Please, insert your NApp name: helloworld
   Please, insert a brief description for your NApp [optional]: Hello, world!
 
   Congratulations! Your NApp have been bootstrapped!
-  Now you can go to the directory tutorial/helloworld and begin to code your NApp.
+  Now you can go to the directory <username>/helloworld and begin to code your NApp.
   Have fun!
 
 .. TIP:: If you want to change the answers provided in the future, just edit
@@ -157,7 +164,7 @@ During this tutorial, the only file that we need to worry about is the
 .. code-block:: bash
 
   $ cd ~/tutorials
-  $ gedit tutorial/helloworld/main.py
+  $ gedit <username>/helloworld/main.py
 
 .. NOTE::
   The code below is a simplified version of yours. You don't have to delete any
@@ -166,7 +173,7 @@ During this tutorial, the only file that we need to worry about is the
 .. code-block:: python
 
   from kytos.core import KytosNApp, log
-  from napps.tutorial.helloworld import settings
+  from napps.<username>.helloworld import settings
 
 
   class Main(KytosNApp):
@@ -233,7 +240,7 @@ this (simplified, without comments):
 .. code-block:: python
 
   from kytos.core import KytosNApp, log
-  from napps.tutorial.helloworld import settings
+  from napps.<username>.helloworld import settings
 
 
   class Main(KytosNApp):
@@ -305,21 +312,41 @@ with the command:
 Yes, we are not running any other NApp for now. We are disabling everything
 including OpenFlow NApps.
 
-In order to run your NApp, you have to install it first. Again, we are going to
-use the ``kytos`` command line from the ``kytos-utils`` project.
+In order to run your NApp, you can install it locally or remotely:
+
+To install locally, you have to run the following commands:
+
+.. code-block:: console
+
+  $ cd ~/tutorials/<username>/helloworld
+  $ python setup.py develop
+
+To install remotely, you have to publish it first:
+
+.. code-block:: console
+
+  $ cd ~/tutorials/<username>/helloworld
+  $ kytos napps upload
+  Enter the username: <username>
+  Enter the password for <username>: <password>
+  SUCCESS: NApp <username>/helloworld uploaded.
+
+Now that you have published your NApp, you can access |napps_server|_ and see
+that it was sent. After that, you can install it using the ``kytos`` command
+line from the ``kytos-utils`` package:
 
 .. code-block:: console
 
   $ cd ~/tutorials
-  $ kytos napps install tutorial/helloworld
-  INFO  NApp tutorial/helloworld:
+  $ kytos napps install <username>/helloworld
+  INFO  NApp <username>/helloworld:
   INFO    Searching local NApp...
   INFO    Found and installed.
   INFO    Enabling...
   INFO    Enabled.
 
 .. NOTE:: This will look for the *helloworld* NApp inside the
-   *tutorial/helloworld* directory (and also the current one), then
+   *<username>/helloworld* directory (and also the current one), then
    install it into your system. This NApp will also be enabled and
    immediately executed by Kytos.
 
@@ -333,9 +360,9 @@ as follows:
 
 .. code-block:: console
 
-  2017-07-04 14:51:59,931 - INFO [tutorial/helloworld] (Thread-1) Hello world! Now, I'm loaded!
+  2017-07-04 14:51:59,931 - INFO [<username>/helloworld] (Thread-1) Hello world! Now, I'm loaded!
   2017-07-04 14:51:59,935 - INFO [root] (helloworld) Running NApp: <Main(helloworld, started 139884979275520)>
-  2017-07-04 14:51:59,938 - INFO [tutorial/helloworld] (helloworld) Hello world! I'm being executed!
+  2017-07-04 14:51:59,938 - INFO [<username>/helloworld] (helloworld) Hello world! I'm being executed!
 
 Congratulations! You have created your first Kytos NApp!
 To see the shutdown message, type ``quit`` in the Kytos console:
@@ -345,8 +372,8 @@ To see the shutdown message, type ``quit`` in the Kytos console:
   kytos $> quit
   Stopping Kytos daemon... Bye, see you!
   (...)
-  2017-07-04 14:54:28,511 - INFO [kytos.core.controller] (MainThread) Shutting down NApp tutorial/helloworld...
-  2017-07-04 14:54:28,515 - INFO [tutorial/helloworld] (MainThread) Bye, world!
+  2017-07-04 14:54:28,511 - INFO [kytos.core.controller] (MainThread) Shutting down NApp <username>/helloworld...
+  2017-07-04 14:54:28,515 - INFO [<username>/helloworld] (MainThread) Bye, world!
 
 
 .. include:: ../back_to_list.rst
@@ -370,6 +397,9 @@ To see the shutdown message, type ``quit`` in the Kytos console:
 
 .. |napps_server| replace:: *NApps Server*
 .. _napps_server: http://napps.kytos.io
+
+.. |napps_server_sign_up| replace:: **sign_up**
+.. _napps_server_sign_up: https://napps.kytos.io/signup/
 
 .. |dotdiw| replace:: "*Do one thing, do it well*" Unix philosophy
 .. _dotdiw: https://en.wikipedia.org/wiki/Unix_philosophy#Do_One_Thing_and_Do_It_Well

@@ -65,14 +65,19 @@ proper MAC addresses at each interface.
 .. ATTENTION:: This NApp was designed for instructional purposes. Running it in
     production environments may lead to unwanted behavior.
 
+Before proceeding to the next section of this tutorial, go to the
+|napps_server_sign_up| in order to create a user for you on our
+|napps_server|_. After you submit the form you will receive an email to confirm
+your registration. Click on the link present on the email body and, after
+seeing the confirmation message on the screnn, go to the next section.
 
 ******************
 Creating your NApp
 ******************
 
-First, create your NApp using the ``kytos`` command. Use 'tutorial' as the
-username and 'of_l3ls_v2' as the NApp name, as follows (don't forget to create
-the ``~/tutorials`` folder if it does not exist):
+First, create your NApp using the ``kytos`` command. Use your **<username>**
+(the one you have just registered) as the username and 'of_l3ls_v2' as the NApp
+name, as follows (don't forget to create the ``~/tutorials`` folder if it does not exist):
 
 .. code-block:: console
 
@@ -88,12 +93,12 @@ the ``~/tutorials`` folder if it does not exist):
    - at least three characters
   --------------------------------------------------------------
 
-  Please, insert your NApps Server username: tutorial
+  Please, insert your NApps Server username: <username>
   Please, insert your NApp name: of_l3ls_v2
   Please, insert a brief description for your NApp [optional]: This NApp handles forwarding between different networks.
 
   Congratulations! Your NApp have been bootstrapped!
-  Now you can go to the directory tutorial/of_l3ls_v2 and begin to code your NApp.
+  Now you can go to the directory <username>/of_l3ls_v2 and begin to code your NApp.
   Have fun!
 
 You will edit the ``settings.py`` and the ``main.py`` files. You can open them
@@ -101,7 +106,7 @@ in your preferred editor to start coding your NApp:
 
 .. code-block:: console
 
-  $ emacs tutorial/of_l3ls_v2/settings.py tutorial/of_l3ls_v2/main.py
+  $ emacs <username>/of_l3ls_v2/settings.py <username>/of_l3ls_v2/main.py
 
 
 NApp settings
@@ -234,7 +239,7 @@ the controller's ``msg_out`` buffer.
           packet_out.data = frame.pack()
           packet_out.actions.append(ActionOutput(port=in_port))
 
-          event_out = KytosEvent(name=('tutorial/of_l3ls_v2.messages.out.'
+          event_out = KytosEvent(name=('<username>/of_l3ls_v2.messages.out.'
                                        'ofpt_packet_out'),
                                  content={'destination': source,
                                           'message': packet_out})
@@ -286,7 +291,7 @@ Create the ``KytosEvent`` and put it out right away.
                                                dl_addr=dest_mac))
           flow_mod.actions.append(ActionOutput(port=dest_port))
 
-          event_out = KytosEvent(name=('tutorial.of_l3ls_v2.messages.out.'
+          event_out = KytosEvent(name=('<username>.of_l3ls_v2.messages.out.'
                                        'ofpt_flow_mod'),
                                  content={'destination': source,
                                           'message': flow_mod})
@@ -335,7 +340,7 @@ addresses enabling the *L3 switch* to create the FlowMod next time.
           packet_out.data = frame.pack()
           packet_out.actions.append(ActionOutput(port=Port.OFPP_FLOOD))
 
-          event_out = KytosEvent(name=('tutorial/of_l3ls_v2.messages.out.'
+          event_out = KytosEvent(name=('<username>/of_l3ls_v2.messages.out.'
                                        'ofpt_packet_out'),
                                  content={'destination': source,
                                           'message': packet_out})
@@ -361,7 +366,7 @@ needed imports, and comments were removed to improve readability.
   from pyof.v0x01.controller2switch.flow_mod import FlowMod, FlowModCommand
   from pyof.v0x01.controller2switch.packet_out import PacketOut
 
-  from napps.tutorial.of_l3ls_v2 import settings
+  from napps.<username>.of_l3ls_v2 import settings
 
 
   class Main(KytosNApp):
@@ -419,7 +424,7 @@ needed imports, and comments were removed to improve readability.
               packet_out.data = frame.pack()
               packet_out.actions.append(ActionOutput(port=in_port))
 
-              event_out = KytosEvent(name=('tutorial/of_l3ls_v2.messages.out.'
+              event_out = KytosEvent(name=('<username>/of_l3ls_v2.messages.out.'
                                            'ofpt_packet_out'),
                                      content={'destination': source,
                                               'message': packet_out})
@@ -453,7 +458,7 @@ needed imports, and comments were removed to improve readability.
                                                    dl_addr=dest_mac))
               flow_mod.actions.append(ActionOutput(port=dest_port))
 
-              event_out = KytosEvent(name=('tutorial.of_l3ls_v2.messages.out.'
+              event_out = KytosEvent(name=('<username>.of_l3ls_v2.messages.out.'
                                            'ofpt_flow_mod'),
                                      content={'destination': source,
                                               'message': flow_mod})
@@ -476,7 +481,7 @@ needed imports, and comments were removed to improve readability.
               packet_out.data = frame.pack()
               packet_out.actions.append(ActionOutput(port=Port.OFPP_FLOOD))
 
-              event_out = KytosEvent(name=('tutorial/of_l3ls_v2.messages.out.'
+              event_out = KytosEvent(name=('<username>/of_l3ls_v2.messages.out.'
                                            'ofpt_packet_out'),
                                      content={'destination': source,
                                               'message': packet_out})
@@ -540,13 +545,33 @@ If the NApp is installed but not enabled, you can enable it by running:
 
 .. NOTE:: Enable only the kytos/of_core NApp. All other NApps shall be disabled.
 
-Now, install and run the *of_l3ls_v2* NApp:
+In order to run your NApp, you can install it locally or remotely:
+
+To install locally, you have to run the following commands:
+
+.. code-block:: console
+
+  $ cd ~/tutorials/<username>/of_l3ls_v2
+  $ python setup.py develop
+
+To install remotely, you have to publish it first:
+
+.. code-block:: console
+
+  $ cd ~/tutorials/<username>/of_l3ls_v2
+  $ kytos napps upload
+  Enter the username: <username>
+  Enter the password for <username>: <password>
+  SUCCESS: NApp <username>/of_l3ls_v2 uploaded.
+
+Now that you have published your NApp, you can access |napps_server|_ and see
+that it was sent. After that, install and run the *<username>/of_l3ls_v2* NApp:
 
 .. code-block:: console
 
   $ cd ~/tutorials
-  $ kytos napps install tutorial/of_l3ls_v2
-  INFO  NApp tutorial/of_l3ls_v2:
+  $ kytos napps install <username>/of_l3ls_v2
+  INFO  NApp <username>/of_l3ls_v2:
   INFO    Searching local NApp...
   INFO    Found and installed.
   INFO    Enabling...
@@ -599,17 +624,17 @@ looking at the controller logs:
 
 .. code-block:: console
 
-  2017-08-04 13:06:27,094 - INFO [tutorial/of_l3ls_v2] (Thread-216) Learning 10.0.0.1 at port 1 with mac da:56:82:67:77:3b.
-  2017-08-04 13:06:27,110 - INFO [tutorial/of_l3ls_v2] (Thread-216) Replygin arp request from 10.0.0.1
-  2017-08-04 13:06:27,137 - INFO [tutorial/of_l3ls_v2] (Thread-218) Packet received from 10.0.0.1 to 20.0.0.1
-  2017-08-04 13:06:27,148 - INFO [tutorial/of_l3ls_v2] (Thread-218) ARP request sent to 20.0.0.1
-  2017-08-04 13:06:27,158 - INFO [tutorial/of_l3ls_v2] (Thread-220) Learning 20.0.0.1 at port 2 with mac 1a:9c:0e:4e:28:50.
-  2017-08-04 13:06:28,113 - INFO [tutorial/of_l3ls_v2] (Thread-222) Packet received from 10.0.0.1 to 20.0.0.1
-  2017-08-04 13:06:28,128 - INFO [tutorial/of_l3ls_v2] (Thread-222) Flow installed! Subsequent packets will be sent directly.
-  2017-08-04 13:06:29,132 - INFO [tutorial/of_l3ls_v2] (Thread-224) Learning 20.0.0.1 at port 2 with mac 1a:9c:0e:4e:28:50.
-  2017-08-04 13:06:29,136 - INFO [tutorial/of_l3ls_v2] (Thread-224) Replygin arp request from 20.0.0.1
-  2017-08-04 13:06:29,151 - INFO [tutorial/of_l3ls_v2] (Thread-226) Packet received from 20.0.0.1 to 10.0.0.1
-  2017-08-04 13:06:29,160 - INFO [tutorial/of_l3ls_v2] (Thread-226) Flow installed! Subsequent packets will be sent directly.
+  2017-08-04 13:06:27,094 - INFO [<username>/of_l3ls_v2] (Thread-216) Learning 10.0.0.1 at port 1 with mac da:56:82:67:77:3b.
+  2017-08-04 13:06:27,110 - INFO [<username>/of_l3ls_v2] (Thread-216) Replygin arp request from 10.0.0.1
+  2017-08-04 13:06:27,137 - INFO [<username>/of_l3ls_v2] (Thread-218) Packet received from 10.0.0.1 to 20.0.0.1
+  2017-08-04 13:06:27,148 - INFO [<username>/of_l3ls_v2] (Thread-218) ARP request sent to 20.0.0.1
+  2017-08-04 13:06:27,158 - INFO [<username>/of_l3ls_v2] (Thread-220) Learning 20.0.0.1 at port 2 with mac 1a:9c:0e:4e:28:50.
+  2017-08-04 13:06:28,113 - INFO [<username>/of_l3ls_v2] (Thread-222) Packet received from 10.0.0.1 to 20.0.0.1
+  2017-08-04 13:06:28,128 - INFO [<username>/of_l3ls_v2] (Thread-222) Flow installed! Subsequent packets will be sent directly.
+  2017-08-04 13:06:29,132 - INFO [<username>/of_l3ls_v2] (Thread-224) Learning 20.0.0.1 at port 2 with mac 1a:9c:0e:4e:28:50.
+  2017-08-04 13:06:29,136 - INFO [<username>/of_l3ls_v2] (Thread-224) Replygin arp request from 20.0.0.1
+  2017-08-04 13:06:29,151 - INFO [<username>/of_l3ls_v2] (Thread-226) Packet received from 20.0.0.1 to 10.0.0.1
+  2017-08-04 13:06:29,160 - INFO [<username>/of_l3ls_v2] (Thread-226) Flow installed! Subsequent packets will be sent directly.
 
 Note that when the first ICMP packet arrives, the controller does not know the
 destination MAC and generates an ARP request, learning it just after the reply.
@@ -655,3 +680,9 @@ Good job!
 
 .. |dev_env| replace:: *Development Environment*
 .. _dev_env: http://tutorials.kytos.io/napps/development_environment_setup/
+
+.. |napps_server| replace:: *NApps Server*
+.. _napps_server: http://napps.kytos.io
+
+.. |napps_server_sign_up| replace:: **sign_up**
+.. _napps_server_sign_up: https://napps.kytos.io/signup/

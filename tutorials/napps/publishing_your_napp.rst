@@ -212,7 +212,7 @@ the command line with the following command:
 Search for and Install a remote NApp
 ************************************
 
-Now that you have published you NApp, you can install it by using the command
+Now that you have published your NApp, you can install it by using the command
 ``kytos napps install <username>/my_first_napp``.
 
 You can also look for other NApps published on the |napps_server|_, by using
@@ -246,7 +246,7 @@ the username, NApp name, description or tags.
 .. _napps_server: http://napps.kytos.io
 
 .. |napps_server_sign_up| replace:: **sign_up**
-.. _napps_server_sing_up: https://napps.kytos.io/signup/
+.. _napps_server_sign_up: https://napps.kytos.io/signup/
 
 .. |mininet| replace:: *Mininet*
 .. _mininet:  http://mininet.org/overview/

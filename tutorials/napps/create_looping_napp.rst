@@ -37,6 +37,12 @@ the controller or from the switches. In this situation, it is desirable to have
 a NApp that can run repeatedly without creating complex loops. Kytos provides
 the necessary tools to quick and easily create such a NApp.
 
+Before proceeding to the next section of this tutorial, go to the
+|napps_server_sign_up| in order to create a user for you on our
+|napps_server|_. After you submit the form you will receive an email to confirm
+your registration. Click on the link present on the email body and, after
+seeing the confirmation message on the screnn, go to the next section.
+
 ***********************
 Creating a looping NApp
 ***********************
@@ -73,17 +79,18 @@ Let's create the structure:
     - at least three characters
    --------------------------------------------------------------
 
-   Please, insert your NApps Server username: tutorial
+   Please, insert your NApps Server username: <username>
    Please, insert your NApp name: loopnapp
    Please, insert a brief description for your NApp [optional]: Loop NApp
 
    Congratulations! Your NApp have been bootstrapped!
-   Now you can go to the directory tutorial/loopnapp and begin to code your NApp.
+   Now you can go to the directory <username>/loopnapp and begin to code your NApp.
    Have fun!
 
-You will be asked for few questions. Answer them according to your needs, they
-are very basic questions like username and NApp name. For this tutorial, answer
-**tutorial** and **loopnapp**, respectively.
+You will be asked a few questions. Answer them according to your needs, they are
+very basic questions like username and NApp name. For this tutorial purpose, use
+your **<username>** (the one you have just registered) and **loopnapp**,
+respectively.
 
 .. TIP:: If you want to change the answers in the future, just edit the
    ``kytos.json`` file and rename the directories if necessary.
@@ -96,7 +103,7 @@ code:
 
 .. code-block:: console
 
-  $ cd ~/tutorials/tutorial/loopnapp
+  $ cd ~/tutorials/<username>/loopnapp
   $ gedit main.py settings.py
 
 settings.py
@@ -156,7 +163,7 @@ The entire NApp's source code of the looping NApp follows:
 .. code-block:: python3
 
     from kytos.core import KytosNApp, log
-    from napps.tutorial.loopnapp import settings
+    from napps.<username>.loopnapp import settings
 
 
     class Main(KytosNApp):
@@ -176,8 +183,9 @@ The entire NApp's source code of the looping NApp follows:
 Running your NApp
 *****************
 
-In order to install and enable your NApp, you have to first run the Kytos controller. Kytos will then be
-able to recognize and manage installed/enabled NApps. In another terminal window, activate the virtual environment and run:
+In order to install and enable your NApp, you have to first run the Kytos controller.
+Kytos will then be able to recognize and manage installed/enabled NApps. In another
+terminal window, activate the virtual environment and run:
 
 .. code-block:: console
 
@@ -193,18 +201,18 @@ able to recognize and manage installed/enabled NApps. In another terminal window
   2017-07-04 16:57:59,361 - INFO [kytos.core.controller] (AppEvent Handler) App Event Handler started
   2017-07-04 16:57:59,362 - INFO [kytos.core.controller] (MainThread) Loading Kytos NApps...
   2017-07-04 16:57:59,371 - INFO [kytos.core.napps.napp_dir_listener] (MainThread) NAppDirListener Started...
-  2017-07-04 16:57:59,373 - INFO [kytos.core.controller] (MainThread) Loading NApp tutorial/helloworld
-  2017-07-04 16:57:59,507 - INFO [tutorial/helloworld] (MainThread) Hello world! Now, I'm loaded!
+  2017-07-04 16:57:59,373 - INFO [kytos.core.controller] (MainThread) Loading NApp <username>/helloworld
+  2017-07-04 16:57:59,507 - INFO [<username>/helloworld] (MainThread) Hello world! Now, I'm loaded!
   2017-07-04 16:57:59,520 - INFO [root] (helloworld) Running NApp: <Main(helloworld, started 139775231104768)>
-  2017-07-04 16:57:59,527 - INFO [tutorial/helloworld] (helloworld) Hello world! I'm being executed!
+  2017-07-04 16:57:59,527 - INFO [<username>/helloworld] (helloworld) Hello world! I'm being executed!
 
   (...)
 
   kytos $>
 
-You can now list all NApps, verify which ones are enabled and disable them. Only the new NApp will run this time.
-Yes, we are not running any other NApp for now, we are disabling everything,
-including OpenFlow NApps.
+You can now list all NApps, verify which ones are enabled and disable them. Only
+the new NApp will run this time. Yes, we are not running any other NApp for now,
+we are disabling everything, including OpenFlow NApps.
 
 .. code-block:: bash
 
@@ -217,24 +225,44 @@ including OpenFlow NApps.
    [i-]  | kytos/of_l2ls             | An L2 learning switch application for OpenFlow swit...
    [i-]  | kytos/of_lldp             | Discovers switches and hosts in the network using t...
    [i-]  | kytos/topology            | Keeps track of links between hosts and switches. Re...
-   [ie]  | tutorial/helloworld       | Hello, world!
+   [ie]  | <username>/helloworld     | Hello, world!
 
   Status: (i)nstalled, (e)nabled
 
-  $ kytos napps disable tutorial/helloworld
-  INFO  NApp tutorial/helloworld:
+  $ kytos napps disable <username>/helloworld
+  INFO  NApp <username>/helloworld:
   INFO    Disabling...
   INFO    Disabled.
 
 
-In order to run your NApp, first you have to install it. Again, we are going
-to use the ``kytos`` command line from the ``kytos-utils`` package.
+In order to run your NApp, you can install it locally or remotely:
+
+To install locally, you have to run the following commands:
+
+.. code-block:: console
+
+  $ cd ~/tutorials/<username>/loopnapp
+  $ python setup.py develop
+
+To install remotely, you have to publish it first:
+
+.. code-block:: console
+
+  $ cd ~/tutorials/<username>/loopnapp
+  $ kytos napps upload
+  Enter the username: <username>
+  Enter the password for <username>: <password>
+  SUCCESS: NApp <username>/loopnapp uploaded.
+
+Now that you have published your NApp, you can access |napps_server|_ and see
+that it was sent. After that, you can install it using the ``kytos`` command
+line from the ``kytos-utils`` package:
 
 .. code-block:: console
 
   $ cd ~/tutorials
-  $ kytos napps install tutorial/loopnapp
-  INFO  NApp tutorial/loopnapp:
+  $ kytos napps install <username>/loopnapp
+  INFO  NApp <username>/loopnapp:
   INFO    Searching local NApp...
   INFO    Found and installed.
   INFO    Enabling...
@@ -257,8 +285,8 @@ You can now see your NApp installed and enabled by running the command:
    [i-]  | kytos/of_l2ls             | An L2 learning switch application for OpenFlow swit...
    [i-]  | kytos/of_lldp             | Discovers switches and hosts in the network using t...
    [i-]  | kytos/topology            | Keeps track of links between hosts and switches. Re...
-   [i-]  | tutorial/helloworld       | Hello, world!
-   [ie]  | tutorial/loopnapp         | Loop NApp
+   [i-]  | <username>/helloworld     | Hello, world!
+   [ie]  | <username>/loopnapp       | Loop NApp
 
 
 Testing your NApp
@@ -269,11 +297,11 @@ lines with ``Controller Uptime``, type ``quit`` to stop the controller.
 
 .. code-block:: console
 
-  kytos $> 2017-07-17 23:24:53,128 - INFO [tutorial/loopnapp] (Thread-1) Loop NApp Loaded!
+  kytos $> 2017-07-17 23:24:53,128 - INFO [<username>/loopnapp] (Thread-1) Loop NApp Loaded!
   2017-07-17 23:24:53,131 - INFO [root] (loopnapp) Running NApp: <Main(loopnapp, started 140460012750592)>
-  2017-07-17 23:24:53,134 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:01:14.565704
-  2017-07-17 23:25:08,138 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:01:29.569314
-  2017-07-17 23:25:23,141 - INFO [tutorial/loopnapp] (loopnapp) Controller Uptime: 0:01:44.572042
+  2017-07-17 23:24:53,134 - INFO [<username>/loopnapp] (loopnapp) Controller Uptime: 0:01:14.565704
+  2017-07-17 23:25:08,138 - INFO [<username>/loopnapp] (loopnapp) Controller Uptime: 0:01:29.569314
+  2017-07-17 23:25:23,141 - INFO [<username>/loopnapp] (loopnapp) Controller Uptime: 0:01:44.572042
   kytos $> quit
   Stopping Kytos daemon... Bye, see you!
   2017-07-17 23:25:29,729 - INFO [kytos.core.controller] (MainThread) Stopping Kytos
@@ -297,3 +325,9 @@ running periodically. If you want to change the interval later, modify only the
 
 .. |dev_env| replace:: *Development Environment*
 .. _dev_env: http://tutorials.kytos.io/napps/development_environment_setup/
+
+.. |napps_server| replace:: *NApps Server*
+.. _napps_server: http://napps.kytos.io
+
+.. |napps_server_sign_up| replace:: **sign_up**
+.. _napps_server_sign_up: https://napps.kytos.io/signup/
