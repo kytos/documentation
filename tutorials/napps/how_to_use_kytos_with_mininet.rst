@@ -12,10 +12,10 @@ Overview
 ********
 
 In this tutorial you will learn how to use the |mininet|_ tool to simulate a
-virtual network using the Openflow protocol and manage this virtual network
+virtual network using the OpenFlow protocol and manage this virtual network
 with **Kytos** and some of our Kytos NApps.
 
-The average time to go throught it is: ``10 min``
+The average time to go through it is: ``10 min``
 
 What you will need
 ===================
@@ -38,17 +38,17 @@ Introduction
 Now that you have your own development environment you can build a simple
 virtual network using the |mininet|_ tool. In this tutorial you will build a
 simple topology, composed of two switches and two hosts connected to each
-switch. This virtual network should be handled by the controller **Kytos** and
-will use the OpenFlow protocol.
+switch. This virtual network should be handled by the **Kytos** controller
+and will use the OpenFlow protocol.
 
-In this tutorial the NApps ``of_core``, ``of_l2ls`` and ``of_lldp`` must be
+In this tutorial the ``of_core``, ``of_l2ls`` and ``of_lldp`` NApps must be
 installed and enabled in order to make the network work as expected.
 
 *****************************
 How to manage the Kytos NApps
 *****************************
 
-First of all, you need to run Kytos to start the NApp management.
+First of all, you need start Kytos:
 
 .. code-block:: console
 
@@ -89,7 +89,7 @@ NApps enabled and running. To disable them, run:
 
 To enable the NApps used in this tutorial, you need to have them installed on your
 system. You probably already have them, but, in case you don't, you can install
-them with the kytos-utils package by doing:
+them with the `kytos-utils` package by doing:
 
 .. NOTE:: Do not forget to enable your virtualenv, where you installed the
     Kytos project components.
@@ -98,9 +98,9 @@ them with the kytos-utils package by doing:
 
  $ kytos napps install kytos/of_core kytos/of_l2ls kytos/of_lldp
 
-Now your Napps are installed, enabled, and being executed.
+Now your Napps are installed, enabled and running.
 
-You can also verify the NApps state by running the comamnd:
+You can also verify the state of each NApp by running the comamnd:
 
 .. code-block:: console
 
@@ -117,7 +117,7 @@ with the command:
 Brief description about the NApps used in this tutorial
 *******************************************************
 
-As said earlier, we will use the NApps **of_core**, **of_l2ls** and **of_lldp**
+As we said earlier, we will use the **of_core**, **of_l2ls** and **of_lldp** NApps
 provided by the Kytos team. In this section you will learn a little about each
 one.
 
@@ -125,8 +125,8 @@ of_core
 =======
 
 The **of_core** application is responsible for doing basic OpenFlow operations,
-such as handling hello and echo request/reply messages and also receiving and
-unpacking openflow messages from the network.
+such as handling hello and echo request/reply messages, and also receiving and
+unpacking OpenFlow messages from the network.
 
 of_l2ls
 =======
@@ -139,9 +139,9 @@ be able to ping from a host to another.
 of_lldp
 =======
 
-The **of_lldp** application implements the protocol *Link Layer Discovery
-Protocol* (LLDP). This protocol is vendor free and used to discover network
-devices and all links between them. This protocol is implemented at network
+The **of_lldp** application implements the *Link Layer Discovery
+Protocol* (LLDP). This is a vendor-neutral protocol useful for discovering network
+devices and the links between them. This protocol is implemented at the network
 layer 2 (L2), and defined in the IEEE 802.1ab. A network manager system (NMS)
 can rapidly obtain the L2 network topology and topology changes over the time
 using LLDP.
@@ -152,10 +152,10 @@ How to build a simple topology
 
 Now that you have installed and enabled only NApps used by this tutorial, you
 must turn on the |mininet|_ service. We will build a simple network, using two
-switches and two hosts, being each host connected to one switch, and also we
-need to define that the switches will work on the OpenFlow 1.0 protocol.
+switches and two hosts, with each host connected to one switch, and we'll also
+define that the switches will work on the OpenFlow 1.0 protocol.
 
-To do this use the command below:
+To do this, use the command below:
 
 .. code-block:: console
 
@@ -181,8 +181,8 @@ To do this use the command below:
 After running that command, the mininet output will show that two hosts and two
 switches were created, and that the switches and the hosts are linked. So, the
 mininet console will be activated and you can send commands to each switch or
-host connected. For instance, if you need see the IP Address of the host 1 you
-can use the command below.
+host connected. For instance, if you need to see the IP Address of host1 (`h1`)
+you can use the command below.
 
 .. code-block:: console
 
@@ -207,8 +207,8 @@ can use the command below.
 
   mininet>
 
-As Kytos is running with the necessary NApps, yout topology will be fully
-functional now. You can test it with ping (ICMP protocol) by running, in
+As Kytos is running with the necessary NApps, your topology should be fully
+functional by now. You can test it with ping (ICMP protocol) by running, in
 mininet:
 
 .. code-block:: console
@@ -256,14 +256,14 @@ Let's take a look at the terminal:
 
 On Kytos logs you can see the logs of all enabled NApps.
 
-In the above output, the last four lines shows that two new switches were
+In the above output, the last four lines shows us that two new switches were
 connected to Kytos. Those are the switches running in mininet.
 
-When a NApp write a log message, Kytos shows it in this format: ::
+When a NApp writes a log message, Kytos shows it in this format: ::
 
   <date_format> - <TYPE_OF_MESSAGE> [<NAPP_NAME>] <MESSAGE>
 
-You can see messages logged by Kytos (kytos.core.*) and by the running NApps.
+You can see the messages logged by Kytos (kytos.core.*) and by the running NApps.
 
 Good job!
 
