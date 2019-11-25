@@ -46,13 +46,19 @@ the network automatically, identifying interfaces by their |macs|_, learning whe
 each one is located and installing reactive flows in switches, handling the traffic
 based on the source/destination MACs.
 
+Before proceeding to the next section of this tutorial, go to the
+|napps_server_sign_up| in order to create a user for you on our
+|napps_server|_. After you submit the form you will receive an email to confirm
+your registration. Click on the link present on the email body and, after
+seeing the confirmation message on the screnn, go to the next section.
+
 ******************
 Creating your NApp
 ******************
 
-First, create your NApp using the ``kytos`` command. Use 'tutorial' as the
-username and 'of_l2ls' as the NApp name, as follows (don't forget to create
-the ``~/tutorials`` folder if it does not exist):
+First, create your NApp using the ``kytos`` command. Use use your **<username>**
+(the one you have just registered) as the username and 'of_l2ls' as the NApp name,
+as follows (don't forget to create the ``~/tutorials`` folder if it does not exist):
 
 .. code-block:: console
 
@@ -68,12 +74,12 @@ the ``~/tutorials`` folder if it does not exist):
    - at least three characters
   --------------------------------------------------------------
 
-  Please, insert your NApps Server username: tutorial
+  Please, insert your NApps Server username: <username>
   Please, insert your NApp name: of_l2ls
   Please, insert a brief description for your NApp [optional]: This NApp does packet switching using L2 information
 
   Congratulations! Your NApp have been bootstrapped!
-  Now you can go to the directory tutorial/of_l2ls and begin to code your NApp.
+  Now you can go to the directory <username>/of_l2ls and begin to code your NApp.
   Have fun!
 
 Open the ``main.py`` file in your preferred editor to start coding your NApp.
@@ -160,7 +166,7 @@ that sent you the PacketIn, and put this event in the ``msg_out`` buffer.
             # Example: matching the VLAN ID 200:
             # flow_mod.match.dl_vlan = 200
             flow_mod.actions.append(ActionOutput(port=dest_ports[0]))
-            event_out = KytosEvent(name=('tutorial/of_l2ls.messages.out.'
+            event_out = KytosEvent(name=('<username>/of_l2ls.messages.out.'
                                          'ofpt_flow_mod'),
                                    content={'destination': event.source,
                                             'message': flow_mod})
@@ -199,7 +205,7 @@ Once again, create a KytosEvent and put it in the ``msg_out`` buffer.
 
         port = dest_ports[0] if dest_ports else Port.OFPP_FLOOD
         packet_out.actions.append(ActionOutput(port=port))
-        event_out = KytosEvent(name=('tutorial/of_l2ls.messages.out.'
+        event_out = KytosEvent(name=('<username>/of_l2ls.messages.out.'
                                      'ofpt_packet_out'),
                                content={'destination': event.source,
                                         'message': packet_out})
@@ -225,7 +231,7 @@ needed imports, and comments were removed to improve readability.
   from pyof.v0x01.controller2switch.flow_mod import FlowMod, FlowModCommand
   from pyof.v0x01.controller2switch.packet_out import PacketOut
 
-  from napps.tutorial.of_l2ls import settings
+  from napps.<username>.of_l2ls import settings
 
 
   class Main(KytosNApp):
@@ -260,7 +266,7 @@ needed imports, and comments were removed to improve readability.
               flow_mod.match.dl_dst = ethernet.destination.value
               flow_mod.match.dl_type = ethernet.ether_type
               flow_mod.actions.append(ActionOutput(port=dest_ports[0]))
-              event_out = KytosEvent(name=('tutorial/of_l2ls.messages.out.'
+              event_out = KytosEvent(name=('<username>/of_l2ls.messages.out.'
                                            'ofpt_flow_mod'),
                                      content={'destination': event.source,
                                               'message': flow_mod})
@@ -274,7 +280,7 @@ needed imports, and comments were removed to improve readability.
 
           port = dest_ports[0] if dest_ports else Port.OFPP_FLOOD
           packet_out.actions.append(ActionOutput(port=port))
-          event_out = KytosEvent(name=('tutorial/of_l2ls.messages.out.'
+          event_out = KytosEvent(name=('<username>/of_l2ls.messages.out.'
                                        'ofpt_packet_out'),
                                  content={'destination': event.source,
                                           'message': packet_out})
@@ -335,13 +341,33 @@ If the NApp is installed but not enabled, you can enable it by running:
 
   $ kytos napps enable kytos/of_core
 
-Now, install and run the *tutorial/of_l2ls* NApp:
+In order to run your NApp, you can install it locally or remotely:
+
+To install locally, you have to run the following commands:
+
+.. code-block:: console
+
+  $ cd ~/tutorials/<username>/of_l2ls
+  $ python setup.py develop
+
+To install remotely, you have to publish it first:
+
+.. code-block:: console
+
+  $ cd ~/tutorials/<username>/of_l2ls
+  $ kytos napps upload
+  Enter the username: <username>
+  Enter the password for <username>: <password>
+  SUCCESS: NApp <username>/of_l2ls uploaded.
+
+Now that you have published your NApp, you can access |napps_server|_ and see
+that it was sent. After that, install and run the *<username>/of_l2ls* NApp:
 
 .. code-block:: console
 
   $ cd ~/tutorials
-  $ kytos napps install tutorial/of_l2ls
-  INFO  NApp tutorial/of_l2ls:
+  $ kytos napps install <username>/of_l2ls
+  INFO  NApp <username>/of_l2ls:
   INFO    Searching local NApp...
   INFO    Found and installed.
   INFO    Enabling...
@@ -373,18 +399,18 @@ Now, in the Mininet console, run:
   64 bytes from 10.0.0.2: icmp_seq=5 ttl=64 time=0.114 ms
 
 The pings are sucessful! Communication between the hosts is possible because the
-*tutorial/of_l2ls* NApp has dealt with the Flows. You can check it by looking at the controller
+*<username>/of_l2ls* NApp has dealt with the Flows. You can check it by looking at the controller
 logs:
 
 .. code-block:: console
 
-  2017-07-25 16:04:07,150 - INFO [tutorial/of_l2ls] (Thread-88) Packet received from 00:00:af:d5:38:98 to 00:00:1a:1e:9a:cf.
-  2017-07-25 16:04:07,165 - INFO [tutorial/of_l2ls] (Thread-90) Packet received from 00:00:1a:1e:9a:cf to 00:00:af:d5:38:98.
-  2017-07-25 16:04:07,166 - INFO [tutorial/of_l2ls] (Thread-90) 00:00:af:d5:38:98 is at port 1.
-  2017-07-25 16:04:07,177 - INFO [tutorial/of_l2ls] (Thread-90) Flow installed! Subsequent packets will be sent directly.
-  2017-07-25 16:04:08,148 - INFO [tutorial/of_l2ls] (Thread-94) Packet received from 00:00:af:d5:38:98 to 00:00:1a:1e:9a:cf.
-  2017-07-25 16:04:08,150 - INFO [tutorial/of_l2ls] (Thread-94) 00:00:1a:1e:9a:cf is at port 2.
-  2017-07-25 16:04:08,163 - INFO [tutorial/of_l2ls] (Thread-94) Flow installed! Subsequent packets will be sent directly.
+  2017-07-25 16:04:07,150 - INFO [<username>/of_l2ls] (Thread-88) Packet received from 00:00:af:d5:38:98 to 00:00:1a:1e:9a:cf.
+  2017-07-25 16:04:07,165 - INFO [<username>/of_l2ls] (Thread-90) Packet received from 00:00:1a:1e:9a:cf to 00:00:af:d5:38:98.
+  2017-07-25 16:04:07,166 - INFO [<username>/of_l2ls] (Thread-90) 00:00:af:d5:38:98 is at port 1.
+  2017-07-25 16:04:07,177 - INFO [<username>/of_l2ls] (Thread-90) Flow installed! Subsequent packets will be sent directly.
+  2017-07-25 16:04:08,148 - INFO [<username>/of_l2ls] (Thread-94) Packet received from 00:00:af:d5:38:98 to 00:00:1a:1e:9a:cf.
+  2017-07-25 16:04:08,150 - INFO [<username>/of_l2ls] (Thread-94) 00:00:1a:1e:9a:cf is at port 2.
+  2017-07-25 16:04:08,163 - INFO [<username>/of_l2ls] (Thread-94) Flow installed! Subsequent packets will be sent directly.
 
 Once the flows are set in both directions, the switch sends the packets direclty.
 Good job!
@@ -408,3 +434,9 @@ Good job!
 
 .. |dev_env| replace:: *Development Environment*
 .. _dev_env: http://tutorials.kytos.io/napps/development_environment_setup/
+
+.. |napps_server| replace:: *NApps Server*
+.. _napps_server: http://napps.kytos.io
+
+.. |napps_server_sign_up| replace:: **sign_up**
+.. _napps_server_sign_up: https://napps.kytos.io/signup/

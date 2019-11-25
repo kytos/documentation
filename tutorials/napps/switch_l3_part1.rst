@@ -63,13 +63,19 @@ network.
 .. ATTENTION:: This NApp was designed for instructional purposes. Running it in
     production environments may lead to unwanted behavior.
 
+Before proceeding to the next section of this tutorial, go to the
+|napps_server_sign_up| in order to create a user for you on our
+|napps_server|_. After you submit the form you will receive an email to confirm
+your registration. Click on the link present on the email body and, after
+seeing the confirmation message on the screnn, go to the next section.
+
 ******************
 Creating your NApp
 ******************
 
-First, create your NApp using the ``kytos`` command. Use 'tutorial' as the
-username and 'of_l3ls' as the NApp name, as follows (don't forget to create
-the ``~/tutorials`` folder if it does not exist):
+First, create your NApp using the ``kytos`` command. Use your **<username>**
+(the one you have just registered) as the username and 'of_l3ls' as the NApp name,
+as follows (don't forget to create the ``~/tutorials`` folder if it does not exist):
 
 .. code-block:: console
 
@@ -85,12 +91,12 @@ the ``~/tutorials`` folder if it does not exist):
    - at least three characters
   --------------------------------------------------------------
 
-  Please, insert your NApps Server username: tutorial
+  Please, insert your NApps Server username: <username>
   Please, insert your NApp name: of_l3ls
   Please, insert a brief description for your NApp [optional]: This NApp does packet switching using L3 information
 
   Congratulations! Your NApp have been bootstrapped!
-  Now you can go to the directory tutorial/of_l3ls and begin to code your NApp.
+  Now you can go to the directory <username>/of_l3ls and begin to code your NApp.
   Have fun!
 
 Start copying the ``main.py`` file from the |l2_tutorial|_: you'll change it to
@@ -99,7 +105,7 @@ coding your NApp.
 
 .. code-block:: console
 
-  $ cp tutorial/of_l2ls/main.py tutorial/of_l3ls/main.py
+  $ cp <username>/of_l2ls/main.py <username>/of_l3ls/main.py
 
 Create an L3 switching table
 ============================
@@ -143,7 +149,7 @@ L3 switch will have *proactive* flows matching ARP.
       arp_flow_mod.match = Match()
       arp_flow_mod.match.dl_type = EtherType.ARP
       arp_flow_mod.actions.append(ActionOutput(port=Port.OFPP_FLOOD))
-      event_out = KytosEvent(name=('tutorial/of_l3ls.messages.out.'
+      event_out = KytosEvent(name=('<username>/of_l3ls.messages.out.'
                                    'ofpt_flow_mod'),
                              content={'destination': switch.connection,
                                       'message': arp_flow_mod})
@@ -220,7 +226,7 @@ needed imports, and comments were removed to improve readability.
     from pyof.v0x01.controller2switch.flow_mod import FlowMod, FlowModCommand
     from pyof.v0x01.controller2switch.packet_out import PacketOut
 
-    from napps.tutorial.of_l3ls import settings
+    from napps.<username>.of_l3ls import settings
 
 
     class Main(KytosNApp):
@@ -240,7 +246,7 @@ needed imports, and comments were removed to improve readability.
             arp_flow_mod.match = Match()
             arp_flow_mod.match.dl_type = EtherType.ARP
             arp_flow_mod.actions.append(ActionOutput(port=Port.OFPP_FLOOD))
-            event_out = KytosEvent(name=('tutorial/of_l3ls.messages.out.'
+            event_out = KytosEvent(name=('<username>/of_l3ls.messages.out.'
                                    'ofpt_flow_mod'),
                              content={'destination': switch.connection,
                                       'message': arp_flow_mod})
@@ -274,7 +280,7 @@ needed imports, and comments were removed to improve readability.
                     flow_mod.match.nw_dst = ipv4.destination
                     flow_mod.match.dl_type = ethernet.ether_type
                     flow_mod.actions.append(ActionOutput(port=dest_port))
-                    event_out = KytosEvent(name=('tutorial/of_l3ls.messages.out.'
+                    event_out = KytosEvent(name=('<username>/of_l3ls.messages.out.'
                                                  'ofpt_flow_mod'),
                                            content={'destination': event.source,
                                                     'message': flow_mod})
@@ -288,7 +294,7 @@ needed imports, and comments were removed to improve readability.
 
                 port = dest_port if dest_port is not None else Port.OFPP_FLOOD
                 packet_out.actions.append(ActionOutput(port=port))
-                event_out = KytosEvent(name=('tutorial/of_l3ls.messages.out.'
+                event_out = KytosEvent(name=('<username>/of_l3ls.messages.out.'
                                              'ofpt_packet_out'),
                                        content={'destination': event.source,
                                                 'message': packet_out})
@@ -350,13 +356,33 @@ If the NApp is installed but not enabled, you can enable it by running:
 
   $ kytos napps enable kytos/of_core
 
-Now, install and run the *of_l3ls* NApp:
+In order to run your NApp, you can install it locally or remotely:
+
+To install locally, you have to run the following commands:
+
+.. code-block:: console
+
+  $ cd ~/tutorials/<username>/of_l3ls
+  $ python setup.py develop
+
+To install remotely, you have to publish it first:
+
+.. code-block:: console
+
+  $ cd ~/tutorials/<username>/of_l3ls
+  $ kytos napps upload
+  Enter the username: <username>
+  Enter the password for <username>: <password>
+  SUCCESS: NApp <username>/of_l3ls uploaded.
+
+Now that you have published your NApp, you can access |napps_server|_ and see
+that it was sent. After that, install and run the *<username>/of_l3ls* NApp:
 
 .. code-block:: console
 
   $ cd ~/tutorials
-  $ kytos napps install tutorial/of_l3ls
-  INFO  NApp tutorial/of_l3ls:
+  $ kytos napps install <username>/of_l3ls
+  INFO  NApp <username>/of_l3ls:
   INFO    Searching local NApp...
   INFO    Found and installed.
   INFO    Enabling...
@@ -393,13 +419,13 @@ logs:
 
 .. code-block:: console
 
-  2017-07-25 16:04:07,150 - INFO [tutorial/of_l3ls] (Thread-88) Packet received from 10.0.0.1 to 10.0.0.2.
-  2017-07-25 16:04:07,165 - INFO [tutorial/of_l3ls] (Thread-90) Packet received from 10.0.0.2 to 10.0.0.1.
-  2017-07-25 16:04:07,166 - INFO [tutorial/of_l3ls] (Thread-90) 10.0.0.1 is at port 1.
-  2017-07-25 16:04:07,177 - INFO [tutorial/of_l3ls] (Thread-90) Flow installed! Subsequent packets will be sent directly.
-  2017-07-25 16:04:08,148 - INFO [tutorial/of_l3ls] (Thread-94) Packet received from 10.0.0.1 to 10.0.0.2.
-  2017-07-25 16:04:08,150 - INFO [tutorial/of_l3ls] (Thread-94) 10.0.0.2 is at port 2.
-  2017-07-25 16:04:08,163 - INFO [tutorial/of_l3ls] (Thread-94) Flow installed! Subsequent packets will be sent directly.
+  2017-07-25 16:04:07,150 - INFO [<username>/of_l3ls] (Thread-88) Packet received from 10.0.0.1 to 10.0.0.2.
+  2017-07-25 16:04:07,165 - INFO [<username>/of_l3ls] (Thread-90) Packet received from 10.0.0.2 to 10.0.0.1.
+  2017-07-25 16:04:07,166 - INFO [<username>/of_l3ls] (Thread-90) 10.0.0.1 is at port 1.
+  2017-07-25 16:04:07,177 - INFO [<username>/of_l3ls] (Thread-90) Flow installed! Subsequent packets will be sent directly.
+  2017-07-25 16:04:08,148 - INFO [<username>/of_l3ls] (Thread-94) Packet received from 10.0.0.1 to 10.0.0.2.
+  2017-07-25 16:04:08,150 - INFO [<username>/of_l3ls] (Thread-94) 10.0.0.2 is at port 2.
+  2017-07-25 16:04:08,163 - INFO [<username>/of_l3ls] (Thread-94) Flow installed! Subsequent packets will be sent directly.
 
 Once the flows are set in both directions, the switch sends the packets direclty.
 Good job!
@@ -423,3 +449,9 @@ Good job!
 
 .. |l2_tutorial| replace:: *L2 Learning Switch tutorial*
 .. _l2_tutorial: http://tutorials.kytos.io/napps/switch_l2/
+
+.. |napps_server| replace:: *NApps Server*
+.. _napps_server: http://napps.kytos.io
+
+.. |napps_server_sign_up| replace:: **sign_up**
+.. _napps_server_sign_up: https://napps.kytos.io/signup/

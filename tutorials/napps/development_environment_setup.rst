@@ -141,7 +141,8 @@ To install the latest Kytos from source, first you need to start your environmen
 
   $ source YOURENV/bin/activate
 
-Then you need to run the commands below to clone the python-openflow, kytos-utils and kytos projects locally. 
+Then you need to run the commands below to clone the python-openflow,
+kytos-utils and kytos projects locally. 
 
 .. code-block:: shell
 
@@ -149,7 +150,8 @@ Then you need to run the commands below to clone the python-openflow, kytos-util
     git clone https://github.com/kytos/${repo}
   done
 
-After cloning, the Kytos installation process is done running setuptools installation procedure for each cloned repository, in order. Below we execute its commands.
+After cloning, the Kytos installation process is done running setuptools installation
+procedure for each cloned repository, in order. Below we execute its commands.
 
 .. code-block:: shell
 
