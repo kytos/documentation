@@ -297,7 +297,7 @@ it has expired.
 
 Congratulations! You have completed the tutorial and explored the creation of REST
 endpoints using different request methods like POST, PATCH and DELETE. One tip is
-that you can use a REST client named Postman to test your application.
+that you can use a REST client named |Postman|_ to test your application.
 
 
 .. include:: ../back_to_list.rst
