@@ -182,8 +182,8 @@ you will receive a message with a return like this:
     GET http://0.0.0.0:8181/api/<username>/<napp_name>/name
 
     $ curl -X GET \
-        -H 'Content-type:application/json' \
-        -H 'Accept:application/json' \
+        -H 'Content-type: application/json' \
+        -H 'Accept: application/json' \
         http://0.0.0.0:8181/api/<username>/<napp_name>/name
 
     {"REST NApp"}
@@ -225,8 +225,8 @@ superuser login process.
     GET http://0.0.0.0:8181/api/<username>/<napp_name>/name
 
     $ curl -X GET \
-        -H 'Content-type:application/json' \
-        -H 'Accept:application/json' \
+        -H 'Content-type: application/json' \
+        -H 'Accept: application/json' \
         http://0.0.0.0:8181/api/<username>/<napp_name>/name
 
     {"error": "Token not send or expired."}
@@ -261,8 +261,8 @@ request the access token:
     GET http://0.0.0.0:8181/api/kytos/core/auth/login/
 
     $ curl -X GET \
-        -H 'Accept:application/json' \
-        -H 'Authorization:Basic <username>:<password>' \
+        -H 'Accept: application/json' \
+        -H 'Authorization: Basic <username>:<password>' \
         http://0.0.0.0:8181/api/kytos/core/auth/login/
 
 You will receive the token:
