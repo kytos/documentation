@@ -128,7 +128,7 @@ First you will create an ARP table, to store known associations of IP addresses
 to MAC addresses in the network. You will also create a forwarding table to
 learn at which physical port each IP address can be reached.
 
-The tables are implemented as Python dictionaries. The metod needs a decorator
+The tables are implemented as Python dictionaries. The method needs a decorator
 in order to listen to the Kytos's *new switch* event.
 
 .. code-block:: python3

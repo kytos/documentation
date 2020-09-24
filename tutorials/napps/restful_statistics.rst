@@ -139,7 +139,7 @@ Finally, let's generate 5 packets per second from host h1 to h2 with:
 
 .. code-block:: console
 
-  mininet> h1 ping -i 0.2 h2
+  mininet> h1 ping -i 0,2 h2
 
 
 ********
