@@ -142,7 +142,7 @@ Finally, let's generate 5 packets per second from host h1 to h2 with:
   mininet> h1 ping -i 0.2 h2
 
 
-.. note:: If by using the command above you perhaps got `ping: bad timing interval: 0.2`  as an answer from the mininet, you can solve it by just changing the notation `'0.2'` to `'0,2'` in your interval, or you can run `export LC_NUMERIC="en_US.UTF-8` in your terminal to make sure that at least locale you are using the `en_US.UTF-8` notation. Or you can also change for system wide  by using `echo 'export LC_NUMERIC="en_US.UTF-8"' >>~/.bashrc`
+.. note:: If by using the command above you perhaps got `ping: bad timing interval: 0.2`  as an answer from the mininet, you can solve it by just changing the notation `'0.2'` to `'0,2'` in your interval, or you can run `export LC_NUMERIC="en_US.UTF-8` in your terminal to make sure that at least locale you are using the `en_US.UTF-8` notation.
 
 ********
 REST API
@@ -198,7 +198,7 @@ humans to understand the data. Let's take a closer look at some lines:
 *Bps* and *pps* mean bytes per second and packets per second, respectively.
 As we are sending one ping every 0.2 seconds, *pps* will be close to 5.
 
-In the Mininet console, hit ``ctrl+c`` and run ``h1 ping -i 0,5 h2``.
+In the Mininet console, hit ``ctrl+c`` and run ``h1 ping -i 0.5 h2``.
 After a few seconds, *pps* will be close to 2.
 
 ********
