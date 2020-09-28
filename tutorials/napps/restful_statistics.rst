@@ -142,7 +142,11 @@ Finally, let's generate 5 packets per second from host h1 to h2 with:
   mininet> h1 ping -i 0.2 h2
 
 
-.. note:: If by using the command above you perhaps got `ping: bad timing interval: 0.2`  as an answer from the mininet, you can solve it by just changing the notation `'0.2'` to `'0,2'` in your interval, or you can run `export LC_NUMERIC="en_US.UTF-8` in your terminal to make sure that at least locale you are using the `en_US.UTF-8` notation.
+.. note:: If the command above returned `ping: bad timing interval: 0.2`, 
+you can fix it by just changing the notation `'0.2'` to `'0,2'` in your
+interval parameter, or you can run `export LC_NUMERIC="en_US.UTF-8"` in
+the terminal just before running mininet to make sure that you are using the
+English numeric notation.
 
 ********
 REST API
