@@ -214,7 +214,7 @@ You can now list all NApps, verify which ones are enabled and disable them. Only
 the new NApp will run this time. Yes, we are not running any other NApp for now,
 we are disabling everything, including OpenFlow NApps.
 
-.. code-block:: bash
+.. code-block:: console
 
   $ kytos napps list
 
@@ -274,7 +274,7 @@ line from the ``kytos-utils`` package:
 
 You can now see your NApp installed and enabled by running the command:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ kytos napps list
 

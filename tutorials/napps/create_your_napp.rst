@@ -118,7 +118,7 @@ unloaded by the controller.
 
 Let's create the NApp structure:
 
-.. code-block:: bash
+.. code-block:: console
 
    $ cd
    $ mkdir tutorials
@@ -133,7 +133,7 @@ respectively.
 
 The output should be something like this:
 
-.. code-block:: bash
+.. code-block:: console
 
   --------------------------------------------------------------
   Welcome to the bootstrap process of your NApp.
@@ -161,7 +161,7 @@ Now, we have a bootstrap NApp structure to work with.
 During this tutorial, the only file that we need to worry about is the
 ``main.py``. Open it with your preferred editor and let's code.
 
-.. code-block:: bash
+.. code-block:: console
 
   $ cd ~/tutorials
   $ gedit <username>/helloworld/main.py
@@ -287,7 +287,7 @@ your virtual environment and execute:
 You can list all installed and enabled NApps by switching back to the previous terminal and
 running the command:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ kytos napps list
 

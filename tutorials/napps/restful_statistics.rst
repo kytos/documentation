@@ -37,7 +37,7 @@ Installing required dependencies
 The NApp used in this tutorial, *kytos/of_stats*, has some dependencies that
 must be installed on your system beforehand. To get them, run:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ sudo apt update
   $ sudo apt install rrdtool librrd-dev
@@ -72,7 +72,7 @@ Installing the statistics NApp
 
 Search for NApps with the term *of_stats*. You should see something like this:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ kytos napps search of_stats
 
@@ -103,7 +103,7 @@ You can either check the status by running the search command again or by
 listing all of your local network applications. If the NApp is installed but
 not enabled, don't forget to enable it:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ kytos napps list
 

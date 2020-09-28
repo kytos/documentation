@@ -47,7 +47,7 @@ Python3.6 in old Ubuntu releases
 If are you using Ubuntu 16.04 or older, you must add a PPA to be able to
 install Python 3.6 packages. To add this PPA, use the commands:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ sudo add-apt-repository ppa:jonathonf/python-3.6
   $ sudo apt update
@@ -57,7 +57,7 @@ Required packages
 
 The required Ubuntu packages can be installed by:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ sudo apt install git libpython3.6-dev python3.6 python3.6-venv
 
@@ -82,7 +82,7 @@ Creating a new virtualenv
 To create a new virtualenv, use the command below (you can replace ``test42``
 by another name, if you wish):
 
-.. code-block:: bash
+.. code-block:: console
 
    $ python3.6 -m venv test42
 
@@ -104,7 +104,7 @@ Using the virtual environment
 
 If you want to use an existing environment you can use the following command:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ source test42/bin/activate
 
@@ -112,7 +112,7 @@ After that, your console prompt will show the activated virtualenv name between
 parenthesis. Now, update the *pip* package that is already installed in the
 virtualenv, with setuptools and wheel as well:
 
-.. code-block:: bash
+.. code-block:: console
 
   (test42) $ pip install --upgrade pip setuptools wheel
 
@@ -137,7 +137,7 @@ Installing from Source
 
 To install the latest Kytos from source, first you need to start your environment:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ source YOURENV/bin/activate
 
@@ -169,7 +169,7 @@ later in the following tutorials. To enable NApps management, we need Kytos
 running, so open another terminal window, make sure your virtualenv is active
 and run:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ source test42/bin/activate
   $ kytosd -f
@@ -181,7 +181,7 @@ Now that Kytos is running, switch back to the previous window and install the
 NApps using the ``kytos`` command line utility. You will also disable the NApps,
 just for now.
 
-.. code-block:: bash
+.. code-block:: console
 
   $ kytos napps install kytos/of_core \
      kytos/flow_manager \
@@ -208,7 +208,7 @@ First, we need to install the mininet package. The `Mininet project
 instance, you can use a virtual machine or you can install it to you operating
 system.
 
-.. code-block:: bash
+.. code-block:: console
 
   $ sudo apt install mininet
 
