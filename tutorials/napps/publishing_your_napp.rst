@@ -197,7 +197,7 @@ Your NApp is now uploaded. You can see it on the web
 (`<https://napps.kytos.io/<username>/my_first_napp`) or search for it through
 the command line with the following command:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ kytos napps search <username>/my_first_napp
 
@@ -219,7 +219,7 @@ You can also look for other NApps published on the |napps_server|_, by using
 the command ``kytos napps search`` followed by some keyword to match against
 the username, NApp name, description or tags.
 
-.. code-block:: bash
+.. code-block:: console
 
   $ kytos napps search kytos
 

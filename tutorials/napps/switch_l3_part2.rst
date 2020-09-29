@@ -524,7 +524,7 @@ As you can see, there is a log line indicating that *kytos/of_core* is running.
 You need the OpenFlow core NApp installed and enabled. It is possible to check
 it by running, in the previous terminal window:
 
-.. code-block:: bash
+.. code-block:: console
 
   $ kytos napps list
 

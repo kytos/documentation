@@ -457,7 +457,7 @@ To install and enable your NApps, run the commands below:
 Now, your Ping and Pong NApps are installed, enabled, and being executed. You can see this
 by running the command:
 
-.. code:: bash
+.. code-block:: console
 
   $ kytos napps list
   Status |          NApp ID          |                     Description
