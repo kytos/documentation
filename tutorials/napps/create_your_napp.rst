@@ -95,7 +95,7 @@ and files. We provide a tool to generate this structure for you! ::
 - **settings.py**: Main settings parameters of your NApp (if applicable).
 - **main.py**: Main source code of your NApp.
 - **README.rst**: Main description and information about your NApp.
-- **ui**: Folder that contain all NApp components displayed by Kytos UI.
+- **ui**: Folder that contains all NApp components displayed by the Kytos UI.
 
 During this tutorial we are going to use only the ``main.py`` file
 (``kytos.json`` content will be automatically created by our tool).
