@@ -82,6 +82,7 @@ and files. We provide a tool to generate this structure for you! ::
       ├── main.py
       ├── README.rst
       ├── settings.py
+      ├── setup.py
       └── ui/
           ├── k-action-menu
           ├── k-info-panel
