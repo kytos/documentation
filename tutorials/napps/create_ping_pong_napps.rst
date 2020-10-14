@@ -424,7 +424,7 @@ To install locally, you have to run the following commands:
 
   for napp in ping pong; do
     $ cd ~/tutorials/<username>/{napp}
-    $ python setup.py develop
+    $ python3 setup.py develop
   done
 
 To install remotely, you have to publish them first:
