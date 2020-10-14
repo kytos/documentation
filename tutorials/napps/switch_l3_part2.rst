@@ -552,7 +552,7 @@ To install locally, you have to run the following commands:
 .. code-block:: console
 
   $ cd ~/tutorials/<username>/of_l3ls_v2
-  $ python setup.py develop
+  $ python3 setup.py develop
 
 To install remotely, you have to publish it first:
 

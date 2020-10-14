@@ -161,7 +161,7 @@ Open another terminal and install your application:
 
 .. code-block:: console
 
-    $ python setup.py develop
+    $ python3 setup.py develop
 
 Check if your application is installed and running with the command:
 
