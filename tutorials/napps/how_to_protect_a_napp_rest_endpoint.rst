@@ -298,7 +298,7 @@ Request:
 
 .. code-block:: console
 
-    curl http://127.0.0.0:8181/api/<username>/authtest/v1/
+    curl http://127.0.0.1:8181/api/<username>/authtest/v1/
 
 Response:
 
@@ -373,7 +373,7 @@ Request:
 
 .. code-block:: console
 
-    GET http://127.0.0.0:8181/api/<username>/<napp_name>/v1/
+    GET http://127.0.0.1:8181/api/<username>/<napp_name>/v1/
 
 Response:
 
