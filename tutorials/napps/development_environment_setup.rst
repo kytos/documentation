@@ -38,7 +38,7 @@ Installing required dependencies
 ********************************
 
 In order to start using and coding with Kytos, you need a few required
-dependencies. One of them is Python 3.6. Note that an additional step is
+dependencies. One of them is at least Python 3.6. Note that an additional step is
 needed for Ubuntu releases older than 16.10.
 
 Python3.6 in old Ubuntu releases
@@ -59,7 +59,7 @@ The required Ubuntu packages can be installed by:
 
 .. code-block:: console
 
-  $ sudo apt install git libpython3.6-dev python3.6 python3.6-venv
+  $ apt install git libpython3-dev python3 python3-venv
 
 ********************************
 Setting up a virtual environment
@@ -84,14 +84,12 @@ by another name, if you wish):
 
 .. code-block:: console
 
-   $ python3.6 -m venv test42
+   $ python3 -m venv test42
 
 This command will create a virtualenv named *test42* and a folder with the same
 name for it.
-This environment will use 3.6 as the default Python version.
 
-.. NOTE:: Kytos is using Python 3.6 to leverage some new features of the Python
-  language.
+.. NOTE:: Kytos requires at least Python 3.6
 
 Removing a virtualenv
 ---------------------
