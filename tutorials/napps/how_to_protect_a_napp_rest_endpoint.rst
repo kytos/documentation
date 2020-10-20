@@ -393,7 +393,8 @@ You will now learn how to create a superuser and request the required token
 to access your protected REST endpoint.
 
 The protection of the public REST endpoints is accomplished by creating a user
-in authentication module. In development environment, run the command below:
+in authentication module. In development environment, run the command below in a 
+terminal:
 
 .. code-block:: console
 
@@ -448,14 +449,14 @@ Request Format:
 .. code-block:: console
 
     curl -i http://127.0.0.1:8181/api/<username>/<napp_name>/<endpoint> \
-      -H "Authorization: Bearer token"
+      -H "Authorization: Bearer <token>"
 
 Request:
 
 .. code-block:: console
 
     curl -i http://127.0.0.1:8181/api/<username>/authtest/v1/ \
-      -H "Authorization: Bearer token"
+      -H "Authorization: Bearer <token>"
 
 If no error occurs, you will receive the normal return from the endpoint:
 
