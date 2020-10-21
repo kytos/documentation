@@ -115,7 +115,7 @@ The base code will initially look like this:
     class Main(KytosNApp):
         """Main class of <username>/authtest NApp.
 
-        This class is the entry point for this napp.
+        This class is the entry point for this NApp.
         """
 
         def setup(self):
@@ -186,7 +186,7 @@ Then, edit the methods of Main class:
             log.info("Running authtest!")
 
         def shutdown(self):
-            """Run when your napp is unloaded.
+            """Run when your NApp is unloaded.
 
             If you have some cleanup procedure, insert it here.
             """
@@ -227,7 +227,7 @@ Now, see two parts together:
     class Main(KytosNApp):
         """Main class of <username>/authtest NApp.
 
-        This class is the entry point for this napp.
+        This class is the entry point for this NApp.
         """
 
         def setup(self):
@@ -298,7 +298,7 @@ Request:
 
 .. code-block:: console
 
-    curl http://127.0.0.1:8181/api/<username>/authtest/v1/
+    $ curl http://127.0.0.1:8181/api/<username>/authtest/v1/
 
 Response:
 
@@ -425,7 +425,7 @@ Request:
 
 .. code-block:: console
 
-    curl -u username:password http://127.0.0.1:8181/api/kytos/core/auth/login/
+    $ curl -u username:password http://127.0.0.1:8181/api/kytos/core/auth/login/
 
 You will receive the token:
 
@@ -448,14 +448,14 @@ Request Format:
 
 .. code-block:: console
 
-    curl -i http://127.0.0.1:8181/api/<username>/<napp_name>/<endpoint> \
+    $ curl -i http://127.0.0.1:8181/api/<username>/<napp_name>/<endpoint> \
       -H "Authorization: Bearer <token>"
 
 Request:
 
 .. code-block:: console
 
-    curl -i http://127.0.0.1:8181/api/<username>/authtest/v1/ \
+    $ curl -i http://127.0.0.1:8181/api/<username>/authtest/v1/ \
       -H "Authorization: Bearer <token>"
 
 If no error occurs, you will receive the normal return from the endpoint:
@@ -467,7 +467,7 @@ Response:
     {"Working"}
 
 .. note:: If an error occurs, check the error message and request a new token if
- it has expired.
+          it has expired.
 
 Congratulations! You have completed the tutorial and explored the creation of REST
 endpoints using different request methods like POST, PATCH and DELETE. One tip is
