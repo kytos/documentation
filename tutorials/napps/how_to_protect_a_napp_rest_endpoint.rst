@@ -55,9 +55,9 @@ First, to create your application, you have to run the following commands:
 
 .. code-block:: console
 
-    $ mkdir ~/tutorials
-    $ cd ~/tutorials
-    $ kytos napps create
+    (env) $ mkdir ~/tutorials
+    (env) $ cd ~/tutorials
+    (env) $ kytos napps create
 
 Now, you must input some data about your NApp:
 
@@ -74,94 +74,205 @@ Now, you must input some data about your NApp:
     --------------------------------------------------------------
 
     Please, insert your NApps Server username: <username>
-    Please, insert your NApp name: hellorest
-    Please, insert a brief description for your NApp [optional]: Hello, world!
+    Please, insert your NApp name: authtest
+    Please, insert a brief description for your NApp [optional]: authtest napp!
 
     Congratulations! Your NApp have been bootstrapped!
-    Now you can go to the directory <username>/hellorest and begin to code your NApp.
+    Now you can go to the directory <username>/authtest and begin to code your NApp.
     Have fun!
 
 After filling your data, you can access the base code of your application in main.py:
 
+You can open the main.py file with any code editor of your preference. 
+
 .. code-block:: console
 
     $ cd ~/tutorials
-    $ gedit <username>/hellorest/main.py
+    $ <code-editor> <username>/authtest/main.py
+
+You can use nano, vi, emacs, gedit, vscode, atom or another code editor, replace 
+<code-editor> with the code editor. See the example using nano:
+
+.. code-block:: console
+
+    $ nano <username>/authtest/main.py
+
 
 The base code will initially look like this:
 
 .. code-block:: python
 
+    """Main module of <username>/authtest Kytos Network Application.
+
+    authtest NApp !
+    """
+
     from kytos.core import KytosNApp, log
-    from napps.<username>.hellorest import settings
+
+    from napps.<username>.authtest import settings
 
 
     class Main(KytosNApp):
+        """Main class of <username>/authtest NApp.
+
+        This class is the entry point for this NApp.
+        """
 
         def setup(self):
+            """Replace the '__init__' method for the KytosNApp subclass.
+
+            The setup method is automatically called by the controller when your
+            application is loaded.
+
+            So, if you have any setup routine, insert it here.
+            """
             pass
 
         def execute(self):
+            """Run after the setup method execution.
+
+            You can also use this method in loop mode if you add to the above setup
+            method a line like the following example:
+
+                self.execute_as_loop(30)  # 30-second interval.
+            """
             pass
 
         def shutdown(self):
-            pass
+            """Run when your NApp is unloaded.
 
+            If you have some cleanup procedure, insert it here.
+            """
+            pass
+            
 Then, edit the methods of Main class:
 
 .. code-block:: python
 
+    """Main module of <username>/authtest Kytos Network Application.
+
+    authtest NApp !
+    """
+
     from kytos.core import KytosNApp, log
-    from napps.<username>.hellorest import settings
+
+    from napps.<username>.authtest import settings
 
 
     class Main(KytosNApp):
+        """Main class of <username>/authtest NApp.
+
+        This class is the entry point for this NApp.
+        """
 
         def setup(self):
-            self.name = "REST NApp"
+            """Replace the '__init__' method for the KytosNApp subclass.
+
+            The setup method is automatically called by the controller when your
+            application is loaded.
+
+            So, if you have any setup routine, insert it here.
+            """
+            self.msg = "Working"
 
         def execute(self):
-            log.info("Running!")
+            """Run after the setup method execution.
+
+            You can also use this method in loop mode if you add to the above setup
+            method a line like the following example:
+
+                self.execute_as_loop(30)  # 30-second interval.
+            """
+            log.info("Running authtest!")
 
         def shutdown(self):
-            log.info("Bye!")
+            """Run when your NApp is unloaded.
 
-Now, import the REST decorator and create a REST endpoint to return the name of
-your application:
+            If you have some cleanup procedure, insert it here.
+            """
+            log.info("Bye!)
+
+Now, import the REST decorator and create a REST endpoint:
+
+- Importing rest(*line 1*), jsonify and request(*line 4*) :
+
+.. code-block:: python
+   :linenos:
+   :emphasize-lines: 1, 4
+
+    from kytos.core import KytosNApp, log, rest
+
+    from napps.<username>.authtest import settings
+    from flask import jsonify, request
+
+- Creating the REST endpoint:
+
+.. code-block:: python
+
+    @rest("v1/")
+    def get_data(self):
+        """ Return a string."""
+        return jsonify(self.msg), 200
+
+Now, see two parts together:
 
 .. code-block:: python
 
     from kytos.core import KytosNApp, log, rest
-    from napps.<username>.hellorest import settings
+
+    from napps.<username>.authtest import settings
     from flask import jsonify, request
 
 
     class Main(KytosNApp):
+        """Main class of <username>/authtest NApp.
+
+        This class is the entry point for this NApp.
+        """
 
         def setup(self):
-            self.name = "REST NApp"
+            """Replace the '__init__' method for the KytosNApp subclass.
+
+            The setup method is automatically called by the controller when your
+            application is loaded.
+
+            So, if you have any setup routine, insert it here.
+            """
+            self.msg = "Working"
 
         def execute(self):
-            log.info("Running!")
+            """Run after the setup method execution.
+
+            You can also use this method in loop mode if you add to the above setup
+            method a line like the following example:
+
+                self.execute_as_loop(30)  # 30-second interval.
+            """
+            log.info("Running authtest!")
 
         def shutdown(self):
-            log.info("Bye!")
+            """Run when your napp is unloaded.
+
+            If you have some cleanup procedure, insert it here.
+            """
+            log.info("Bye!)
         
-        @rest('v1/name', methods=['GET'])
-        def get_name(self):
-            return jsonify(self.name), 200
+        @rest("v1/")
+        def get_data(self):
+            """ Return a string."""
+            return jsonify(self.msg), 200
 
 Run kytos:
 
 .. code-block:: console
 
-    $ kytosd -f
+    (env) $ kytosd -f
 
 Open another terminal and install your application:
 
 .. code-block:: console
 
-    $ python3 setup.py develop
+    (env) $ python3 setup.py develop
 
 Check if your application is installed and running with the command:
 
@@ -172,21 +283,31 @@ Check if your application is installed and running with the command:
     Status |          NApp ID          |              Description
     =======+===========================+=======================================
     [ie]  | kytos/storehouse          | ….
-    [ie]  | kytos/hellorest           | ….
+    [ie]  | kytos/authtest            | ….
 
 Accessing the REST endpoint of your application in a browser or REST client,
 you will receive a message with a return like this:
 
+Endpoint:
+
 .. code-block:: console
 
-    GET http://0.0.0.0:8181/api/<username>/<napp_name>/name
+   GET /api/<username>/<napp_name>/v1/
 
-    $ curl -X GET \
-        -H 'Content-type: application/json' \
-        -H 'Accept: application/json' \
-        http://0.0.0.0:8181/api/<username>/<napp_name>/name
+Request:
 
-    {"REST NApp"}
+.. code-block:: console
+
+    $ curl http://127.0.0.1:8181/api/<username>/authtest/v1/
+
+Response:
+
+.. code-block:: console
+
+    {"Working"}
+
+
+Congrats!! You finished the first part this tutorial.
 
 How to protect your endpoint
 ============================
@@ -194,48 +315,86 @@ How to protect your endpoint
 Now, you can secure the created endpoint. To do this, you have to
 import the `@authenticated` decorator and add it to this endpoint method.
 
+- Importing *authenticated* decorator.
+
+.. code-block:: python
+    :emphasize-lines: 1
+
+    from kytos.core import KytosNApp, log, rest, authenticated
+    from napps.<username>.authtest import settings
+    from flask import jsonify, request
+
+
+- Protecting the REST endpoint:
+
+.. code-block:: python
+    :emphasize-lines: 2
+
+    @rest('v1/')
+    @authenticated
+    def get_data(self):
+        return jsonify(self.msg), 200
+
+See, all together:
+
 .. code-block:: python
 
     from kytos.core import KytosNApp, log, rest, authenticated
-    from napps.<username>.hellorest import settings
+    from napps.<username>.authtest import settings
     from flask import jsonify, request
 
     class Main(KytosNApp):
 
         def setup(self):
-            self.name = "REST NApp"
+            self.msg = "Working"
 
         def execute(self):
-            log.info("Running!")
+            log.info("Running authtest!")
 
         def shutdown(self):
             log.info("Bye!")
         
-        @rest('v1/name', methods=['GET'])
+        @rest('v1/')
         @authenticated
-        def get_name(self):
-            return jsonify(self.name), 200
+        def get_data(self):
+            return jsonify(self.msg), 200
 
 Then, if you try to access this endpoint, you will receive an error message
 requesting the authentication token. This token must be obtained in the
 superuser login process.
 
+Endpoint:
+
 .. code-block:: console
 
-    GET http://0.0.0.0:8181/api/<username>/<napp_name>/name
+    GET api/<username>/<napp_name>/v1/
 
-    $ curl -X GET \
-        -H 'Content-type: application/json' \
-        -H 'Accept: application/json' \
-        http://0.0.0.0:8181/api/<username>/<napp_name>/name
+Request:
+
+.. code-block:: console
+
+    GET http://127.0.0.1:8181/api/<username>/<napp_name>/v1/
+
+Response:
+
+.. code-block :: console
 
     {"error": "Token not send or expired."}
+
+
+This error is expected, now to access this REST endpoint, you must send a token 
+in the request. To obtain this token, you need to create a user and request 
+a token.
 
 How to create a Superuser
 =========================
 
+You will now learn how to create a superuser and request the required token 
+to access your protected REST endpoint.
+
 The protection of the public REST endpoints is accomplished by creating a user
-in authentication module. In development environment, run the command below:
+in authentication module. In development environment, run the command below in a 
+terminal:
 
 .. code-block:: console
 
@@ -256,44 +415,59 @@ Requesting the authentication token
 Now that superuser has been created, you should access the login endpoint to
 request the access token:
 
+Endpoint:
+
+.. code-block :: console
+
+    GET api/kytos/core/auth/login/
+
+Request:
+
 .. code-block:: console
 
-    GET http://0.0.0.0:8181/api/kytos/core/auth/login/
-
-    $ curl -X GET \
-        -H 'Accept: application/json' \
-        -H 'Authorization: Basic <username>:<password>' \
-        http://0.0.0.0:8181/api/kytos/core/auth/login/
+    $ curl -u username:password http://127.0.0.1:8181/api/kytos/core/auth/login/
 
 You will receive the token:
 
 .. code-block:: console
 
-    {
-        "token": <token>
-    }
+    {"token": <token>}
 
 Now, you have to send the token in the `Bearer` HTTP header
 to be able to access this endpoint:
 
+.. note:: Replace the token field with token you received.
+
+Endpoint:
+
 .. code-block:: console
 
-    GET http://0.0.0.0:8181/api/<username>/<napp_name>/name
+    GET /api/<username>/<napp_name>/v1/
 
-    $ curl -X GET \
-        -H 'Content-type: application/json' \
-        -H 'Accept: application/json' \
-        -H 'Authorization: Bearer ${TOKEN}' \
-        http://0.0.0.0:8181/api/<username>/<napp_name>/name
+Request Format:
+
+.. code-block:: console
+
+    $ curl -i http://127.0.0.1:8181/api/<username>/<napp_name>/<endpoint> \
+      -H "Authorization: Bearer <token>"
+
+Request:
+
+.. code-block:: console
+
+    $ curl -i http://127.0.0.1:8181/api/<username>/authtest/v1/ \
+      -H "Authorization: Bearer <token>"
 
 If no error occurs, you will receive the normal return from the endpoint:
 
+Response:
+
 .. code-block:: console
 
-    {"REST NApp"}
+    {"Working"}
 
-Note: If an error occurs, check the error message and request a new token if
-it has expired.
+.. note:: If an error occurs, check the error message and request a new token if
+          it has expired.
 
 Congratulations! You have completed the tutorial and explored the creation of REST
 endpoints using different request methods like POST, PATCH and DELETE. One tip is
