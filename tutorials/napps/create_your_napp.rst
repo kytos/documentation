@@ -167,11 +167,12 @@ Now, we have a bootstrap NApp structure to work with.
 
 During this tutorial, the only file that we need to worry about is the
 ``main.py``. Open it with your preferred editor and let's code.
+See an example using nano:
 
 .. code-block:: console
 
   $ cd ~/tutorials
-  $ gedit <username>/helloworld/main.py
+  $ nano <username>/helloworld/main.py
 
 .. NOTE::
   The code below is a simplified version of yours. You don't have to delete any
