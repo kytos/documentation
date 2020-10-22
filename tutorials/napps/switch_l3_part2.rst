@@ -106,7 +106,7 @@ in your preferred editor to start coding your NApp:
 
 .. code-block:: console
 
-  $ emacs <username>/of_l3ls_v2/settings.py <username>/of_l3ls_v2/main.py
+  $ nano <username>/of_l3ls_v2/settings.py <username>/of_l3ls_v2/main.py
 
 
 NApp settings

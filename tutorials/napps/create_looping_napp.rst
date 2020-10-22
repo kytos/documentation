@@ -99,12 +99,12 @@ Now you have a bootstrap NApp structure to work on.
 
 During this tutorial, the only files that we need to worry about are the
 ``main.py`` and ``settings.py``.  Open with your preferred editor and let's
-code:
+code. See an example using nano:
 
 .. code-block:: console
 
   $ cd ~/tutorials/<username>/loopnapp
-  $ gedit main.py settings.py
+  $ nano main.py settings.py
 
 settings.py
 ===========
