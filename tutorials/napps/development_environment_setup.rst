@@ -128,7 +128,7 @@ To install the latest Kytos from source, first you need to start your environmen
   $ source YOURENV/bin/activate
 
 Then you need to run the commands below to clone the python-openflow,
-kytos-utils and kytos projects locally. 
+kytos-utils and kytos projects locally.
 
 .. code-block:: shell
 
@@ -160,6 +160,10 @@ and run:
   $ source test42/bin/activate
   $ kytosd -f
 
+.. NOTE:: It may be necessary to install some NApp dependencies like
+    `filelock`, to install use `pip install filelock==3.0.12` inside the
+    virtualenv.
+
 .. NOTE:: Don't worry about the Kytos main screen for now: we will have it
     explained, as well as NApp management, in the next tutorials.
 
@@ -170,10 +174,12 @@ just for now.
 .. code-block:: console
 
   $ kytos napps install kytos/of_core \
+     kytos/storehouse \
      kytos/flow_manager \
+     kytos/topology \
      kytos/of_l2ls \
-     kytos/of_lldp \
-     kytos/topology
+     kytos/of_lldp
+
 
   $ kytos napps disable all
 
