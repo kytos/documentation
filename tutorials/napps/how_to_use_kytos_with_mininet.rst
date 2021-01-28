@@ -97,8 +97,12 @@ them with the `kytos-utils` package by doing:
 
 .. code-block:: console
 
- $ kytos napps install kytos/of_core kytos/storehouse kytos/topology
- $ kytos napps install kytos/flow_manager kytos/of_l2ls kytos/of_lldp
+ $ kytos napps install kytos/of_core \
+    kytos/storehouse \
+    kytos/topology \
+    kytos/flow_manager \
+    kytos/of_l2ls \
+    kytos/of_lldp
 
 Now your Napps are installed, enabled and running.
 
@@ -113,8 +117,12 @@ with the command:
 
 .. code-block:: console
 
- $ kytos napps enable kytos/of_core kytos/storehouse kytos/topology
- $ kytos napps enable kytos/flow_manager kytos/of_l2ls kytos/of_lldp
+ $ kytos napps enable kytos/of_core \
+    kytos/storehouse \
+    kytos/topology \
+    kytos/flow_manager \
+    kytos/of_l2ls \
+    kytos/of_lldp
 
 *******************************************************
 Brief description about the NApps used in this tutorial
