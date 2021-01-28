@@ -158,11 +158,16 @@ and run:
 .. code-block:: console
 
   $ source test42/bin/activate
+  $ git clone https://github.com/kytos/storehouse
+  $ cd storehouse
+  $ pip install -r requirements/dev.txt
+  $ python3 setup.py develop
   $ kytosd -f
 
-.. NOTE:: It may be necessary to install some NApp dependencies like
-    `filelock`, to install use `pip install filelock==3.0.12` inside the
-    virtualenv.
+.. NOTE:: The ``git clone`` and ``pip install -r`` step was done to install NApp
+    dependencies. The NApps can be installed through
+    kytos command line utile (``kytos napps install <user/NApp_name>``) or
+    by cloning the source code and installing through the ``setup.py`` file.
 
 .. NOTE:: Don't worry about the Kytos main screen for now: we will have it
     explained, as well as NApp management, in the next tutorials.
@@ -174,7 +179,6 @@ just for now.
 .. code-block:: console
 
   $ kytos napps install kytos/of_core \
-     kytos/storehouse \
      kytos/flow_manager \
      kytos/topology \
      kytos/of_l2ls \
