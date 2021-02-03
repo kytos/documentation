@@ -15,7 +15,7 @@ In this tutorial you will learn how to use the |mininet|_ tool to simulate a
 virtual network using the OpenFlow protocol and manage this virtual network
 with **Kytos** and some of our Kytos NApps.
 
-The average time to go through it is: ``10 min``
+The average time to go through it is: ``15 min``
 
 What you will need
 ===================
@@ -41,8 +41,9 @@ simple topology, composed of two switches and two hosts connected to each
 switch. This virtual network should be handled by the **Kytos** controller
 and will use the OpenFlow protocol.
 
-In this tutorial the ``of_core``, ``of_l2ls`` and ``of_lldp`` NApps must be
-installed and enabled in order to make the network work as expected.
+In this tutorial the ``of_core``, ``storehouse``, ``topology``, ``flow_manager``,
+``of_l2ls`` and ``of_lldp`` NApps must be installed and enabled in order to
+make the network work as expected.
 
 *****************************
 How to manage the Kytos NApps
@@ -96,11 +97,16 @@ them with the `kytos-utils` package by doing:
 
 .. code-block:: console
 
- $ kytos napps install kytos/of_core kytos/of_l2ls kytos/of_lldp
+ $ kytos napps install kytos/of_core \
+    kytos/storehouse \
+    kytos/topology \
+    kytos/flow_manager \
+    kytos/of_l2ls \
+    kytos/of_lldp
 
 Now your Napps are installed, enabled and running.
 
-You can also verify the state of each NApp by running the comamnd:
+You can also verify the state of each NApp by running the command:
 
 .. code-block:: console
 
@@ -111,15 +117,20 @@ with the command:
 
 .. code-block:: console
 
-  $ kytos napps enable kytos/of_core kytos/of_l2ls kytos/of_lldp
+ $ kytos napps enable kytos/of_core \
+    kytos/storehouse \
+    kytos/topology \
+    kytos/flow_manager \
+    kytos/of_l2ls \
+    kytos/of_lldp
 
 *******************************************************
 Brief description about the NApps used in this tutorial
 *******************************************************
 
-As we said earlier, we will use the **of_core**, **of_l2ls** and **of_lldp** NApps
-provided by the Kytos team. In this section you will learn a little about each
-one.
+As we said earlier, we will use the **of_core**, **storehouse**, **flow_manager**,
+**of_l2ls**, **topology** and **of_lldp** NApps provided by the Kytos team.
+In this section you will learn a little about each one.
 
 of_core
 =======
@@ -127,6 +138,26 @@ of_core
 The **of_core** application is responsible for doing basic OpenFlow operations,
 such as handling hello and echo request/reply messages, and also receiving and
 unpacking OpenFlow messages from the network.
+
+storehouse
+==========
+
+The **storehouse** application is responsible for data persistence, saving and
+retrieving information. It can be accessed by external agents through the REST
+API or by other NApps, using the event-based methods.
+
+topology
+========
+
+The **topology** application is responsible for tracking the network topology
+and supplying network topology information to any NApp that requires it.
+
+flow_manager
+============
+
+The **flow_manager** exports a REST API to add, remove and list flows from
+OpenFlow switches, for versions 1.0 and 1.3. It can be used by other
+applications to manage flows with the supported fields.
 
 of_l2ls
 =======
@@ -153,13 +184,14 @@ How to build a simple topology
 Now that you have installed and enabled only NApps used by this tutorial, you
 must turn on the |mininet|_ service. We will build a simple network, using two
 switches and two hosts, with each host connected to one switch, and we'll also
-define that the switches will work on the OpenFlow 1.0 protocol.
+define that the switches will work on the OpenFlow 1.3 protocol.
 
-To do this, use the command below:
+To complete this, use the command below:
 
 .. code-block:: console
 
-  $ sudo mn --topo linear,2 --mac --controller=remote,ip=127.0.0.1 --switch ovsk,protocols=OpenFlow10
+  $ sudo mn --topo linear,2 --mac --controller=remote,ip=127.0.0.1 --switch ovsk,protocols=OpenFlow13
+
   *** Creating network
   *** Adding controller
   Unable to contact the remote controller at 127.0.0.1:6653
@@ -180,7 +212,7 @@ To do this, use the command below:
 
 After running that command, the mininet output will show that two hosts and two
 switches were created, and that the switches and the hosts are linked. So, the
-mininet console will be activated and you can send commands to each switch or
+mininet console will be activated, and you can send commands to each switch or
 host connected. For instance, if you need to see the IP Address of host1 (`h1`)
 you can use the command below.
 
@@ -206,6 +238,46 @@ you can use the command below.
            TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 
   mininet>
+
+*****************
+Enabling switches
+*****************
+
+Now that you have a topology, you need to administratively enable the switches
+to receive packets. You can do this using a REST client like `Postman` or
+`curl`.
+
+Using `curl`:
+
+Enabling the switch `00:00:00:00:00:00:00:01`:
+
+.. code-block:: console
+
+ $ curl -X 'POST' http://127.0.0.1:8181/api/kytos/topology/v3/switches/00:00:00:00:00:00:00:01/enable
+
+Expected response:
+
+.. code-block:: console
+
+  "Operation successful"
+
+Enabling the switch `00:00:00:00:00:00:00:02`:
+
+.. code-block:: console
+
+ $ curl -X 'POST' http://127.0.0.1:8181/api/kytos/topology/v3/switches/00:00:00:00:00:00:00:02/enable
+
+Expected response:
+
+.. code-block:: console
+
+  "Operation successful"
+
+You have now both the switches enabled.
+
+*****************
+Testing with ping
+*****************
 
 As Kytos is running with the necessary NApps, your topology should be fully
 functional by now. You can test it with ping (ICMP protocol) by running, in
