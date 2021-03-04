@@ -128,7 +128,7 @@ To install the latest Kytos from source, first you need to start your environmen
   $ source YOURENV/bin/activate
 
 Then you need to run the commands below to clone the python-openflow,
-kytos-utils and kytos projects locally. 
+kytos-utils and kytos projects locally.
 
 .. code-block:: shell
 
@@ -158,7 +158,16 @@ and run:
 .. code-block:: console
 
   $ source test42/bin/activate
+  $ git clone https://github.com/kytos/storehouse
+  $ cd storehouse
+  $ pip install -r requirements/dev.txt
+  $ python3 setup.py develop
   $ kytosd -f
+
+.. NOTE:: The ``git clone`` and ``pip install -r`` step was done to install NApp
+    dependencies. The NApps can be installed through
+    kytos command line utile (``kytos napps install <user/NApp_name>``) or
+    by cloning the source code and installing through the ``setup.py`` file.
 
 .. NOTE:: Don't worry about the Kytos main screen for now: we will have it
     explained, as well as NApp management, in the next tutorials.
@@ -171,9 +180,10 @@ just for now.
 
   $ kytos napps install kytos/of_core \
      kytos/flow_manager \
+     kytos/topology \
      kytos/of_l2ls \
-     kytos/of_lldp \
-     kytos/topology
+     kytos/of_lldp
+
 
   $ kytos napps disable all
 
