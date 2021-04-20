@@ -1,3 +1,13 @@
+**WARNING: As previously announced on our communication channels, the Kytos
+project will enter the "shutdown" phase on May 31, 2021. After this date,
+only critical patches (security and core bug fixes) will be accepted, and the
+project will be in "critical-only" mode for another six months (until November
+30, 2021). For more information visit the FAQ at <https://kytos.io/faq>. We'll
+have eternal gratitude to the entire community of developers and users that made
+the project so far.**
+
+
+
 Introduction
 ============
 The kytos project was conceived to fill a gap left by common popular
@@ -74,4 +84,3 @@ THE COPYRIGHT HOLDERS OR ANYONE DISTRIBUTING THE SOFTWARE BE LIABLE FOR ANY
 DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-
