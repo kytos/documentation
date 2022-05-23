@@ -190,7 +190,7 @@ Then, edit the methods of Main class:
 
             If you have some cleanup procedure, insert it here.
             """
-            log.info("Bye!)
+            log.info("Bye!")
 
 Now, import the REST decorator and create a REST endpoint:
 
@@ -255,7 +255,7 @@ Now, see two parts together:
 
             If you have some cleanup procedure, insert it here.
             """
-            log.info("Bye!)
+            log.info("Bye!")
         
         @rest("v1/")
         def get_data(self):
